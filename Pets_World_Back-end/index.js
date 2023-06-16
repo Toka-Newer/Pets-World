@@ -5,6 +5,8 @@ const app = express();
 var cors = require("cors");
 require("./databaseCreation");
 const registerRoute = require("./routes/Auth_Routes/Register");
+const authorizationMW = require("./core/Authorization/Authorization");
+const loginRoute = require("./routes/Auth_Routes/Login");
 
 ////// please don't change anything and use the middlewores //////
 
@@ -34,6 +36,8 @@ app.use(cors());
 
 //  middelware layers of routing and authentication
 app.use(registerRoute);
+app.use(loginRoute);
+app.use(authorizationMW);
 
 //  third layer no page found
 app.use((req, res, next) => {
