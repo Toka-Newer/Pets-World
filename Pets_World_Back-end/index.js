@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const app = express();
 var cors = require("cors");
+require("./databaseCreation");
+const registerRoute = require("./routes/Auth_Routes/Register");
 
 ////// please don't change anything and use the middlewores //////
 
@@ -27,6 +29,7 @@ app.use(cors());
 app.use("/assets/images", express.static(path.join(__dirname, "")));
 
 //  middelware layers of routing and authentication
+app.use(registerRoute);
 
 //  third layer no page found
 app.use((req, res, next) => {
