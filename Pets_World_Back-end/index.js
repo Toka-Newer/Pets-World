@@ -10,7 +10,10 @@ const registerRoute = require("./routes/Auth_Routes/Register");
 
 //connect to database
 mongoose
-  .connect(process.env.DB_URL)
+  .connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(process.env.PORT, () => {
@@ -20,13 +23,14 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error);
   });
+
 // first layer logging middleware
-server.use((req, res, next) => {
+app.use((req, res, next) => {
   next();
 });
 app.use(express.json());
 app.use(cors());
-app.use("/assets/images", express.static(path.join(__dirname, "")));
+// app.use("/assets/images", express.static(path.join(__dirname, "")));
 
 //  middelware layers of routing and authentication
 app.use(registerRoute);
@@ -38,6 +42,5 @@ app.use((req, res, next) => {
 
 // fourth layer for handling errors
 app.use((err, req, res, next) => {
-  S;
   res.status(500).json({ message: err + " " });
 });
