@@ -31,8 +31,8 @@ module.exports.loginUserValidator = [
   body("email").isEmail().withMessage("Email must be in email format"),
   body("password")
     .isString()
-    .isLength({ min: 5 })
-    .withMessage("password  must be string and more than 5 chars"),
+    .isLength({ min: 7 })
+    .withMessage("password  must be string and more than 7 chars"),
 ];
 
 module.exports.updateUserValidator = [
