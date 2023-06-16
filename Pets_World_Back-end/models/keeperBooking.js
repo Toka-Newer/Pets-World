@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const KeeperBookingSchema = mongoose.Schema({
     keeper_id: { type: mongoose.Schema.Types.ObjectId, ref: "Keeper" },
     owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "Owner" },
+    pet_id: { type: mongoose.Schema.Types.ObjectId, required: true },
     start_time: { type: Date, required: true },
     end_time: { type: Date, required: true },
 }, { timestamps: true });
