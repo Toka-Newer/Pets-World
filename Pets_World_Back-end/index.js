@@ -7,7 +7,7 @@ require("./databaseCreation");
 const registerRoute = require("./routes/Auth_Routes/Register");
 const authorizationMW = require("./core/Authorization/Authorization");
 const loginRoute = require("./routes/Auth_Routes/Login");
-
+const VetAppointmentsRoute = require("./routes/Vet/VetAppointment/VetAppointmentsRoute");
 ////// please don't change anything and use the middlewores //////
 
 //connect to database
@@ -35,6 +35,7 @@ app.use(cors());
 // app.use("/assets/images", express.static(path.join(__dirname, "")));
 
 //  middelware layers of routing and authentication
+app.use(VetAppointmentsRoute);
 app.use(registerRoute);
 app.use(loginRoute);
 app.use(authorizationMW);

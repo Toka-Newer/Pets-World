@@ -1,15 +1,21 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const VetAppointmentsSchema = mongoose.Schema({
+const VetAppointmentsSchema = mongoose.Schema(
+  {
     vet_id: { type: mongoose.Schema.Types.ObjectId, ref: "Vet" },
     day: { type: Date, required: true },
     start_time: { type: Date, required: true },
     end_time: { type: Date, required: true },
-    number_of_clients: { type: Date, required: true }
-}, { timestamps: true });
+    number_of_clients: { type: Number, required: true },
+  },
+  { timestamps: true }
+);
 
-const VetAppointments = mongoose.model("VetAppointments", VetAppointmentsSchema);
+const VetAppointments = mongoose.model(
+  "VetAppointments",
+  VetAppointmentsSchema
+);
 
 // start_hour: {
 //     type: Number,
