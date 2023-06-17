@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const VetAppointmentsSchema = mongoose.Schema(
   {
-    vet_id: { type: mongoose.Schema.Types.ObjectId, ref: "Vet" },
+    vet_id: { type: mongoose.Schema.Types.ObjectId, ref: "Vet", required: true },
     day: { type: Date, required: true },
     start_time: { type: Date, required: true },
     end_time: { type: Date, required: true },
