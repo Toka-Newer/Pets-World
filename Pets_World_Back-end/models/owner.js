@@ -19,7 +19,7 @@ const OwnerSchema = mongoose.Schema({
             },
             dateOfBirth: { type: Date, required: false },
             age: { type: Number, required: true },
-            description: { type: String, required: false },
+            description: { type: String, required: false, default: "" },
             image: { type: String, required: false, default: "Assets\\images\\anonymous.png" },
         },
     ],
