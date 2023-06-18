@@ -8,6 +8,8 @@ const registerRoute = require("./routes/Auth_Routes/Register");
 const authorizationMW = require("./core/Authorization/Authorization");
 const loginRoute = require("./routes/Auth_Routes/Login");
 const VetAppointmentsRoute = require("./routes/Vet/VetAppointment/VetAppointmentsRoute");
+const VetRoute = require("./routes/Vet/VetRoute");
+const VetBookingRoute = require("./routes/Vet/VetBookingRoute");
 ////// please don't change anything and use the middlewores //////
 
 //connect to database
@@ -39,6 +41,8 @@ app.use(VetAppointmentsRoute);
 app.use(registerRoute);
 app.use(loginRoute);
 app.use(authorizationMW);
+app.use(VetRoute);
+app.use(VetBookingRoute);
 
 //  third layer no page found
 app.use((req, res, next) => {

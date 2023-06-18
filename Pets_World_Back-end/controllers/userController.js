@@ -4,7 +4,6 @@ const OwnerSchema = mongoose.model("Owner");
 const VetSchema = mongoose.model("Vet");
 
 addUser = async (req, res, next) => {
-  // console.log(req.files)
   try {
     if (req.body.retypePassword === req.body.password) {
       const newUser = new userSchema({
@@ -23,8 +22,9 @@ addUser = async (req, res, next) => {
         //   (file) => file.fieldname === "image"
         // );
         // if (userImages.length > 0) {
-        newUser.image = req.files[0].path;
+        // newUser.image = userImages[0].path;
         // }
+        newUser.image = req.files[0].path;
       }
 
       // Code to check if the email is already registered
@@ -41,23 +41,34 @@ addUser = async (req, res, next) => {
       if (req.body.role === "owner") {
         const owner = new OwnerSchema({
           user_id: savedUser._id,
+          pets: [
+            {
+              name: req.body.petName,
+              type: req.body.petType,
+              gender: req.body.petGender,
+              dateOfBirth: req.body.petDateOfBirth,
+              age: req.body.petAge,
+              description: req.body.petDescription,
+            },
+          ],
         });
         await owner.save();
       } else {
-        console.log(VetSchema)
         const vet = new VetSchema({
           user_id: savedUser._id,
-          cost: req.body.cost
+          cost: req.body.cost,
+          experience: req.body.experience,
+          description: req.body.description,
         });
         // Handle the license image
         if (req.files && req.files.length > 1) {
-          console.log("object")
           // const licenseImages = req.files.filter(
           //   (file) => file.fieldname === "license"
           // );
           // if (licenseImages.length > 0) {
-          vet.licence = req.files[1].path;
+          // vet.licence = licenseImages[1].path;
           // }
+          vet.licence = req.files[1].path;
         }
         await vet.save();
       }

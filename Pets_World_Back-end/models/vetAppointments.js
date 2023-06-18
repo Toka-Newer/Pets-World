@@ -12,10 +12,7 @@ const VetAppointmentsSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const VetAppointments = mongoose.model(
-  "VetAppointments",
-  VetAppointmentsSchema
-);
+const VetAppointments = mongoose.model("VetAppointments", VetAppointmentsSchema);
 
 // start_hour: {
 //     type: Number,
