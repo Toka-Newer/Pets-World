@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         retypePassword: ['', Validators.required],
+        phone: ['', Validators.required],
       },
       { validator: this.passwordMatchValidator }
     );
@@ -60,7 +61,6 @@ export class RegisterComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       gender: ['', Validators.required],
       role: ['', Validators.required],
-      phone: ['', Validators.required],
       pets: this._formBuilder.array([]),
       cost: [''],
       experience: [''],
@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
       // userImage: [null], // Control for user image
       // vetLicense: [null], // Control for vet license
     });
+    this.addPet();
   }
 
   passwordMatchValidator(
@@ -119,7 +120,7 @@ export class RegisterComponent implements OnInit {
         retypePassword: this.firstFormGroup.value.retypePassword,
         gender: this.secondFormGroup.value.gender,
         role: this.secondFormGroup.value.role,
-        phone: this.secondFormGroup.value.phone,
+        phone: this.firstFormGroup.value.phone,
         // userImage: this.secondFormGroup.value.userImage,
         // vetLicense: this.secondFormGroup.value.vetLicense,
       };
