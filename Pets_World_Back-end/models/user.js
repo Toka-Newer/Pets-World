@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 
 const UserSchema = mongoose.Schema({
@@ -16,14 +15,14 @@ const UserSchema = mongoose.Schema({
   image: {
     type: String,
     required: false,
-    default: "Assets\\images\\anonymous.png",
+    default: "assets\\images\\anonymous.png",
   },
   role: {
     type: String,
     required: true,
     enum: ["owner", "vet"],
   },
-});
+}, { timestamps: true });
 // for hash password
 UserSchema.pre(
   "save",

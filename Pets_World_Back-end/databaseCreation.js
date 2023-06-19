@@ -1,5 +1,6 @@
 require("./models/user");
 require("./models/vet");
+require("./models/pets");
 require("./models/owner");
 require("./models/keeper");
 require("./models/keeperAppointments");

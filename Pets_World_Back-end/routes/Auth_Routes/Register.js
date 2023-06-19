@@ -8,7 +8,8 @@ const registerRoute = express.Router();
 registerRoute
   .route("/register")
   .post(
-    uploadImage.single("image"),
+    // uploadImage.single("image"),
+    uploadImage.array("images", 2),
     userValidation.addUserValidator,
     checkValidation,
     userController.addUser

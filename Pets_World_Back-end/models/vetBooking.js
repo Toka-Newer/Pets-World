@@ -1,16 +1,33 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const moment = require("moment-timezone");
 
 const vetBookingSchema = mongoose.Schema(
   {
-    vetAppointment_id: {
+    appointment_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "VetAppointments",
+      required: true,
     },
-    owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "Owner" },
-    pet_id: { type: mongoose.Schema.Types.ObjectId, required: true },
+    owner_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Owner",
+      required: true,
+    },
+    pet_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Pets",
+      required: true,
+    },
   },
   { timestamps: true }
 );
+
+vetBookingSchema.pre("save", function (next) {
+  const currentDateTime = moment().add(3, "hours").toDate();
+  this.createdAt = currentDateTime;
+  this.updatedAt = currentDateTime;
+  next();
+});
 
 const VetBooking = mongoose.model("VetBooking", vetBookingSchema);

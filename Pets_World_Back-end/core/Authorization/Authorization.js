@@ -15,7 +15,6 @@ module.exports = (req, res, next) => {
 };
 
 module.exports.checkVet = (req, res, next) => {
-  console.log("Vet is autherized ");
   if (req.role === "vet") next();
   else {
     let error = new Error("Vet Not Authorized");
@@ -25,7 +24,6 @@ module.exports.checkVet = (req, res, next) => {
 };
 
 module.exports.checkOwner = (req, res, next) => {
-  console.log("Owner is autherized ");
   if (req.role === "owner") next();
   else {
     let error = new Error("Owner Not Authorized");

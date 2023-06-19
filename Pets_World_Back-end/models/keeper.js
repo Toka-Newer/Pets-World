@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const KeeperSchema = mongoose.Schema({
-    owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "Owner" },
+    owner_id: { type: mongoose.Schema.Types.ObjectId, ref: "Owner", required: true },
     experience: { type: Number, required: false, min: 0, default: 0 },
     cost: { type: Number, required: true, min: 10 },
     description: { type: String, required: false },

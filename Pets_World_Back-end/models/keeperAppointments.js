@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const KeeperAppointmentsSchema = mongoose.Schema({
-    keeper_id: { type: mongoose.Schema.Types.ObjectId, ref: "Keeper" },
+    keeper_id: { type: mongoose.Schema.Types.ObjectId, ref: "Keeper", required: true },
     start_time: { type: Date, required: true }, //day
     end_time: { type: Date, required: true }, //day
     number_of_pets: { type: Date, required: true }
