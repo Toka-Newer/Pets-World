@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 // import { MatMomentDateModule } from '@angular/material/moment-adapter';
+
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
   imports: [
@@ -26,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+
     // MatMomentDateModule
   ],
 })
