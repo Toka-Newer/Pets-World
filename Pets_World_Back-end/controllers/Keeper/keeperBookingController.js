@@ -1,33 +1,33 @@
 const mongoose = require("mongoose");
-const VetBookingSchema = mongoose.model("VetBooking");
+const KeeperBookingSchema = mongoose.model("KeeperBooking");
 const petsSchema = mongoose.model("Pets");
 
-getVetBooking = async (req, res, next) => {
+getKeeperBooking = async (req, res, next) => {
     try {
-        const vetBooking = await VetBookingSchema.find({});
-        return res.status(200).json(vetBooking);
+        const keeperBooking = await KeeperBookingSchema.find({});
+        return res.status(200).json(keeperBooking);
     } catch (err) {
         next(err);
     }
 };
 
-getVetBookingById = async (req, res, next) => {
+getKeeperBookingById = async (req, res, next) => {
     try {
-        const vetBooking = await VetBookingSchema.findOne({ _id: req.params.id })
+        const keeperBooking = await KeeperBookingSchema.findOne({ _id: req.params.id })
             .populate([
                 { path: "appointment_id" },
                 { path: "owner_id" },
                 { path: "pet_id" },
             ]);
-        return res.status(200).json(vetBooking);
+        return res.status(200).json(keeperBooking);
     } catch (err) {
         next(err);
     }
 };
 
-addVetBooking = async (req, res, next) => {
+addKeeperBooking = async (req, res, next) => {
     try {
-        const check = await VetBookingSchema.findOne({
+        const check = await KeeperBookingSchema.findOne({
             appointment_id: req.body.appointment_id,
             owner_id: req.body.owner_id,
         })
@@ -45,38 +45,38 @@ addVetBooking = async (req, res, next) => {
             return res.status(404).json({ message: "This pet doesn't belong to this owner" });
         }
 
-        const vetBooking = new VetBookingSchema({
+        const keeperBooking = new KeeperBookingSchema({
             appointment_id: req.body.appointment_id,
             owner_id: req.body.owner_id,
             pet_id: req.body.pet_id,
         });
 
-        await vetBooking.save();
+        await keeperBooking.save();
         return res.status(200).json({ message: "booking done successfully" });
     } catch (err) {
         next(err);
     }
 };
 
-updateVetBooking = async (req, res, next) => {
+updateKeeperBooking = async (req, res, next) => {
     // check that the date is before the appiontment by 2 hours at least handel in front first
     try {
-        const vetBooking = await VetBookingSchema.findOneAndUpdate(
+        const keeperBooking = await KeeperBookingSchema.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
             { new: true }
         );
-        return res.status(200).json(vetBooking);
+        return res.status(200).json(keeperBooking);
     } catch (err) {
         next(err);
     }
 }
 
-deleteVetBooking = async (req, res, next) => {
+deleteKeeperBooking = async (req, res, next) => {
     try {
         const bookingId = req.params.id;
 
-        const deletedBooking = await VetBookingSchema.findOneAndDelete({ _id: bookingId });
+        const deletedBooking = await KeeperBookingSchema.findOneAndDelete({ _id: bookingId });
 
         if (!deletedBooking) {
             return res.status(404).json({ message: "Booking not found." });
@@ -88,11 +88,11 @@ deleteVetBooking = async (req, res, next) => {
     }
 };
 
-deleteVetBookingByAppointment = async (req, res, next) => {
+deleteKeeperBookingByAppointment = async (req, res, next) => {
     try {
         const appointmentId = req.body.appointment_id;
 
-        const deletedBooking = await VetBookingSchema.deleteMany({ appointment_id: appointmentId });
+        const deletedBooking = await KeeperBookingSchema.deleteMany({ appointment_id: appointmentId });
 
         if (!deletedBooking) {
             return res.status(404).json({ message: "Booking not found." });
@@ -105,10 +105,10 @@ deleteVetBookingByAppointment = async (req, res, next) => {
 };
 
 module.exports = {
-    getVetBooking,
-    getVetBookingById,
-    addVetBooking,
-    updateVetBooking,
-    deleteVetBooking,
-    deleteVetBookingByAppointment,
+    getKeeperBooking,
+    getKeeperBookingById,
+    addKeeperBooking,
+    updateKeeperBooking,
+    deleteKeeperBooking,
+    deleteKeeperBookingByAppointment,
 };

@@ -40,7 +40,13 @@ addUser = async (req, res, next) => {
       const savedUser = await newUser.save();
 
       if (req.body.role === "owner") {
+        const owner = new OwnerSchema({
+          user_id: savedUser._id,
+        });
+        await owner.save();
+
         const pet = new PetsSchema({
+          owner_id: owner._id,
           name: req.body.petName,
           type: req.body.petType,
           gender: req.body.petGender,
@@ -49,16 +55,6 @@ addUser = async (req, res, next) => {
           description: req.body.petDescription,
         });
         await pet.save();
-
-        const owner = new OwnerSchema({
-          user_id: savedUser._id,
-          pets: [
-            {
-              pet_id: pet._id,
-            },
-          ],
-        });
-        await owner.save();
       } else {
         const vet = new VetSchema({
           user_id: savedUser._id,
