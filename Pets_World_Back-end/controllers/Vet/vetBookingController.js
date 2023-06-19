@@ -61,6 +61,17 @@ addVetBooking = async (req, res, next) => {
 updateVetBooking = async (req, res, next) => {
     // check that the date is before the appiontment by 2 hours at least handel in front first
     try {
+        if (req.body.pet_id) {
+            const checkPetOwner = await petsSchema.findOne({
+                _id: req.body.pet_id,
+                owner_id: req.body.owner_id, // will get in token
+            })
+
+            if (!checkPetOwner) {
+                return res.status(404).json({ message: "This pet doesn't belong to this owner" });
+            }
+        }
+
         const vetBooking = await VetBookingSchema.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
