@@ -1,6 +1,7 @@
 import { UserService } from './../../../core/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 interface UserData {
   firstName: string;
   lastName: string;
@@ -10,12 +11,15 @@ interface UserData {
   phone: string;
   gender: string;
   role: string;
-  pets?: PetData[]; // Make the 'pets' property optional
-  user_id?: string; // Make the 'user_id' property optional
-  cost?: number; // Make the 'cost' property optional
-  experience?: number; // Make the 'experience' property optional
-  description?: string; // Make the 'description' property optional
+  pets?: PetData[];
+  user_id?: string;
+  cost?: number;
+  experience?: number;
+  description?: string;
+  userImage?: File;
+  vetLicense?: File;
 }
+
 interface PetData {
   name: string;
   type: string;
@@ -49,6 +53,7 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         retypePassword: ['', Validators.required],
+        phone: ['', Validators.required],
       },
       { validator: this.passwordMatchValidator }
     );
@@ -56,21 +61,32 @@ export class RegisterComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       gender: ['', Validators.required],
       role: ['', Validators.required],
-      phone: ['', Validators.required],
-      pets: this._formBuilder.array([]), // Initialize empty array for pets
+      pets: this._formBuilder.array([]),
       cost: [''],
       experience: [''],
       description: [''],
+      // userImage: [null], // Control for user image
+      // vetLicense: [null], // Control for vet license
     });
+    this.addPet();
   }
-  // Custom validator function
+
   passwordMatchValidator(
     group: FormGroup
   ): { passwordMismatch: boolean } | null {
     const password = group.get('password')?.value;
     const retypePassword = group.get('retypePassword')?.value;
-
     return password === retypePassword ? null : { passwordMismatch: true };
+  }
+
+  onUserImageChange(event: any) {
+    const file = event.target.files[0];
+    this.secondFormGroup.patchValue({ userImage: file });
+  }
+
+  onVetLicenseChange(event: any) {
+    const file = event.target.files[0];
+    this.secondFormGroup.patchValue({ vetLicense: file });
   }
 
   get petFormArray() {
@@ -104,11 +120,12 @@ export class RegisterComponent implements OnInit {
         retypePassword: this.firstFormGroup.value.retypePassword,
         gender: this.secondFormGroup.value.gender,
         role: this.secondFormGroup.value.role,
-        phone: this.secondFormGroup.value.phone,
+        phone: this.firstFormGroup.value.phone,
+        // userImage: this.secondFormGroup.value.userImage,
+        // vetLicense: this.secondFormGroup.value.vetLicense,
       };
-      console.log(userdata);
+
       if (this.secondFormGroup.value.role === 'owner') {
-        // Add pets data
         userdata.pets = this.petFormArray.value;
         console.log(userdata.pets);
       } else if (this.secondFormGroup.value.role === 'vet') {

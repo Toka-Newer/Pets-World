@@ -44,17 +44,23 @@ addUser = async (req, res, next) => {
           user_id: savedUser._id,
         });
         await owner.save();
-
-        const pet = new PetsSchema({
-          owner_id: owner._id,
-          name: req.body.petName,
-          type: req.body.petType,
-          gender: req.body.petGender,
-          dateOfBirth: req.body.petDateOfBirth,
-          age: req.body.petAge,
-          description: req.body.petDescription,
-        });
-        await pet.save();
+        if (req.body.pets) {
+          const pets = req.body.pets; // Assume an array of pets is sent in the request body
+          console.log(pets);
+          const petPromises = pets.map(async (pet) => {
+            const newPet = new PetsSchema({
+              owner_id: owner._id,
+              name: pet.name,
+              type: pet.type,
+              gender: pet.gender,
+              dateOfBirth: pet.dateOfBirth,
+              age: pet.age,
+              description: pet.description,
+            });
+            await newPet.save();
+          });
+        }
+        // const petData = await Promise.all(petPromises);
       } else {
         const vet = new VetSchema({
           user_id: savedUser._id,
