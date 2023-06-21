@@ -9,6 +9,12 @@ const vetBookingSchema = mongoose.Schema(
       ref: "VetAppointments",
       required: true,
     },
+    vet_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Vet",
+      required: true,
+    },
+    day: { type: Date, required: true },
     owner_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Owner",

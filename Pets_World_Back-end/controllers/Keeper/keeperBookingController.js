@@ -64,14 +64,49 @@ addKeeperBooking = async (req, res, next) => {
 updateKeeperBooking = async (req, res, next) => {
   // check that the date is before the appiontment by 2 hours at least handel in front first
   try {
+    if (req.body.pet_id) {
+      const checkPetOwner = await petsSchema.findOne({
+        _id: req.body.pet_id,
+        owner_id: req.body.owner_id, // will get in token
+      });
+
+      if (!checkPetOwner) {
+        return res
+          .status(404)
+          .json({ message: "This pet doesn't belong to this owner" });
+      }
+    }
+
     const keeperBooking = await KeeperBookingSchema.findOneAndUpdate(
       { _id: req.params.id },
-      { $set: req.body },
+      {
+        $set: {
+          pet_id: req.body.pet_id,
+        },
+      },
       { new: true }
     );
     return res.status(200).json(keeperBooking);
   } catch (err) {
     next(err);
+  }
+};
+
+deleteKeeperBooking = async (req, res, next) => {
+  try {
+    const bookingId = req.params.id;
+
+    const deletedBooking = await KeeperBookingSchema.findOneAndDelete({
+      _id: bookingId,
+    });
+
+    if (!deletedBooking) {
+      return res.status(404).json({ message: "Booking not found." });
+    }
+
+    return res.status(200).json({ message: "Booking deleted successfully." });
+  } catch (error) {
+    next(error);
   }
 };
 

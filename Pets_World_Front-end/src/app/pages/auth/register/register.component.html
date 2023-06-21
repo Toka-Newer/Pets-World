@@ -1,47 +1,267 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
-</button>
-<mat-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input
-          matInput
-          placeholder="Last name, First name"
-          formControlName="firstCtrl"
-          required
-        />
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-    <form [formGroup]="secondFormGroup">
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input
-          matInput
-          formControlName="secondCtrl"
-          placeholder="Ex. 1 Main St, New York, NY"
-          required
-        />
-      </mat-form-field>
+<div class="d-flex justify-content-center align-items-center pt-5">
+  <mat-stepper #stepper class="w-50 pt-5">
+    <!-- First Step -->
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <div class="row pt-3">
+          <div class="col-md-6">
+            <mat-form-field class="w-100">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName" required />
+
+              <mat-error
+                *ngIf="firstFormGroup.get('firstName')?.errors?.['serverError']"
+              >
+                {{ firstFormGroup.get("firstName")?.errors?.['serverError'] }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w-100">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName" required />
+              <mat-error
+                *ngIf="firstFormGroup.get('lastName')?.errors?.['serverError']"
+              >
+                {{ firstFormGroup.get("lastName")?.errors?.['serverError'] }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required />
+            <mat-error
+              *ngIf="firstFormGroup.get('email')?.errors?.['serverError']"
+            >
+              {{ firstFormGroup.get("email")?.errors?.['serverError'] }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="w-100">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" required />
+            <mat-error
+              *ngIf="firstFormGroup.get('phone')?.errors?.['serverError']"
+            >
+              {{ firstFormGroup.get("phone")?.errors?.['serverError'] }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="w-100">
+              <mat-label>Password</mat-label>
+              <!-- <input matInput formControlName="password" required /> -->
+              <input
+                matInput
+                formControlName="password"
+                required
+                [type]="hide ? 'password' : 'text'"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <mat-error
+                *ngIf="firstFormGroup.get('password')?.errors?.['serverError']"
+              >
+                {{ firstFormGroup.get("password")?.errors?.['serverError'] }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w-100">
+              <mat-label>retypePassword</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="retypePassword"
+                required=""
+              />
+              <mat-error *ngIf="firstFormGroup.get('retypePassword')?.invalid"
+                >Retype Password is required.</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Second Step -->
+    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+      <form [formGroup]="secondFormGroup" class="pt-3">
+        <div class="col-md-12">
+          <mat-form-field class="w-100">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender" required>
+              <mat-option *ngFor="let option of genderOptions" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="w-100">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role" required>
+              <mat-option *ngFor="let option of roleOptions" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="secondFormGroup.value.role === 'owner'">
+          <h4>Add Your Pets</h4>
+          <div class="row" formArrayName="pets">
+            <div
+              class="col-md-12"
+              *ngFor="let pet of petFormArray.controls; let i = index"
+            >
+              <div [formGroupName]="i">
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>Pet Name</mat-label>
+                      <input matInput formControlName="name" required />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>Pet Type</mat-label>
+                      <mat-select formControlName="type" required>
+                        <mat-option
+                          *ngFor="let option of petTypeOptions"
+                          [value]="option"
+                        >
+                          {{ option }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>Pet Gender</mat-label>
+                      <mat-select formControlName="gender" required>
+                        <mat-option
+                          *ngFor="let option of genderOptions"
+                          [value]="option"
+                        >
+                          {{ option }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>Date of Birth</mat-label>
+                      <input
+                        matInput
+                        [matDatepicker]="picker"
+                        formControlName="dateOfBirth"
+                        required
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="w-100">
+                      <mat-label>Age</mat-label>
+                      <input matInput formControlName="age" required />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>Description</mat-label>
+                      <textarea
+                        matInput
+                        formControlName="description"
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div>
+                  <button mat-button color="warn" (click)="removePet(i)">
+                    Remove Pet
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mt-3">
+              <button mat-button color="primary" (click)="addPet()">
+                Add Pet
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="secondFormGroup.value.role === 'vet'">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field class="w-100">
+                <mat-label>Cost</mat-label>
+                <input matInput formControlName="cost" />
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field class="w-100">
+                <mat-label>Experience</mat-label>
+                <input matInput formControlName="experience" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>description</mat-label>
+              <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Third Step -->
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button color="primary" (click)="submitForm()">
+          Submit
+        </button>
       </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-stepper>
+    </mat-step>
+  </mat-stepper>
+</div>
