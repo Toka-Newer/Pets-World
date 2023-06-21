@@ -1,6 +1,8 @@
 import { VetService } from './../../../core/services/vet/vetService/vet.service';
 import { Component } from '@angular/core';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { API_URL } from '../../../core/services/environment/environment'
 
 @Component({
   selector: 'app-vet-details',
@@ -10,13 +12,21 @@ import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-book
 export class VetDetailsComponent {
   vetData: any;
   vetBookingData: any;
-  constructor(private vetService: VetService, private vetBookingService: VetBookingService) { }
+  vetImageData!: SafeUrl;
+  constructor(private vetService: VetService, private vetBookingService: VetBookingService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.getVetData("648dd6c55a2fb5c9b45df45b");
     this.getVetBookingData("648f98130dcac62b73ca2f62");
+
+    // Sanitize and set the vetImageData with the updated image path
+    this.vetImageData = this.sanitizer.bypassSecurityTrustUrl(this.convertImagePath(this.vetData.image));
+  }
+
+  convertImagePath(path: string): string {
+    return path.replace(/\\/g, '/');
   }
 
   getVetData(id: string) {
@@ -24,11 +34,9 @@ export class VetDetailsComponent {
       (data: any) => {
         this.vetData = data;
         console.log(data)
-        // Process the vet booking data as needed
       },
       (error: any) => {
         console.error(error);
-        // Handle the error
       }
     );
   }
@@ -38,11 +46,9 @@ export class VetDetailsComponent {
       (data: any) => {
         this.vetBookingData = data;
         console.log(data)
-        // Process the vet booking data as needed
       },
       (error: any) => {
         console.error(error);
-        // Handle the error
       }
     );
   }

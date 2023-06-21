@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use(cors());
+app.use(express.static('assets/images'));
 // app.use("/images", express.static(path.join(__dirname, "assets")));
 
 //  middelware layers of routing and authentication
