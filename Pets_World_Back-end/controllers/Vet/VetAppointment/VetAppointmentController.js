@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const VetAppointmentsSchema = mongoose.model("VetAppointments");
-
+const VetBookingSchema = mongoose.model("VetBooking");
 getVetAppointments = async (req, res, next) => {
   try {
     const vetAppointments = await VetAppointmentsSchema.find({});
-    res.status(200).json(vetAppointments);
+    return res.status(200).json(vetAppointments);
   } catch (err) {
     next(err);
   }
@@ -12,15 +12,10 @@ getVetAppointments = async (req, res, next) => {
 
 getVetAppointmentsById = async (req, res, next) => {
   try {
-    const vetAppointments = await VetAppointmentsSchema.findOne({
+    const vetAppointments = await VetAppointmentsSchema.find({
       vet_id: req.params.id,
-    }).populate({
-      path: "vet_id",
-      populate: {
-        path: "user_id",
-      },
     });
-    res.status(200).json(vetAppointments);
+    return res.status(200).json(vetAppointments);
   } catch (err) {
     next(err);
   }
@@ -41,7 +36,9 @@ addAppointment = async (req, res, next) => {
       await appointment.save();
       start_date.setDate(start_date.getDate() + 1);
     }
-    res.status(201).json({ message: "appintment is added successfully" });
+    return res
+      .status(201)
+      .json({ message: "appintment is added successfully" });
   } catch (err) {
     next(err);
   }
@@ -54,14 +51,11 @@ updateAppointment = async (req, res, nex) => {
         _id: req.body.id,
       },
       {
-        day: req.body.day,
-        start_time: req.body.start_time,
-        end_time: req.body.end_time,
-        number_of_clients: req.body.number_of_clients,
+        $set: req.body,
       },
       { new: true }
     );
-    res.status(201).json(vet);
+    return res.status(201).json(vet);
   } catch (err) {
     next(err);
   }
@@ -69,12 +63,15 @@ updateAppointment = async (req, res, nex) => {
 
 deleteAppointment = async (req, res, next) => {
   try {
+    await VetBookingSchema.deleteMany({
+      appointment_id: req.body.id,
+    });
     await VetAppointmentsSchema.findOneAndDelete({
       _id: req.body.id,
     });
-    res
+    return res
       .status(200)
-      .json({ message: "appintment has been deleted successfully" });
+      .json({ message: "appinotment has been deleted successfully vetapp" });
   } catch (err) {
     next(err);
   }
