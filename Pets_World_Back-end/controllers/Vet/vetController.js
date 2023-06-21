@@ -3,7 +3,7 @@ const VetSchema = mongoose.model("Vet");
 
 getVetById = async (req, res, next) => {
     try {
-        const vet = await VetSchema.find({
+        const vet = await VetSchema.findOne({
             _id: req.params.id,
         }).populate({
             path: "user_id",

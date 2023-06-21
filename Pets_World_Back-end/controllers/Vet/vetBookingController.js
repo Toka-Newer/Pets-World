@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const VetBookingSchema = mongoose.model("VetBooking");
 const petsSchema = mongoose.model("Pets");
+const VetAppointmentsSchema = mongoose.model("VetAppointments");
 
 getVetBooking = async (req, res, next) => {
     try {
@@ -50,8 +51,18 @@ addVetBooking = async (req, res, next) => {
             owner_id: req.body.owner_id,
             pet_id: req.body.pet_id,
         });
-
         await vetBooking.save();
+
+        await VetAppointmentsSchema.findOneAndUpdate(
+            { _id: req.body.appointment_id },
+            {
+                $inc: {
+                    number_of_clients: -1,
+                },
+            },
+            { new: true }
+        );
+
         return res.status(200).json({ message: "booking done successfully" });
     } catch (err) {
         next(err);
@@ -61,6 +72,17 @@ addVetBooking = async (req, res, next) => {
 updateVetBooking = async (req, res, next) => {
     // check that the date is before the appiontment by 2 hours at least handel in front first
     try {
+        if (req.body.pet_id) {
+            const checkPetOwner = await petsSchema.findOne({
+                _id: req.body.pet_id,
+                owner_id: req.body.owner_id, // will get in token
+            })
+
+            if (!checkPetOwner) {
+                return res.status(404).json({ message: "This pet doesn't belong to this owner" });
+            }
+        }
+
         const vetBooking = await VetBookingSchema.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
@@ -73,6 +95,7 @@ updateVetBooking = async (req, res, next) => {
 }
 
 deleteVetBooking = async (req, res, next) => {
+    // add apppionntments count number
     try {
         const bookingId = req.params.id;
 
@@ -81,6 +104,16 @@ deleteVetBooking = async (req, res, next) => {
         if (!deletedBooking) {
             return res.status(404).json({ message: "Booking not found." });
         }
+
+        await VetAppointmentsSchema.findOneAndUpdate(
+            { _id: req.body.appointment_id },
+            {
+                $inc: {
+                    number_of_clients: 1,
+                },
+            },
+            { new: true }
+        );
 
         return res.status(200).json({ message: "Booking deleted successfully." });
     } catch (error) {

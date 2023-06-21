@@ -8,16 +8,3 @@ const KeeperBookingSchema = mongoose.Schema({
 }, { timestamps: true });
 
 const KeeperBooking = mongoose.model("KeeperBooking", KeeperBookingSchema);
-
-// start_hour: {
-//     type: Number,
-//     required: true,
-//     min: 0,
-//     max: 23
-//   },
-//   start_minute: {
-//     type: Number,
-//     required: true,
-//     min: 0,
-//     max: 59
-//   },
