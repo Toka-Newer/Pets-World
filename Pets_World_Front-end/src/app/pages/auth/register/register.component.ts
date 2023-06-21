@@ -35,10 +35,14 @@ interface PetData {
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  hide = true;
+  rehide = true;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   genderOptions: string[] = ['male', 'female'];
   roleOptions: string[] = ['owner', 'vet'];
+  petTypeOptions: string[] = ['dog', 'cat', 'bird', 'turtle'];
+  errorMessages: string[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -54,8 +58,8 @@ export class RegisterComponent implements OnInit {
         password: ['', Validators.required],
         retypePassword: ['', Validators.required],
         phone: ['', Validators.required],
-      },
-      { validator: this.passwordMatchValidator }
+      }
+      // { validator: this.passwordMatchValidator }
     );
 
     this.secondFormGroup = this._formBuilder.group({
@@ -71,13 +75,13 @@ export class RegisterComponent implements OnInit {
     this.addPet();
   }
 
-  passwordMatchValidator(
-    group: FormGroup
-  ): { passwordMismatch: boolean } | null {
-    const password = group.get('password')?.value;
-    const retypePassword = group.get('retypePassword')?.value;
-    return password === retypePassword ? null : { passwordMismatch: true };
-  }
+  // passwordMatchValidator(
+  //   group: FormGroup
+  // ): { passwordMismatch: boolean } | null {
+  //   const password = group.get('password')?.value;
+  //   const retypePassword = group.get('retypePassword')?.value;
+  //   return password === retypePassword ? null : { passwordMismatch: true };
+  // }
 
   onUserImageChange(event: any) {
     const file = event.target.files[0];
@@ -110,6 +114,8 @@ export class RegisterComponent implements OnInit {
     this.petFormArray.removeAt(index);
   }
 
+  // ... Other code
+
   submitForm() {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
       const userdata: UserData = {
@@ -121,27 +127,53 @@ export class RegisterComponent implements OnInit {
         gender: this.secondFormGroup.value.gender,
         role: this.secondFormGroup.value.role,
         phone: this.firstFormGroup.value.phone,
-        // userImage: this.secondFormGroup.value.userImage,
-        // vetLicense: this.secondFormGroup.value.vetLicense,
       };
 
       if (this.secondFormGroup.value.role === 'owner') {
         userdata.pets = this.petFormArray.value;
         console.log(userdata.pets);
+
+        if (userdata.pets?.length === 0) {
+          console.log('Please add at least one pet.');
+          return;
+        }
       } else if (this.secondFormGroup.value.role === 'vet') {
         userdata.cost = this.secondFormGroup.value.cost;
         userdata.experience = this.secondFormGroup.value.experience;
         userdata.description = this.secondFormGroup.value.description;
+
+        if (!userdata.cost || !userdata.experience || !userdata.description) {
+          console.log('Please fill in all vet information.');
+          return;
+        }
+      } else {
+        console.log('Invalid role selected.');
+        return;
       }
 
       this.userService.register(userdata).subscribe({
         next: (res) => {
           console.log(res);
         },
-        error(err) {
+        error: (err) => {
           console.error(err);
+          if (err.status === 400 && err.error && err.error.errors) {
+            // If the backend returns validation errors, update the form controls with the error messages
+            const errorMessages = err.error.errors;
+
+            Object.keys(errorMessages).forEach((field) => {
+              const formControl =
+                this.firstFormGroup.get(field) ||
+                this.secondFormGroup.get(field);
+              if (formControl) {
+                formControl.setErrors({ serverError: errorMessages[field] });
+              }
+            });
+          }
         },
       });
+    } else {
+      console.log('Please fill in all required fields.');
     }
   }
 }
