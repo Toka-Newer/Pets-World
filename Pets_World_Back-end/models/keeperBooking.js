@@ -8,6 +8,11 @@ const KeeperBookingSchema = mongoose.Schema(
       ref: "KeeperAppointments",
       required: true,
     },
+    keeper_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Keeper",
+      required: true,
+    },
     owner_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Owner",

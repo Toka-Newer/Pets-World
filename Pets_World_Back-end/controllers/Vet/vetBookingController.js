@@ -3,18 +3,9 @@ const VetBookingSchema = mongoose.model("VetBooking");
 const VetAppointmentsSchema = mongoose.model("VetAppointments");
 const petsSchema = mongoose.model("Pets");
 
-// getVetBooking = async (req, res, next) => {
-//   try {
-//     const vetBooking = await VetBookingSchema.find({});
-//     return res.status(200).json(vetBooking);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
 getVetBooking = async (req, res, next) => {
   try {
-    const VetAppointments = await VetAppointmentsSchema.find({});
+    const VetAppointments = await VetAppointmentsSchema.find(req.body);
     res.json(VetAppointments);
   } catch (err) {
     next(err);
