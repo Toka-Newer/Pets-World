@@ -1,6 +1,7 @@
 import { VetService } from './../../../core/services/vet/vetService/vet.service';
 import { Component } from '@angular/core';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
+import { API_URL } from '../../../core/services/environment/environment'
 
 @Component({
   selector: 'app-vet-details',
@@ -10,6 +11,7 @@ import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-book
 export class VetDetailsComponent {
   vetData: any;
   vetBookingData: any;
+  vetImage: any;
   constructor(private vetService: VetService, private vetBookingService: VetBookingService) { }
 
   ngOnInit(): void {
@@ -23,12 +25,10 @@ export class VetDetailsComponent {
     this.vetService.getVetById(id).subscribe(
       (data: any) => {
         this.vetData = data;
-        console.log(data)
-        // Process the vet booking data as needed
+        this.vetImage = `${API_URL}/${this.vetData.user_id.image}`;
       },
       (error: any) => {
         console.error(error);
-        // Handle the error
       }
     );
   }
@@ -38,11 +38,9 @@ export class VetDetailsComponent {
       (data: any) => {
         this.vetBookingData = data;
         console.log(data)
-        // Process the vet booking data as needed
       },
       (error: any) => {
         console.error(error);
-        // Handle the error
       }
     );
   }

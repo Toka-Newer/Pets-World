@@ -8,6 +8,7 @@ const registerRoute = require("./routes/Auth_Routes/Register");
 const authorizationMW = require("./core/Authorization/Authorization");
 const loginRoute = require("./routes/Auth_Routes/Login");
 const VetAppointmentsRoute = require("./routes/Vet/VetAppointment/VetAppointmentsRoute");
+const KeeperAppointmentssRoute = require("./routes/Keeper/KeeperAppointment/KeeperAppointmetsRoute");
 const VetRoute = require("./routes/Vet/VetRoute");
 const VetBookingRoute = require("./routes/Vet/VetBookingRoute");
 const KeeperRoute = require("./routes/Keeper/KeeperRoute");
@@ -37,10 +38,11 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use(cors());
-// app.use("/images", express.static(path.join(__dirname, "assets")));
+app.use('/assets', express.static('assets'));
 
 //  middelware layers of routing and authentication
 app.use(VetAppointmentsRoute);
+app.use(KeeperAppointmentssRoute);
 app.use(registerRoute);
 app.use(loginRoute);
 app.use(authorizationMW);
