@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const KeeperBookingSchema = mongoose.model("KeeperBooking");
+const KeeperAppointmentSchema = mongoose.model("KeeperAppointments");
 const petsSchema = mongoose.model("Pets");
 
 getKeeperBooking = async (req, res, next) => {
@@ -50,11 +51,24 @@ addKeeperBooking = async (req, res, next) => {
 
     const keeperBooking = new KeeperBookingSchema({
       appointment_id: req.body.appointment_id,
+      keeper_id: req.body.keeper_id,
       owner_id: req.body.owner_id,
       pet_id: req.body.pet_id,
+      day: req.body.day,
     });
 
     await keeperBooking.save();
+
+    await KeeperAppointmentSchema.findOneAndUpdate(
+      { _id: req.body.appointment_id },
+      {
+        $inc: {
+          number_of_pets: -1,
+        },
+      },
+      { new: true }
+    );
+
     return res.status(200).json({ message: "booking done successfully" });
   } catch (err) {
     next(err);
@@ -104,23 +118,15 @@ deleteKeeperBooking = async (req, res, next) => {
       return res.status(404).json({ message: "Booking not found." });
     }
 
-    return res.status(200).json({ message: "Booking deleted successfully." });
-  } catch (error) {
-    next(error);
-  }
-};
-
-deleteKeeperBooking = async (req, res, next) => {
-  try {
-    const bookingId = req.params.id;
-
-    const deletedBooking = await KeeperBookingSchema.findOneAndDelete({
-      _id: bookingId,
-    });
-
-    if (!deletedBooking) {
-      return res.status(404).json({ message: "Booking not found." });
-    }
+    await KeeperAppointmentSchema.findOneAndUpdate(
+      { _id: req.body.appointment_id },
+      {
+        $inc: {
+          number_of_pets: 1,
+        },
+      },
+      { new: true }
+    );
 
     return res.status(200).json({ message: "Booking deleted successfully." });
   } catch (error) {

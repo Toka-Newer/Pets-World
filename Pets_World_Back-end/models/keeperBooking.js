@@ -23,6 +23,7 @@ const KeeperBookingSchema = mongoose.Schema(
       ref: "Pets",
       required: true,
     },
+    day: { type: Date, required: true },
   },
   { timestamps: true }
 );

@@ -51,8 +51,10 @@ addVetBooking = async (req, res, next) => {
 
     const vetBooking = new VetBookingSchema({
       appointment_id: req.body.appointment_id,
+      vet_id: req.body.vet_id,
       owner_id: req.body.owner_id,
       pet_id: req.body.pet_id,
+      day: req.body.day,
     });
     await vetBooking.save();
 

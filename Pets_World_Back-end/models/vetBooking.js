@@ -14,7 +14,6 @@ const vetBookingSchema = mongoose.Schema(
       ref: "Vet",
       required: true,
     },
-    day: { type: Date, required: true },
     owner_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Owner",
@@ -25,6 +24,7 @@ const vetBookingSchema = mongoose.Schema(
       ref: "Pets",
       required: true,
     },
+    day: { type: Date, required: true },
   },
   { timestamps: true }
 );

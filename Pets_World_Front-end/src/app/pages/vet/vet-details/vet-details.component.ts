@@ -1,7 +1,6 @@
 import { VetService } from './../../../core/services/vet/vetService/vet.service';
 import { Component } from '@angular/core';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { API_URL } from '../../../core/services/environment/environment'
 
 @Component({
@@ -12,28 +11,21 @@ import { API_URL } from '../../../core/services/environment/environment'
 export class VetDetailsComponent {
   vetData: any;
   vetBookingData: any;
-  vetImageData!: SafeUrl;
-  constructor(private vetService: VetService, private vetBookingService: VetBookingService, private sanitizer: DomSanitizer) { }
+  vetImage: any;
+  constructor(private vetService: VetService, private vetBookingService: VetBookingService) { }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.getVetData("648dd6c55a2fb5c9b45df45b");
     this.getVetBookingData("648f98130dcac62b73ca2f62");
-
-    // Sanitize and set the vetImageData with the updated image path
-    this.vetImageData = this.sanitizer.bypassSecurityTrustUrl(this.convertImagePath(this.vetData.image));
-  }
-
-  convertImagePath(path: string): string {
-    return path.replace(/\\/g, '/');
   }
 
   getVetData(id: string) {
     this.vetService.getVetById(id).subscribe(
       (data: any) => {
         this.vetData = data;
-        console.log(data)
+        this.vetImage = `${API_URL}/${this.vetData.user_id.image}`;
       },
       (error: any) => {
         console.error(error);
