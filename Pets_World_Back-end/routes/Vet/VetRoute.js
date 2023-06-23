@@ -9,5 +9,5 @@ vetRoute.route("/vets/:id")
     .get(vetValidation.getVetByIdValidator,
         checkValidation,
         vetController.getVetById)
-
+vetRoute.route("/vets").get(vetController.getAllVet)
 module.exports = vetRoute;

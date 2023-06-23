@@ -33,6 +33,7 @@ mongoose
 
 // first layer logging middleware
 app.use((req, res, next) => {
+  console.log("url req "+req.url)
   next();
 });
 app.use(express.json());
@@ -43,7 +44,7 @@ app.use(cors());
 app.use(VetAppointmentsRoute);
 app.use(registerRoute);
 app.use(loginRoute);
-app.use(authorizationMW);
+// app.use(authorizationMW);
 app.use(VetRoute);
 app.use(VetBookingRoute);
 app.use(KeeperRoute);

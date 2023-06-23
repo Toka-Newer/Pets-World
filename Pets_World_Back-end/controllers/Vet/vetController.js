@@ -13,7 +13,19 @@ getVetById = async (req, res, next) => {
         next(err);
     }
 };
+getAllVet = async (req, res, next) => {
+    try {
+        const vet = await VetSchema.find({
+        }).populate({
+            path: "user_id",
+        });
+        res.status(200).json(vet);
+    } catch (err) {
+        next(err);
+    }
+};
 
 module.exports = {
     getVetById,
+    getAllVet
 };
