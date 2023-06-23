@@ -4,13 +4,6 @@ const vetValidation = require("./../../core/Validation/vetValidation");
 const checkValidation = require("./../../core/Validation/checkValidation");
 const vetRoute = express.Router();
 
-vetRoute
-  .route("/vets/:id")
-  .get(
-    vetValidation.getVetByIdValidator,
-    checkValidation,
-    vetController.getVetById
-  )
 
 vetRoute.route("/vets").get(vetController.getAllVet)
   .patch(
@@ -19,4 +12,10 @@ vetRoute.route("/vets").get(vetController.getAllVet)
     vetController.updateVetById
   );
 
+vetRoute.route("/vets/:id")
+  .get(
+    vetValidation.getVetByIdValidator,
+    checkValidation,
+    vetController.getVetById
+  )
 module.exports = vetRoute;
