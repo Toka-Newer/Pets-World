@@ -1,0 +1,134 @@
+<div style="background-color: #f5f8fa;">
+  <div class="container py-5">
+    <div class="row">
+
+      <div class="col-md-8">
+        <div class="card mb-3 w-100 border-0 py-5 px-3">
+          <div class="container">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <figure>
+                  <img [src]="vetImage" class="img-fluid" alt="...">
+                </figure>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <small class="text-secondary text-uppercase fw-semibold">Veterinarian Dr</small>
+                  <h1 class="card-title text-capitalize fs-2 mt-1">
+                    DR. {{ vetData?.user_id?.firstName }} {{ vetData?.user_id?.lastName }}
+                  </h1>
+
+                  <div class="mb-2">
+                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
+                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
+                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
+                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
+                    <i class="fas fa-star me-1" style="color: #ddd;"></i>
+                    <small class="text-muted fw-semibold">(145)</small>
+                  </div>
+
+                  <div class="card-text">
+                    <ul class="list-group">
+                      <li class="list-group-item border-0 px-0">
+                        <h6 class="fs-6 mb-1">Address</h6>
+                        2726 Shinn Street, New York
+                      </li>
+                      <li class="list-group-item border-0 px-0">
+                        <h6 class="fs-6 mb-1">Phone</h6>
+                        <a [href]="'tel:+20' + vetData?.user_id?.phone">+02 {{ vetData?.user_id?.phone }}</a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- <p class="card-text text-secondary fs-6 lh-base">
+                Experience Years: {{ vetData?.experience }}
+              </p>
+              <p class="card-text text-secondary fs-6 lh-base">
+                Examination Price: {{ vetData?.cost }}
+              </p>
+              <p class="card-text text-secondary fs-6 lh-base">
+                {{ vetData?.description }}
+              </p> -->
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="p-2">
+              <div class="row my-3">
+                <div class="col-md-1 text-center">
+                  <i class="fa-regular fa-circle-user fs-2 text-secondary"></i>
+                </div>
+                <div class="col-md-11">
+                  <h3 class="fs-4">Introducing</h3>
+                  <p class="card-text text-secondary fs-6 lh-base">
+                    {{ vetData?.description }}
+                  </p>
+                </div>
+              </div>
+              <hr class="my-5">
+              <div class="row my-3">
+                <div class="col-md-1 text-center">
+                  <i class="fa-regular fa-file-lines fs-2 text-secondary"></i>
+                </div>
+                <div class="col-md-11">
+                  <h3 class="fs-4">Years of Experience</h3>
+                  <p class="card-text text-secondary fs-5 lh-base">
+                    {{ vetData?.experience }} Years
+                  </p>
+                </div>
+              </div>
+              <hr class="my-5">
+              <div class="row my-3">
+                <div class="col-md-1 text-center">
+                  <i class="fa-solid fa-money-bills fs-2 text-secondary"></i>
+                </div>
+                <div class="col-md-11">
+                  <h3 class="fs-4">Examination Price</h3>
+                  <p class="card-text text-secondary fs-5 lh-base">
+                    {{ vetData?.cost | currency }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 position-sticky top-0 py-5 px-4">
+          <div class="text-center">
+            <h3 class="fs-3 fw-medium">Working Hours</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, hic sunt. Quidem, dolore.</p>
+          </div>
+          <div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                Saturday: <span>10:00 am - 02:00 pm</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Sunday: <span>10:00 am - 02:00 pm</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Monday: <span>10:00 am - 02:00 pm</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Tuesday: <span>10:00 am - 02:00 pm</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Wednesday: <span>10:00 am - 02:00 pm</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Thursday: <span>10:00 am - 02:00 pm</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Friday: <span>10:00 am - 02:00 pm</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
