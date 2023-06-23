@@ -15,7 +15,6 @@ getVetById = async (req, res, next) => {
   }
 };
 updateVetById = async (req, res, next) => {
-  console.log(req.body);
   try {
     const vet = await VetSchema.findOneAndUpdate(
       { _id: req.params.id },
@@ -27,7 +26,7 @@ updateVetById = async (req, res, next) => {
         },
       },
       { new: true }
-    ).populate({ path: "user_id" });
+    );
     const user = await userSchema.findOneAndUpdate(
       { _id: vet.user_id },
       {
@@ -42,7 +41,7 @@ updateVetById = async (req, res, next) => {
       },
       { new: true }
     );
-    return res.status(200).json(vet);
+    return res.status(200).json({ vet, user });
   } catch (err) {
     next(err);
   }
