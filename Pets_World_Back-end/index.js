@@ -35,7 +35,6 @@ mongoose
 
 // first layer logging middleware
 app.use((req, res, next) => {
-  console.log("url req " + req.url)
   next();
 });
 app.use(express.json());
