@@ -1,0 +1,4 @@
+.sticky-element {
+  transform: translateY(20%);
+  transition: transform 0.3s ease;
+}

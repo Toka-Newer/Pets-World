@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require('moment');
 const VetAppointmentsSchema = mongoose.model("VetAppointments");
 const VetBookingSchema = mongoose.model("VetBooking");
 getVetAppointments = async (req, res, next) => {
@@ -21,11 +22,29 @@ getVetAppointmentsById = async (req, res, next) => {
   }
 };
 
+getVetLastAppointmentsById = async (req, res, next) => {
+  try {
+    // Calculate the start and end dates for the specified week (Saturday to Friday)
+    const today = moment();
+    const startOfWeek = today.clone().startOf('week').add(1, 'days'); // Set start of the week to Saturday
+    const endOfWeek = today.clone().endOf('week').add(1, 'days'); // Set end of the week to Friday
+
+    const vetAppointments = await VetAppointmentsSchema.find({
+      vet_id: req.params.id,
+      day: { $gte: startOfWeek.toDate(), $lte: endOfWeek.toDate() }
+    });
+
+    return res.status(200).json(vetAppointments);
+  } catch (err) {
+    next(err);
+  }
+};
+
 addAppointment = async (req, res, next) => {
   try {
     const start_date = new Date(req.body.start_date);
     const end_date = new Date(req.body.end_date);
-    for (start_date; start_date <= end_date; ) {
+    for (start_date; start_date <= end_date;) {
       const appointment = new VetAppointmentsSchema({
         vet_id: req.params.id,
         day: start_date,
@@ -80,6 +99,7 @@ deleteAppointment = async (req, res, next) => {
 module.exports = {
   getVetAppointments,
   getVetAppointmentsById,
+  getVetLastAppointmentsById,
   addAppointment,
   updateAppointment,
   deleteAppointment,
