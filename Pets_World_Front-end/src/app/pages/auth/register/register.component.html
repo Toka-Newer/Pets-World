@@ -151,7 +151,9 @@
           </button>
           <input type="text" readonly matInput formControlName="userImage" />
           <input type="file" multiple hidden #hiddenInput (change)="onUserImageChange($event)" accept="image/*" />
-          <mat-error>This field is required.</mat-error>
+          <mat-error *ngIf="secondFormGroup.get('userImage')?.invalid &&
+                                        secondFormGroup.get('userImage')?.touched && secondFormGroup.get('userImage')?.errors?.['required']
+                                      ">User Image is required.</mat-error>
         </mat-form-field>
 
         <!-- Role -->
@@ -323,7 +325,9 @@
               <input type="text" readonly matInput formControlName="vetLicense" />
               <input type="file" multiple hidden #vetHiddenInput (change)="onVetLicenseChange($event)"
                 accept="image/*" />
-              <mat-error>This field is required.</mat-error>
+              <mat-error *ngIf="secondFormGroup.get('vetLicense')?.invalid &&
+                                secondFormGroup.get('vetLicense')?.touched && secondFormGroup.get('vetLicense')?.errors?.['required']
+                              ">Vet Image is required.</mat-error>
             </mat-form-field>
             <!-- Description -->
             <div class="col-md-12">
@@ -337,7 +341,7 @@
 
         <div class="text-end">
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button [disabled]="secondFormGroup.invalid" matStepperNext>
+          <button mat-button [disabled]="!secondFormGroup.valid" matStepperNext>
             Next
           </button>
         </div>
@@ -383,6 +387,10 @@
             <p>
               <strong>Experience:</strong>
               {{ secondFormGroup.value.experience }}
+            </p>
+            <p>
+              <strong>License:</strong>
+              {{ secondFormGroup.value.vetLicense }}
             </p>
           </div>
         </div>
