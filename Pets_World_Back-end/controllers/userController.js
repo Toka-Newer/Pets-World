@@ -6,6 +6,7 @@ const VetSchema = mongoose.model("Vet");
 addUser = async (req, res, next) => {
   try {
     if (req.body.retypePassword === req.body.password) {
+      console.log(req.body);
       const newUser = new userSchema({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -18,13 +19,13 @@ addUser = async (req, res, next) => {
       });
       // Handle the license image
       if (req.files && req.files.length > 0) {
-        // const userImages = req.files.filter(
-        //   (file) => file.fieldname === "image"
-        // );
-        // if (userImages.length > 0) {
-        // newUser.image = userImages[0].path;
-        // }
-        newUser.image = req.files[0].path;
+        const userImages = req.files.filter(
+          (file) => file.fieldname === "image"
+        );
+        if (userImages.length > 0) {
+          newUser.image = userImages[0].path;
+        }
+        // newUser.image = req.files[0].path;
       }
 
       // Code to check if the email is already registered
@@ -69,13 +70,13 @@ addUser = async (req, res, next) => {
         });
         // Handle the license image
         if (req.files && req.files.length > 1) {
-          // const licenseImages = req.files.filter(
-          //   (file) => file.fieldname === "license"
-          // );
-          // if (licenseImages.length > 0) {
-          // vet.licence = licenseImages[1].path;
-          // }
-          vet.licence = req.files[1].path;
+          const licenseImages = req.files.filter(
+            (file) => file.fieldname === "license"
+          );
+          if (licenseImages.length > 0) {
+            vet.licence = licenseImages[1].path;
+          }
+          // vet.licence = req.files[1].path;
         }
         await vet.save();
       }

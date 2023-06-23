@@ -23,8 +23,7 @@ interface UserData {
   cost?: number;
   experience?: number;
   description?: string;
-  userImage?: File;
-  vetLicense?: File;
+  images: { image?: File; license?: File }[];
 }
 
 interface PetData {
@@ -43,17 +42,14 @@ interface PetData {
 })
 export class RegisterComponent implements OnInit {
   hide = true;
-  rehide = true;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
+  thirdFormGroup!: FormGroup<{}>;
   genderOptions: string[] = ['male', 'female'];
   roleOptions: string[] = ['owner', 'vet'];
   petTypeOptions: string[] = ['dog', 'cat', 'bird', 'turtle'];
   errorMessages: string[] = [];
-  thirdFormGroup!: FormGroup<{}>;
   file_store: File[] = [];
-  file_list: Array<string> = [];
-
   constructor(
     private _formBuilder: FormBuilder,
     private userService: UserService
@@ -92,8 +88,8 @@ export class RegisterComponent implements OnInit {
       cost: ['', Validators.required],
       experience: ['', Validators.required],
       description: [''],
-      userImage: [null], // Control for user image
-      vetLicense: [null], // Control for vet license
+      userImage: ['', Validators.required], // Control for user image
+      vetLicense: ['', Validators.required], // Control for vet license
     });
 
     this.addPet();
@@ -109,23 +105,29 @@ export class RegisterComponent implements OnInit {
       const userdata: UserData = {
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
-        userImage: this.file_store[0], // Use the userImage file
+        images: [], // Initialize images as an empty array
       };
+
+      if (this.file_store[0]) {
+        userdata.images.push({ image: this.file_store[0] });
+      }
+
+      if (this.file_store[1]) {
+        userdata.images.push({ license: this.file_store[1] });
+      }
 
       if (this.secondFormGroup.value.role === 'owner') {
         userdata.pets = this.petFormArray.value;
-        console.log(userdata.pets);
 
         if (!userdata.pets || userdata.pets.length === 0) {
           console.log('Please add at least one pet.');
           return;
         }
       } else if (this.secondFormGroup.value.role === 'vet') {
-        userdata.cost = this.secondFormGroup.value.cost;
-        userdata.experience = this.secondFormGroup.value.experience;
-        userdata.vetLicense = this.secondFormGroup.value.vetLicense; // Include vetLicense for vet role
-
-        if (!userdata.cost || !userdata.experience) {
+        const costControl = this.secondFormGroup.get('cost');
+        const experienceControl = this.secondFormGroup.get('experience');
+        // const vetLicenseControl = this.secondFormGroup.get('vetLicense');
+        if (!costControl && !experienceControl) {
           console.log('Please fill in all vet information.');
           return;
         }
@@ -160,70 +162,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  // submitForm() {
-  //   if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
-  //     const userdata: UserData = {
-  //       // firstName: this.firstFormGroup.value.firstName,
-  //       // lastName: this.firstFormGroup.value.lastName,
-  //       // email: this.firstFormGroup.value.email,
-  //       // password: this.firstFormGroup.value.password,
-  //       // retypePassword: this.firstFormGroup.value.retypePassword,
-  //       // gender: this.secondFormGroup.value.gender,
-  //       // role: this.secondFormGroup.value.role,
-  //       // phone: this.firstFormGroup.value.phone,
-  //       ...this.firstFormGroup.value,
-  //       ...this.secondFormGroup.value,
-  //       userImage: this.file_store[0], // Use the userImage file
-  //       vetLicense: this.secondFormGroup.controls['vetLicense'].value,
-  //     };
-
-  //     if (this.secondFormGroup.value.role === 'owner') {
-  //       userdata.pets = this.petFormArray.value;
-  //       console.log(userdata.pets);
-
-  //       if (userdata.pets?.length === 0) {
-  //         console.log('Please add at least one pet.');
-  //         return;
-  //       }
-  //     } else if (this.secondFormGroup.value.role === 'vet') {
-  //       userdata.cost = this.secondFormGroup.value.cost;
-  //       userdata.experience = this.secondFormGroup.value.experience;
-  //       userdata.description = this.secondFormGroup.value.description;
-
-  //       if (!userdata.cost || !userdata.experience || !userdata.description) {
-  //         console.log('Please fill in all vet information.');
-  //         return;
-  //       }
-  //     } else {
-  //       console.log('Invalid role selected.');
-  //       return;
-  //     }
-
-  //     this.userService.register(userdata).subscribe({
-  //       next: (res) => {
-  //         console.log(res);
-  //       },
-  //       error: (err) => {
-  //         console.error(err);
-  //         if (err.status === 400 && err.error && err.error.errors) {
-  //           // If the backend returns validation errors, update the form controls with the error messages
-  //           const errorMessages = err.error.errors;
-
-  //           Object.keys(errorMessages).forEach((field) => {
-  //             const formControl =
-  //               this.firstFormGroup.get(field) ||
-  //               this.secondFormGroup.get(field);
-  //             if (formControl) {
-  //               formControl.setErrors({ serverError: errorMessages[field] });
-  //             }
-  //           });
-  //         }
-  //       },
-  //     });
-  //   } else {
-  //     console.log('Please fill in all required fields.');
-  //   }
-  // }
   // --------add and remove pets --------
   addPet() {
     const petGroup = this._formBuilder.group({
@@ -243,7 +181,6 @@ export class RegisterComponent implements OnInit {
   }
 
   // ---------validations-----------
-
   onUserImageChange(event: any): void {
     const files: FileList = event.target.files;
     if (files && files.length > 0) {
@@ -252,9 +189,18 @@ export class RegisterComponent implements OnInit {
       this.secondFormGroup.controls['userImage'].patchValue(
         `${fileName}${count}`
       );
-      this.file_store = Array.from(files);
+      this.file_store[0] = files[0];
+      if (files.length > 1) {
+        const fileName2 = files[1].name;
+        this.secondFormGroup.controls['vetLicense'].patchValue(
+          `${fileName2}${count}`
+        );
+        this.file_store[1] = files[1];
+      }
+      console.log(this.file_store);
     } else {
       this.secondFormGroup.controls['userImage'].patchValue('');
+      this.secondFormGroup.controls['vetLicense'].patchValue('');
       this.file_store = [];
     }
   }
@@ -267,12 +213,55 @@ export class RegisterComponent implements OnInit {
       this.secondFormGroup.controls['vetLicense'].patchValue(
         `${fileName}${count}`
       );
-      // Handle the vetLicense file as needed
+      this.file_store[1] = files[0];
+      if (files.length > 1) {
+        const fileName2 = files[1].name;
+        this.secondFormGroup.controls['userImage'].patchValue(
+          `${fileName2}${count}`
+        );
+        this.file_store[0] = files[1];
+      }
+      console.log(this.file_store);
     } else {
+      this.secondFormGroup.controls['userImage'].patchValue('');
       this.secondFormGroup.controls['vetLicense'].patchValue('');
-      // Handle the case when no vetLicense file is selected
+      this.file_store = [];
     }
   }
+
+  // onUserImageChange(event: any): void {
+  //   const files: FileList = event.target.files;
+  //   if (files && files.length > 0) {
+  //     const count = files.length > 1 ? `(+${files.length - 1} files)` : '';
+  //     const fileName = files[0].name;
+  //     this.secondFormGroup.controls['userImage'].patchValue(
+  //       `${fileName}${count}`
+  //     );
+  //     this.file_store = Array.from(files);
+  //     console.log(this.file_store);
+  //   } else {
+  //     this.secondFormGroup.controls['userImage'].patchValue('');
+  //     this.file_store = [];
+  //   }
+  // }
+
+  // onVetLicenseChange(event: any): void {
+  //   const files: FileList = event.target.files;
+  //   if (files && files.length > 0) {
+  //     const count = files.length > 1 ? `(+${files.length - 1} files)` : '';
+  //     const fileName = files[0].name;
+  //     this.secondFormGroup.controls['vetLicense'].patchValue(
+  //       `${fileName}${count}`
+  //     );
+  //     // Handle the vetLicense file as needed
+  //     this.file_store = Array.from(files);
+  //     console.log(this.file_store);
+  //   } else {
+  //     this.secondFormGroup.controls['vetLicense'].patchValue('');
+  //     // Handle the case when no vetLicense file is selected
+  //     this.file_store = [];
+  //   }
+  // }
   checkPasswords() {
     const passwordControl = this.firstFormGroup.get('password');
     const retypePasswordControl = this.firstFormGroup.get('retypePassword');
