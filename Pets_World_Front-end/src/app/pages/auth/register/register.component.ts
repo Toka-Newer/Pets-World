@@ -103,22 +103,22 @@ export class RegisterComponent implements OnInit {
   submitForm() {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
       const userdata: UserData = {
-        ...this.firstFormGroup.value,
-        ...this.secondFormGroup.value,
-        images: [], // Initialize images as an empty array
+        firstName: this.firstFormGroup.get('firstName')?.value,
+        lastName: this.firstFormGroup.get('lastName')?.value,
+        phone: this.firstFormGroup.get('phone')?.value,
+        email: this.firstFormGroup.get('email')?.value,
+        password: this.firstFormGroup.get('password')?.value,
+        retypePassword: this.firstFormGroup.get('retypePassword')?.value,
+        gender: this.secondFormGroup.get('gender')?.value,
+        role: this.secondFormGroup.get('role')?.value,
+        images: [],
       };
-
       if (this.file_store[0]) {
         userdata.images.push({ image: this.file_store[0] });
       }
 
-      if (this.file_store[1]) {
-        userdata.images.push({ license: this.file_store[1] });
-      }
-
       if (this.secondFormGroup.value.role === 'owner') {
         userdata.pets = this.petFormArray.value;
-
         if (!userdata.pets || userdata.pets.length === 0) {
           console.log('Please add at least one pet.');
           return;
@@ -126,7 +126,9 @@ export class RegisterComponent implements OnInit {
       } else if (this.secondFormGroup.value.role === 'vet') {
         const costControl = this.secondFormGroup.get('cost');
         const experienceControl = this.secondFormGroup.get('experience');
-        // const vetLicenseControl = this.secondFormGroup.get('vetLicense');
+        if (this.file_store[1]) {
+          userdata.images.push({ license: this.file_store[1] });
+        }
         if (!costControl && !experienceControl) {
           console.log('Please fill in all vet information.');
           return;

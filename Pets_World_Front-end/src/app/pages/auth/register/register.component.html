@@ -187,7 +187,7 @@
                       <mat-label>Pet Name</mat-label>
                       <input matInput formControlName="name" required />
                       <mat-error *ngIf="
-                          pet.get('name')?.invalid && pet.get('name')?.touched &&pet.get('name')?.errors?.['required']
+                           pet.get('name')?.touched &&pet.get('name')?.errors?.['required']
                         ">
                         Pet Name is required.
                       </mat-error>
@@ -209,7 +209,7 @@
                       </mat-select>
 
                       <mat-error *ngIf="
-                        pet.get('type')?.invalid && pet.get('type')?.touched && pet.get('type')?.errors?.['required']
+                         pet.get('type')?.touched && pet.get('type')?.errors?.['required']
                       ">
                         Pet Type is required.
                       </mat-error>
@@ -226,7 +226,7 @@
                       </mat-select>
 
                       <mat-error *ngIf="
-                        pet.get('gender')?.invalid && pet.get('gender')?.touched && pet.get('gender')?.errors?.['required']
+                         pet.get('gender')?.touched && pet.get('gender')?.errors?.['required']
                       ">
                         Pet Gender is required.
                       </mat-error>
@@ -257,7 +257,7 @@
                       <mat-label>Age</mat-label>
                       <input type="number" matInput formControlName="age" required />
                       <mat-error *ngIf="
-                          pet.get('age')?.invalid && pet.get('age')?.touched && pet.get('age')?.errors?.['required']
+                           pet.get('age')?.touched && pet.get('age')?.errors?.['required']
                         ">
                         Age is required.
                       </mat-error>
@@ -294,7 +294,7 @@
                 <input matInput type="number" formControlName="cost" />
 
                 <mat-error *ngIf="
-                  secondFormGroup.get('cost')?.invalid &&
+
                   secondFormGroup.get('cost')?.touched && secondFormGroup.get('cost')?.errors?.['required']
                 ">
                   Cost is required.
@@ -308,7 +308,7 @@
                 <input type="number" matInput formControlName="experience" />
 
                 <mat-error *ngIf="
-                  secondFormGroup.get('experience')?.invalid &&
+
                   secondFormGroup.get('experience')?.touched && secondFormGroup.get('experience')?.errors?.['required']
                 ">
                   Experience is required.

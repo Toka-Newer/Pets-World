@@ -74,10 +74,11 @@ addUser = async (req, res, next) => {
             (file) => file.fieldname === "license"
           );
           if (licenseImages.length > 0) {
-            vet.licence = licenseImages[1].path;
+            vet.licence = licenseImages[0].path;
           }
           // vet.licence = req.files[1].path;
         }
+
         await vet.save();
       }
 
