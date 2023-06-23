@@ -46,7 +46,25 @@ updateVetById = async (req, res, next) => {
     next(err);
   }
 };
+<<<<<<< HEAD
+getAllVet = async (req, res, next) => {
+    try {
+        const vet = await VetSchema.find({
+        }).populate({
+            path: "user_id",
+        });
+        res.status(200).json(vet);
+    } catch (err) {
+        next(err);
+    }
+};
+
+module.exports = {
+    getVetById,
+    getAllVet
+=======
 module.exports = {
   getVetById,
   updateVetById,
+>>>>>>> 79aabdf2eebcdfe26edf350ef3a18d876fe74633
 };

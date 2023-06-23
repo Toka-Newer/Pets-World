@@ -13,7 +13,18 @@ getKeeperById = async (req, res, next) => {
         next(err);
     }
 };
+getAllKeeprs = async (req, res, next) => {
+    try {
+        const keeper = await KeeperSchema.find().populate({
+            path: "owner_id",
+        });
+        res.status(200).json(keeper);
+    } catch (err) {
+        next(err);
+    }
+};
 
 module.exports = {
     getKeeperById,
+    getAllKeeprs
 };
