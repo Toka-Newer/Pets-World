@@ -1,14 +1,10 @@
+import { PetsService } from './../../../core/services/pet/pets.service';
 import { VetAppointmentService } from './../../../core/services/vet/vetAppointment/vet-appointment.service';
 import { VetService } from './../../../core/services/vet/vetService/vet.service';
 import { Component, HostListener } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
 import { API_URL } from '../../../core/services/environment/environment'
-import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { NgFor, NgIf } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 interface Animal {
   name: string;
@@ -21,23 +17,17 @@ interface Animal {
   styleUrls: ['./vet-details.component.css'],
 })
 export class VetDetailsComponent {
-  animalControl = new FormControl<Animal | null>(null, Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-  animals: Animal[] = [
-    { name: 'Dog', sound: 'Woof!' },
-    { name: 'Cat', sound: 'Meow!' },
-    { name: 'Cow', sound: 'Moo!' },
-    { name: 'Fox', sound: 'Wa-pa-pa-pa-pa-pa-pow!' },
-  ];
   isSticky = false;
 
   vetData: any;
   vetAppointments: any;
+  pets: any;
   vetBookingData: any;
   vetImage: any;
   constructor(private vetService: VetService,
     private vetAppointmentService: VetAppointmentService,
     private datePipe: DatePipe,
+    private petsService: PetsService,
     private vetBookingService: VetBookingService) { }
 
   ngOnInit(): void {
@@ -45,6 +35,7 @@ export class VetDetailsComponent {
     //Add 'implements OnInit' to the class.
     this.getVetData("648dd6c55a2fb5c9b45df45b");
     this.getVetAppointments("648dd6c55a2fb5c9b45df45b");
+    this.getPetsByOwnerId("648f9646bd39fe8c0527ee4f");
     // this.getVetBookingData("648f98130dcac62b73ca2f62");
   }
 
@@ -70,6 +61,18 @@ export class VetDetailsComponent {
           return appointment;
         });
         console.log(this.vetAppointments);
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+
+  getPetsByOwnerId(id: string) {
+    this.petsService.getPetsByOwnerId(id).subscribe(
+      (data: any) => {
+        this.pets = data;
+        console.log(data)
       },
       (error: any) => {
         console.error(error);

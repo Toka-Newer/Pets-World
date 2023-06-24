@@ -14,6 +14,7 @@ const VetBookingRoute = require("./routes/Vet/VetBookingRoute");
 const KeeperRoute = require("./routes/Keeper/KeeperRoute");
 const KeeperBookingRoute = require("./routes/Keeper/KeeperBookingRoute");
 const OwnerRoute = require("./routes/Owner/ownerRoute");
+const PetsRoute = require("./routes/Pets/petsRoute");
 
 ////// please don't change anything and use the middlewores //////
 
@@ -52,6 +53,7 @@ app.use(VetBookingRoute);
 app.use(KeeperRoute);
 app.use(KeeperBookingRoute);
 app.use(OwnerRoute);
+app.use(PetsRoute);
 
 //  third layer no page found
 app.use((req, res, next) => {

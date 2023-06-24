@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -111,6 +111,8 @@ export class RegisterComponent implements OnInit {
       if (this.file_store[0]) {
         userdata.images.push({ image: this.file_store[0] });
       }
+
+      console.log(userdata.images);
 
       if (this.file_store[1]) {
         userdata.images.push({ license: this.file_store[1] });
