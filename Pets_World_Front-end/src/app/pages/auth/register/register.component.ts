@@ -23,7 +23,7 @@ interface UserData {
   cost?: number;
   experience?: number;
   description?: string;
-  images: { image?: File; license?: File }[];
+  images: File[];
 }
 
 interface PetData {
@@ -117,11 +117,13 @@ export class RegisterComponent implements OnInit {
       };
 
       if (this.file_store[0]) {
-        userdata.images.push({ image: this.file_store[0] });
+        userdata.images.push(this.file_store[0]);
       }
       if (this.file_store[1]) {
-        userdata.images.push({ license: this.file_store[1] });
+        userdata.images.push(this.file_store[1]);
       }
+      const formData = new FormData();
+
       if (userdata.role === 'owner') {
         const petFormArray = this.secondFormGroup.get('pets') as FormArray;
         userdata.pets = petFormArray.value;
@@ -129,6 +131,7 @@ export class RegisterComponent implements OnInit {
           console.log('Please add at least one pet.');
           return;
         }
+        formData.append('pets', JSON.stringify(userdata.pets));
       } else if (userdata.role === 'vet') {
         const costControl = this.secondFormGroup.get('vet')?.get('cost');
         const experienceControl = this.secondFormGroup
@@ -139,15 +142,34 @@ export class RegisterComponent implements OnInit {
           console.log('Please fill in all vet information.');
           return;
         }
-        userdata.cost = costControl?.value;
+        userdata.cost = costControl?.value || '';
         userdata.experience = experienceControl?.value;
         userdata.description = this.secondFormGroup.get('description')?.value;
+        formData.append('cost', '' + userdata.cost);
+        formData.append('experience', '' + userdata.experience);
+        formData.append('description', '' + userdata.description);
       } else {
         console.log('Invalid role selected.');
         return;
       }
 
-      this.userService.register(userdata).subscribe({
+      formData.append('firstName', this.firstFormGroup.get('firstName')?.value);
+      formData.append('lastName', this.firstFormGroup.get('lastName')?.value);
+      formData.append('phone', this.firstFormGroup.get('phone')?.value);
+      formData.append('email', this.firstFormGroup.get('email')?.value);
+      formData.append('password', this.firstFormGroup.get('password')?.value);
+      formData.append(
+        'retypePassword',
+        this.firstFormGroup.get('retypePassword')?.value
+      );
+      formData.append('gender', this.secondFormGroup.get('gender')?.value);
+      formData.append('role', this.secondFormGroup.get('role')?.value);
+
+      formData.append('images', userdata.images[0]);
+      formData.append('images', userdata.images[1]);
+      console.log('=====>' + userdata.images[0]);
+      console.log('=====>' + userdata.images[0]);
+      this.userService.register(formData).subscribe({
         next: (res) => {
           console.log(res);
         },

@@ -19,13 +19,13 @@ addUser = async (req, res, next) => {
       });
       // Handle the license image
       if (req.files && req.files.length > 0) {
-        const userImages = req.files.filter(
-          (file) => file.fieldname === "image"
-        );
-        if (userImages.length > 0) {
-          newUser.image = userImages[0].path;
-        }
-        // newUser.image = req.files[0].path;
+        // const userImages = req.files.filter(
+        //   (file) => file.fieldname === "image"
+        // );
+        // if (userImages.length > 0) {
+        //   newUser.image = userImages[0].path;
+        // }
+        newUser.image = req.files[0].path;
       }
 
       // Code to check if the email is already registered
@@ -45,7 +45,7 @@ addUser = async (req, res, next) => {
         });
         await owner.save();
         if (req.body.pets) {
-          const pets = req.body.pets; // Assume an array of pets is sent in the request body
+          const pets = JSON.parse(req.body.pets || "[]"); // Assume an array of pets is sent in the request body
           console.log(pets);
           const petPromises = pets.map(async (pet) => {
             const newPet = new PetsSchema({
@@ -70,13 +70,13 @@ addUser = async (req, res, next) => {
         });
         // Handle the license image
         if (req.files && req.files.length > 1) {
-          const licenseImages = req.files.filter(
-            (file) => file.fieldname === "license"
-          );
-          if (licenseImages.length > 0) {
-            vet.licence = licenseImages[0].path;
-          }
-          // vet.licence = req.files[1].path;
+          // const licenseImages = req.files.filter(
+          //   (file) => file.fieldname === "license"
+          // );
+          // if (licenseImages.length > 0) {
+          //   vet.licence = licenseImages[0].path;
+          // }
+          vet.licence = req.files[1].path;
         }
 
         await vet.save();
