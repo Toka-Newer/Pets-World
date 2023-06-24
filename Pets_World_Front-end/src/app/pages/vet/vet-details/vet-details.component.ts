@@ -43,8 +43,8 @@ export class VetDetailsComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.getVetData("648dd6c55a2fb5c9b45df45b");
-    this.getVetAppointments("648dd6c55a2fb5c9b45df45b");
+    this.getVetData("649083094a2f463c76c5153b");
+    this.getVetAppointments("649083094a2f463c76c5153b");
     // this.getVetBookingData("648f98130dcac62b73ca2f62");
   }
 
