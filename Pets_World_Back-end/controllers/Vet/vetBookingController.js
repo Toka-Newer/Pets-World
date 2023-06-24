@@ -5,8 +5,18 @@ const petsSchema = mongoose.model("Pets");
 
 getVetBooking = async (req, res, next) => {
   try {
-    const VetAppointments = await VetAppointmentsSchema.find(req.body);
-    res.json(VetAppointments);
+    const VetBooking = await VetBookingSchema.find(req.query).populate([
+      {
+        path: "owner_id",
+        populate: {
+          path: "user_id",
+        },
+      },
+      {
+        path: "pet_id",
+      },
+    ]);
+    return res.json(VetBooking);
   } catch (err) {
     next(err);
   }

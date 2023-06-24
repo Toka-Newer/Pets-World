@@ -1,0 +1,33 @@
+<h1 class="text-center m-5">My Schedule</h1>
+<section class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <!-- <th scope="col">Owner image</th> -->
+        <th scope="col">Owner name</th>
+        <!-- <th scope="col">Pet image</th> -->
+        <th scope="col">Pet name</th>
+        <th scope="col">Type</th>
+        <th scope="col">gender</th>
+        <th scope="col">age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of vetSchedule; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          {{
+            booking.owner_id.user_id.firstName +
+              " " +
+              booking.owner_id.user_id.lastName
+          }}
+        </td>
+        <td>{{ booking.pet_id.name }}</td>
+        <td>{{ booking.pet_id.type }}</td>
+        <td>{{ booking.pet_id.gender }}</td>
+        <td>{{ booking.pet_id.age }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
