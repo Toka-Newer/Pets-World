@@ -50,7 +50,7 @@ UserSchema.pre("updateOne", async function (next) {
 
   try {
     const hash = await bcrypt.hash(update.password, 10);
-    this.update({ password: hash });
+    this.set({ password: hash });
     next();
   } catch (err) {
     return next(err);

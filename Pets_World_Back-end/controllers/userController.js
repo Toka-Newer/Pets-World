@@ -6,21 +6,22 @@ const PetsSchema = mongoose.model("Pets");
 const VetSchema = mongoose.model("Vet");
 
 updateUserPassword = async (req, res, next) => {
-  // req.params.id --> user_id
   try {
     const user = await userSchema.findOne({ _id: req.params.id });
+
     if (user) {
-      const isMatch = bcrypt.compareSync(req.body.password, user.password);
+      const isMatch = await bcrypt.compare(req.body.password, user.password);
 
       if (isMatch) {
-        const updatedUser = userSchema.findOneAndUpdate({ _id: req.params.id },
-          {
-            $set: {
-              password: req.body.newPassword
-            }
-          },
+        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+
+        const updatedUser = await userSchema.findOneAndUpdate(
+          { _id: req.params.id },
+          { $set: { password: hashedPassword } },
           { new: true }
         );
+
+        console.log(updatedUser);
         return res.status(200).json(updatedUser);
       }
 
@@ -127,4 +128,5 @@ addUser = async (req, res, next) => {
 
 module.exports = {
   addUser,
+  updateUserPassword
 };
