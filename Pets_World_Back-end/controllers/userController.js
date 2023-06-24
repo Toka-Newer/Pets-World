@@ -6,6 +6,7 @@ const VetSchema = mongoose.model("Vet");
 addUser = async (req, res, next) => {
   try {
     if (req.body.retypePassword === req.body.password) {
+      console.log(req.body);
       const newUser = new userSchema({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -22,7 +23,7 @@ addUser = async (req, res, next) => {
         //   (file) => file.fieldname === "image"
         // );
         // if (userImages.length > 0) {
-        // newUser.image = userImages[0].path;
+        //   newUser.image = userImages[0].path;
         // }
         newUser.image = req.files[0].path;
       }
@@ -44,7 +45,7 @@ addUser = async (req, res, next) => {
         });
         await owner.save();
         if (req.body.pets) {
-          const pets = req.body.pets; // Assume an array of pets is sent in the request body
+          const pets = JSON.parse(req.body.pets || "[]"); // Assume an array of pets is sent in the request body
           console.log(pets);
           const petPromises = pets.map(async (pet) => {
             const newPet = new PetsSchema({
@@ -73,10 +74,11 @@ addUser = async (req, res, next) => {
           //   (file) => file.fieldname === "license"
           // );
           // if (licenseImages.length > 0) {
-          // vet.licence = licenseImages[1].path;
+          //   vet.licence = licenseImages[0].path;
           // }
           vet.licence = req.files[1].path;
         }
+
         await vet.save();
       }
 
