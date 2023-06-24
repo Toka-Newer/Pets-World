@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { KeeperRoutingModule } from './keeper-routing.module';
 import { HomeComponent } from './home/home.component';
+import { KeeperDetailsComponent } from './keeper-details/keeper-details.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    KeeperDetailsComponent
   ],
   imports: [
     CommonModule,
