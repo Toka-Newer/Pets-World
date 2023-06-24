@@ -58,15 +58,15 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       firstName: [
-        'alaa',
+        '',
         [Validators.required, Validators.minLength(3), this.noNumberValidator],
       ],
       lastName: [
-        'nassar',
+        '',
         [Validators.required, Validators.minLength(3), this.noNumberValidator],
       ],
       email: [
-        'alaa' + Math.random() + '@gmail.com',
+        '',
         [
           Validators.required,
           Validators.email,
@@ -74,22 +74,22 @@ export class RegisterComponent implements OnInit {
         ],
       ],
       phone: [
-        '01000000000',
+        '',
         [Validators.required, Validators.pattern('^01[0-2]{1}[0-9]{8}$')],
       ],
-      password: ['1234567', [Validators.required, Validators.minLength(7)]],
-      retypePassword: ['1234567', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(7)]],
+      retypePassword: ['', Validators.required],
     });
 
     this.secondFormGroup = this._formBuilder.group({
-      gender: ['male', Validators.required],
+      gender: ['', Validators.required],
       role: ['', Validators.required],
       pets: this._formBuilder.array([]),
       userImage: ['', Validators.required], // Control for user image
       vet: this._formBuilder.group({
-        cost: [10, Validators.required],
-        experience: [5, Validators.required],
-        description: ['dwsc'],
+        cost: [, Validators.required],
+        experience: [, Validators.required],
+        description: [''],
         vetLicense: ['', Validators.required], // Control for vet license
       }),
     });
@@ -167,8 +167,8 @@ export class RegisterComponent implements OnInit {
 
       formData.append('images', userdata.images[0]);
       formData.append('images', userdata.images[1]);
-      console.log('=====>' + userdata.images[0]);
-      console.log('=====>' + userdata.images[0]);
+      // console.log('=====>' + userdata.images[0]);
+      // console.log('=====>' + userdata.images[0]);
       this.userService.register(formData).subscribe({
         next: (res) => {
           console.log(res);
@@ -261,9 +261,9 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  test() {
-    console.log(this.secondFormGroup);
-  }
+  // test() {
+  //   console.log(this.secondFormGroup);
+  // }
   selectRole(value: any) {
     if (value === 'vet') {
       this.secondFormGroup.controls['pets'].disable();
