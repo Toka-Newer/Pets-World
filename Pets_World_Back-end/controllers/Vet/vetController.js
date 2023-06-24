@@ -61,6 +61,8 @@ getAllVet = async (req, res, next) => {
   }
 };
 
+//vet_id in params
+//owner_id and rate in body
 updateRating = async (req, res, next) => {
   try {
     const owner = await ownerSchema.findOne({
@@ -83,7 +85,7 @@ updateRating = async (req, res, next) => {
         const existingRating = owner.vetRating.find(rating => rating.vet_id.toString() === req.params.id);
         const increment = Number(existingRating.rate) > Number(req.body.rate) ?
           -(Number(existingRating.rate)) - Number(req.body.rate) :
-          Number(existingRating.rate) - Number(req.body.rate);
+          Number(req.body.rate) - Number(existingRating.rate);
 
         const vetRating = await VetSchema.findOneAndUpdate(
           { _id: req.params.id },
