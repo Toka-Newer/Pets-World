@@ -16,6 +16,8 @@ const KeeperBookingRoute = require("./routes/Keeper/KeeperBookingRoute");
 const OwnerRoute = require("./routes/Owner/ownerRoute");
 const PetsRoute = require("./routes/Pets/petsRoute");
 
+
+
 ////// please don't change anything and use the middlewores //////
 
 //connect to database
@@ -47,7 +49,7 @@ app.use(VetAppointmentsRoute);
 app.use(KeeperAppointmentssRoute);
 app.use(registerRoute);
 app.use(loginRoute);
-app.use(authorizationMW);
+// app.use(authorizationMW);
 app.use(VetRoute);
 app.use(VetBookingRoute);
 app.use(KeeperRoute);
