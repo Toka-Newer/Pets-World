@@ -22,6 +22,9 @@
                 *ngIf="firstFormGroup.get('firstName')?.touched && firstFormGroup.get('firstName')?.errors?.['containsNumber']">
                 *First Name must be char only.
               </mat-error>
+              <!-- <div *ngIf="firstFormGroup.get('firstName')?.errors?.serverError">
+                {{ errorMessages.firstName }}
+              </div> -->
             </mat-form-field>
           </div>
           <!-- Last Name -->
@@ -160,7 +163,7 @@
         <div class="col-md-12">
           <mat-form-field class="w-100 pb-3">
             <mat-label>Role</mat-label>
-            <mat-select formControlName="role">
+            <mat-select (valueChange)="selectRole($event)" formControlName="role">
               <mat-option *ngFor="let option of roleOptions" [value]="option">
                 {{ option }}
               </mat-option>
@@ -286,7 +289,7 @@
           </div>
         </div>
         <!-- Vet role -->
-        <div *ngIf="secondFormGroup.value.role === 'vet'">
+        <div formGroupName="vet" *ngIf="secondFormGroup.value.role === 'vet'">
           <div class="row">
             <div class="col-md-6">
               <mat-form-field class="w-100 pb-2">
@@ -295,7 +298,7 @@
 
                 <mat-error *ngIf="
 
-                  secondFormGroup.get('cost')?.touched && secondFormGroup.get('cost')?.errors?.['required']
+                  secondFormGroup.get('vet')?.get('cost')?.touched && secondFormGroup.get('vet')?.get('cost')?.errors?.['required']
                 ">
                   Cost is required.
                 </mat-error>
@@ -309,7 +312,7 @@
 
                 <mat-error *ngIf="
 
-                  secondFormGroup.get('experience')?.touched && secondFormGroup.get('experience')?.errors?.['required']
+                  secondFormGroup.get('vet')?.get('experience')?.touched && secondFormGroup.get('vet')?.get('experience')?.errors?.['required']
                 ">
                   Experience is required.
                 </mat-error>
@@ -325,8 +328,8 @@
               <input type="text" readonly matInput formControlName="vetLicense" />
               <input type="file" multiple hidden #vetHiddenInput (change)="onVetLicenseChange($event)"
                 accept="image/*" />
-              <mat-error *ngIf="secondFormGroup.get('vetLicense')?.invalid &&
-                                secondFormGroup.get('vetLicense')?.touched && secondFormGroup.get('vetLicense')?.errors?.['required']
+              <mat-error *ngIf="secondFormGroup.get('vet')?.get('vetLicense')?.invalid &&
+                                secondFormGroup.get('vet')?.get('vetLicense')?.touched && secondFormGroup.get('vet')?.get('vetLicense')?.errors?.['required']
                               ">Vet Image is required.</mat-error>
             </mat-form-field>
             <!-- Description -->
@@ -341,7 +344,8 @@
 
         <div class="text-end">
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button [disabled]="!secondFormGroup.valid" matStepperNext>
+          <!-- -->
+          <button [disabled]="!secondFormGroup.valid" (click)="test()" mat-button matStepperNext>
             Next
           </button>
         </div>
