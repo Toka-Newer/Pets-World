@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
   genderOptions: string[] = ['male', 'female'];
   roleOptions: string[] = ['owner', 'vet'];
   petTypeOptions: string[] = ['dog', 'cat', 'bird', 'turtle'];
-  errorMessages: string[] = [];
+  errorMessages: { [key: string]: string } = {};
   file_store: File[] = [];
   constructor(
     private _formBuilder: FormBuilder,
@@ -58,15 +58,15 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       firstName: [
-        '',
+        'alaa',
         [Validators.required, Validators.minLength(3), this.noNumberValidator],
       ],
       lastName: [
-        '',
+        'nassar',
         [Validators.required, Validators.minLength(3), this.noNumberValidator],
       ],
       email: [
-        '',
+        'alaa' + Math.random() + '@gmail.com',
         [
           Validators.required,
           Validators.email,
@@ -74,22 +74,24 @@ export class RegisterComponent implements OnInit {
         ],
       ],
       phone: [
-        '',
+        '01000000000',
         [Validators.required, Validators.pattern('^01[0-2]{1}[0-9]{8}$')],
       ],
-      password: ['', [Validators.required, Validators.minLength(7)]],
-      retypePassword: ['', Validators.required],
+      password: ['1234567', [Validators.required, Validators.minLength(7)]],
+      retypePassword: ['1234567', Validators.required],
     });
 
     this.secondFormGroup = this._formBuilder.group({
-      gender: ['', Validators.required],
+      gender: ['male', Validators.required],
       role: ['', Validators.required],
       pets: this._formBuilder.array([]),
-      cost: ['', Validators.required],
-      experience: ['', Validators.required],
-      description: [''],
       userImage: ['', Validators.required], // Control for user image
-      vetLicense: ['', Validators.required], // Control for vet license
+      vet: this._formBuilder.group({
+        cost: [10, Validators.required],
+        experience: [5, Validators.required],
+        description: ['dwsc'],
+        vetLicense: ['', Validators.required], // Control for vet license
+      }),
     });
 
     this.addPet();
@@ -113,26 +115,33 @@ export class RegisterComponent implements OnInit {
         role: this.secondFormGroup.get('role')?.value,
         images: [],
       };
+
       if (this.file_store[0]) {
         userdata.images.push({ image: this.file_store[0] });
       }
-
-      if (this.secondFormGroup.value.role === 'owner') {
-        userdata.pets = this.petFormArray.value;
+      if (this.file_store[1]) {
+        userdata.images.push({ license: this.file_store[1] });
+      }
+      if (userdata.role === 'owner') {
+        const petFormArray = this.secondFormGroup.get('pets') as FormArray;
+        userdata.pets = petFormArray.value;
         if (!userdata.pets || userdata.pets.length === 0) {
           console.log('Please add at least one pet.');
           return;
         }
-      } else if (this.secondFormGroup.value.role === 'vet') {
-        const costControl = this.secondFormGroup.get('cost');
-        const experienceControl = this.secondFormGroup.get('experience');
-        if (this.file_store[1]) {
-          userdata.images.push({ license: this.file_store[1] });
-        }
-        if (!costControl && !experienceControl) {
+      } else if (userdata.role === 'vet') {
+        const costControl = this.secondFormGroup.get('vet')?.get('cost');
+        const experienceControl = this.secondFormGroup
+          .get('vet')
+          ?.get('experience');
+
+        if (!costControl?.value || !experienceControl?.value) {
           console.log('Please fill in all vet information.');
           return;
         }
+        userdata.cost = costControl?.value;
+        userdata.experience = experienceControl?.value;
+        userdata.description = this.secondFormGroup.get('description')?.value;
       } else {
         console.log('Invalid role selected.');
         return;
@@ -144,19 +153,16 @@ export class RegisterComponent implements OnInit {
         },
         error: (err) => {
           console.error(err);
-          if (err.status === 400 && err.error && err.error.errors) {
-            // If the backend returns validation errors, update the form controls with the error messages
-            const errorMessages = err.error.errors;
+          const errorMessages = err.error.errors;
 
-            Object.keys(errorMessages).forEach((field) => {
-              const formControl =
-                this.firstFormGroup.get(field) ||
-                this.secondFormGroup.get(field);
-              if (formControl) {
-                formControl.setErrors({ serverError: errorMessages[field] });
-              }
-            });
-          }
+          Object.keys(errorMessages).forEach((field) => {
+            const formControl =
+              this.firstFormGroup.get(field) || this.secondFormGroup.get(field);
+            if (formControl) {
+              formControl.setErrors({ serverError: errorMessages[field] });
+              this.errorMessages[field] = errorMessages[field]; // Store the error message for display
+            }
+          });
         },
       });
     } else {
@@ -167,12 +173,12 @@ export class RegisterComponent implements OnInit {
   // --------add and remove pets --------
   addPet() {
     const petGroup = this._formBuilder.group({
-      name: ['', [Validators.required, this.noNumberValidator]],
-      type: ['', Validators.required],
-      gender: ['', Validators.required],
+      name: ['pet', [Validators.required, this.noNumberValidator]],
+      type: ['cat', Validators.required],
+      gender: ['male', Validators.required],
       dateOfBirth: ['', Validators.required],
-      age: ['', Validators.required],
-      description: [''],
+      age: [14, Validators.required],
+      description: ['desc'],
     });
 
     this.petFormArray.push(petGroup);
@@ -212,22 +218,37 @@ export class RegisterComponent implements OnInit {
     if (files && files.length > 0) {
       const count = files.length > 1 ? `(+${files.length - 1} files)` : '';
       const fileName = files[0].name;
-      this.secondFormGroup.controls['vetLicense'].patchValue(
-        `${fileName}${count}`
-      );
+      this.secondFormGroup
+        .get('vet')
+        ?.get('vetLicense')
+        ?.patchValue(`${fileName}${count}`);
       this.file_store[1] = files[0];
       if (files.length > 1) {
         const fileName2 = files[1].name;
-        this.secondFormGroup.controls['userImage'].patchValue(
-          `${fileName2}${count}`
-        );
+        this.secondFormGroup
+          .get('vet')
+          ?.get('userImage')
+          ?.patchValue(`${fileName2}${count}`);
         this.file_store[0] = files[1];
       }
       console.log(this.file_store);
     } else {
-      this.secondFormGroup.controls['userImage'].patchValue('');
-      this.secondFormGroup.controls['vetLicense'].patchValue('');
+      this.secondFormGroup.get('vet')?.get('userImage')?.patchValue('');
+      this.secondFormGroup.get('vet')?.get('vetLicense')?.patchValue('');
       this.file_store = [];
+    }
+  }
+
+  test() {
+    console.log(this.secondFormGroup);
+  }
+  selectRole(value: any) {
+    if (value === 'vet') {
+      this.secondFormGroup.controls['pets'].disable();
+      this.secondFormGroup.controls['vet'].enable();
+    } else {
+      this.secondFormGroup.controls['pets'].enable();
+      this.secondFormGroup.controls['vet'].disable();
     }
   }
 
