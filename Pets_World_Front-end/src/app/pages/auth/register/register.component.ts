@@ -195,12 +195,12 @@ export class RegisterComponent implements OnInit {
   // --------add and remove pets --------
   addPet() {
     const petGroup = this._formBuilder.group({
-      name: ['pet', [Validators.required, this.noNumberValidator]],
-      type: ['cat', Validators.required],
-      gender: ['male', Validators.required],
+      name: ['', [Validators.required, this.noNumberValidator]],
+      type: ['', Validators.required],
+      gender: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
-      age: [14, Validators.required],
-      description: ['desc'],
+      age: [, Validators.required],
+      description: [''],
     });
 
     this.petFormArray.push(petGroup);

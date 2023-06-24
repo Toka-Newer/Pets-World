@@ -19,7 +19,6 @@ const OwnerSchema = mongoose.Schema(
         rate: { type: Number, max: 5 },
       },
     ],
-    
     keeperRating: [
       {
         keeper_id: {
@@ -32,7 +31,7 @@ const OwnerSchema = mongoose.Schema(
     ],
   },
   { timestamps: true },
-  
+
 );
 
 const Owner = mongoose.model("Owner", OwnerSchema);
