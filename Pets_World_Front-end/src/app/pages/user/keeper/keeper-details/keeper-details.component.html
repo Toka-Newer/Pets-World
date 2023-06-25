@@ -1,1 +1,139 @@
-<p>keeper-details works!</p>
+<div style="background-color: #f5f8fa;">
+
+  <div class="container py-5">
+    <div class="row">
+
+      <div class="col-md-8">
+        <div class="card mb-3 w-100 border-0 py-5 px-3">
+          <div class="container">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <figure>
+                  <img [src]="keeperImage" class="img-fluid w-100" style="height: 270px;" alt="...">
+                </figure>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body px-4">
+                  <small class="text-secondary text-uppercase fw-semibold">Keeper</small>
+                  <h1 class="card-title text-capitalize fs-2 mt-1">
+                    {{ keeperData?.owner_id?.user_id?.firstName }} {{ keeperData?.owner_id?.user_id?.lastName }}
+                  </h1>
+
+                  <div class="mb-2">
+                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
+                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
+                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
+                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
+                    <i class="fas fa-star me-1" style="color: #ddd;"></i>
+                    <small class="text-muted fw-semibold">(145)</small>
+                  </div>
+
+                  <div class="card-text">
+                    <ul class="list-group">
+                      <li class="list-group-item border-0 px-0">
+                        <h6 class="fs-6 mb-1">Address</h6>
+                        2726 Shinn Street, New York
+                      </li>
+                      <li class="list-group-item border-0 px-0">
+                        <h6 class="fs-6 mb-1">Phone</h6>
+                        <a [href]="'tel:+20' + keeperData?.owner_id?.user_id?.phone">+02 {{
+                          keeperData?.owner_id?.user_id?.phone }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="p-2">
+              <div class="row my-3">
+                <div class="col-md-1 text-center">
+                  <i class="fa-regular fa-circle-user fs-2 text-secondary"></i>
+                </div>
+                <div class="col-md-11">
+                  <h3 class="fs-4">Introducing</h3>
+                  <p class="card-text text-secondary fs-6 lh-base">
+                    {{ keeperData?.description }}
+                  </p>
+                </div>
+              </div>
+              <hr class="my-5">
+              <div class="row my-3">
+                <div class="col-md-1 text-center">
+                  <i class="fa-regular fa-file-lines fs-2 text-secondary"></i>
+                </div>
+                <div class="col-md-11">
+                  <h3 class="fs-4">Years of Experience</h3>
+                  <p class="card-text text-secondary fs-5 lh-base">
+                    {{ keeperData?.experience }} Years
+                  </p>
+                </div>
+              </div>
+              <hr class="my-5">
+              <div class="row my-3">
+                <div class="col-md-1 text-center">
+                  <i class="fa-solid fa-money-bills fs-2 text-secondary"></i>
+                </div>
+                <div class="col-md-11">
+                  <h3 class="fs-4">Examination Price</h3>
+                  <p class="card-text text-secondary fs-5 lh-base">
+                    {{ keeperData?.cost | currency }}
+                  </p>
+                </div>
+              </div>
+
+              <hr class="my-5">
+              <div class="row my-3">
+                <div class="col-md-1 text-center">
+                  <i class="fa-regular fa-calendar-check fs-2 text-secondary"></i>
+                </div>
+                <div class="col-md-11">
+                  <h3 class="fs-4">Book An Appointment</h3>
+                  <p class="card-text text-secondary fs-5 lh-base">
+                    <!-- <mat-form-field>
+                      <mat-label>Select an option</mat-label>
+                      <mat-select>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                      </mat-select>
+                    </mat-form-field> -->
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+        <div *ngIf="keeperAppointments?.length != 0; else show" class="card border-0 position-sticky top-0 py-5 px-4"
+          [ngClass]="{'sticky-element': isSticky}">
+          <div class="text-center">
+            <h3 class="fs-3 fw-normal">Working Hours</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, hic sunt. Quidem, dolore.</p>
+          </div>
+          <div>
+            <ul class="list-group list-group-flush">
+              <li *ngFor="let appointment of keeperAppointments" class="list-group-item d-flex justify-content-between">
+                {{appointment?.day}}: <span>{{appointment?.start_time}} - {{appointment?.end_time}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <ng-template #show>
+          <div class="card border-0 position-sticky top-0 py-5 px-4" [ngClass]="{'sticky-element': isSticky}">
+            <p class="text-center fs-4 lh-base text-danger">
+              <span class="text-capitalize">
+                {{ keeperData?.owner_id?.user_id?.firstName + " " + keeperData?.owner_id?.user_id?.lastName}}</span>
+              isn't avaliable at this time.
+            </p>
+          </div>
+        </ng-template>
+      </div>
+
+    </div>
+  </div>
+</div>

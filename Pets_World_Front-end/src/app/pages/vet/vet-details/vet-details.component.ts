@@ -6,11 +6,6 @@ import { DatePipe } from '@angular/common';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
 import { API_URL } from '../../../core/services/environment/environment'
 
-interface Animal {
-  name: string;
-  sound: string;
-}
-
 @Component({
   selector: 'app-vet-details',
   templateUrl: './vet-details.component.html',

@@ -22,6 +22,22 @@ getKeeperAppointmentsById = async (req, res, next) => {
   }
 };
 
+getKeeperLastAppointmentsById = async (req, res, next) => {
+  try {
+    let startOfWeek = new Date();
+    let endOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate());
+    endOfWeek.setDate(startOfWeek.getDate() + 7);
+    const keeperAppointments = await KeeperAppointmentSchema.find({
+      keeper_id: req.params.id,
+      day: { $gte: startOfWeek, $lte: endOfWeek },
+    });
+    return res.status(200).json(keeperAppointments);
+  } catch (err) {
+    next(err);
+  }
+};
+
 addAppointment = async (req, res, next) => {
   try {
     const appointment = new KeeperAppointmentSchema({
@@ -75,6 +91,7 @@ deleteAppointment = async (req, res, next) => {
 module.exports = {
   getKeeperAppointments,
   getKeeperAppointmentsById,
+  getKeeperLastAppointmentsById,
   addAppointment,
   updateAppointment,
   deleteAppointment,

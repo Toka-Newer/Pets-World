@@ -4,10 +4,13 @@ const ownerSchema = mongoose.model("Owner");
 
 getKeeperById = async (req, res, next) => {
   try {
-    const keeper = await KeeperSchema.find({
+    const keeper = await KeeperSchema.findOne({
       _id: req.params.id,
     }).populate({
       path: "owner_id",
+      populate: {
+        path: "user_id",
+      },
     });
     res.status(200).json(keeper);
   } catch (err) {
