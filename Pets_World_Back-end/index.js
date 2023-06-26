@@ -39,8 +39,12 @@ mongoose
 app.use((req, res, next) => {
   next();
 });
-app.use(express.json());
 app.use(cors());
+// app.use(cors({
+//   origin: 'http://localhost:4200' // Replace with your Angular app's URL
+// }));
+
+app.use(express.json());
 app.use("/assets", express.static("assets"));
 
 //  middelware layers of routing and authentication

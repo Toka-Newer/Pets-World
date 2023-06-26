@@ -5,6 +5,33 @@ import { Component, HostListener } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
 import { API_URL } from '../../../core/services/environment/environment'
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import Swal from 'sweetalert2';
+
+interface Appointment {
+  _id: String,
+  vet_id: String,
+  day: String,
+  start_time: String,
+  end_time: String,
+  number_of_clients: Number,
+  dayAppiontment: String
+}
+
+interface AddAppointment {
+  appointment_id: String,
+  vet_id: String,
+  owner_id: String,
+  pet_id: String,
+  day: String,
+}
 
 @Component({
   selector: 'app-vet-details',
@@ -19,7 +46,16 @@ export class VetDetailsComponent {
   pets: any;
   vetBookingData: any;
   vetImage: any;
-  constructor(private vetService: VetService,
+  bookingFormGroup!: FormGroup;
+  addAppointment: AddAppointment = {
+    appointment_id: '',
+    vet_id: '',
+    owner_id: '',
+    pet_id: '',
+    day: ''
+  };
+  constructor(private _formBuilder: FormBuilder,
+    private vetService: VetService,
     private vetAppointmentService: VetAppointmentService,
     private datePipe: DatePipe,
     private petsService: PetsService,
@@ -32,6 +68,11 @@ export class VetDetailsComponent {
     this.getVetAppointments("648dd6c55a2fb5c9b45df45b");
     this.getPetsByOwnerId("648f9646bd39fe8c0527ee4f");
     // this.getVetBookingData("648f98130dcac62b73ca2f62");
+
+    this.bookingFormGroup = this._formBuilder.group({
+      pet: ['', Validators.required],
+      appointment: ['', Validators.required],
+    });
   }
 
   getVetData(id: string) {
@@ -50,9 +91,11 @@ export class VetDetailsComponent {
     this.vetAppointmentService.getVetAppointment(id).subscribe(
       (data: any) => {
         this.vetAppointments = data.map((appointment: any) => {
-          appointment.day = this.datePipe.transform(appointment.day, 'EEEE');
+          appointment.dayAppiontment = this.datePipe.transform(appointment.day, 'EEEE');
           appointment.start_time = this.datePipe.transform(appointment.start_time, 'h:mm a');
           appointment.end_time = this.datePipe.transform(appointment.end_time, 'h:mm a');
+          // Extracting date portion from the day value
+          appointment.day = appointment.day.split('T')[0];
           return appointment;
         });
         console.log(this.vetAppointments);
@@ -92,6 +135,50 @@ export class VetDetailsComponent {
       this.isSticky = true;
     } else {
       this.isSticky = false;
+    }
+  }
+
+  submitForm() {
+    if (this.bookingFormGroup.valid) {
+      const dayFilter = this.vetAppointments.find((obj: Appointment) => obj._id === this.bookingFormGroup.value.appointment).day;
+
+      if (dayFilter) {
+
+        this.addAppointment = {
+          appointment_id: this.bookingFormGroup.value.appointment,
+          vet_id: "648dd6c55a2fb5c9b45df45b",
+          owner_id: "648f9646bd39fe8c0527ee4f",
+          pet_id: this.bookingFormGroup.value.pet,
+          day: dayFilter
+        }
+
+        this.vetBookingService.addVetBooking(this.addAppointment).subscribe(
+          (data: any) => {
+            console.log(data)
+            Swal.fire({
+              title: 'Success!',
+              text: 'Booking done successfully',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              // Handle the result or perform additional actions
+            });
+          },
+          (error: any) => {
+            Swal.fire({
+              title: 'Error!',
+              text: `${error.error.message}`,
+              icon: 'error',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              // Handle the result or perform additional actions
+            });
+          }
+        );
+
+      }
+    } else {
+      console.log('Please fill in all required fields.');
     }
   }
 

@@ -88,16 +88,55 @@
                 </div>
                 <div class="col-md-11">
                   <h3 class="fs-4">Book An Appointment</h3>
-                  <p class="card-text text-secondary fs-5 lh-base">
-                    <!-- <mat-form-field>
-                      <mat-label>Select an option</mat-label>
-                      <mat-select>
-                        <mat-option value="option1">Option 1</mat-option>
-                        <mat-option value="option2">Option 2</mat-option>
-                        <mat-option value="option3">Option 3</mat-option>
-                      </mat-select>
-                    </mat-form-field> -->
-                  </p>
+                  <form [formGroup]="bookingFormGroup" class="pt-3">
+                    <div class="row">
+                      <!-- Pets -->
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100 pb-3">
+                          <mat-label>Pet</mat-label>
+                          <mat-select formControlName="pet">
+                            <mat-option *ngFor="let option of pets" [value]="option._id">
+                              {{ option.name }}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="
+                          bookingFormGroup.get('pet')?.invalid &&
+                          bookingFormGroup.get('pet')?.touched &&
+                          bookingFormGroup.get('pet')?.errors?.['required']">
+                            Pet is required.
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6 form-field-group">
+                        <mat-form-field class="w-100 pb-3">
+                          <mat-label>Appointment</mat-label>
+                          <mat-select formControlName="appointment">
+                            <mat-option class="" *ngFor="let option of vetAppointments" [value]="option._id">
+                              <div class="d-flex justify-content-between">
+                                <p>
+                                  <span>{{ option.dayAppiontment }}</span> - <span>{{ option.start_time }}</span>
+                                </p>
+                              </div>
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="
+                          bookingFormGroup.get('appointment')?.invalid &&
+                          bookingFormGroup.get('appointment')?.touched &&
+                          bookingFormGroup.get('appointment')?.errors?.['required']">
+                            Appointment is required.
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="text-end">
+                      <button mat-button color="primary" [disabled]="bookingFormGroup.invalid" (click)="submitForm()">
+                        Submit
+                      </button>
+                    </div>
+
+                  </form>
                 </div>
               </div>
 
@@ -117,7 +156,7 @@
           <div>
             <ul class="list-group list-group-flush">
               <li *ngFor="let appointment of vetAppointments" class="list-group-item d-flex justify-content-between">
-                {{appointment?.day}}: <span>{{appointment?.start_time}} - {{appointment?.end_time}}</span>
+                {{appointment?.dayAppiontment}}: <span>{{appointment?.start_time}} - {{appointment?.end_time}}</span>
               </li>
             </ul>
           </div>

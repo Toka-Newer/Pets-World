@@ -5,7 +5,14 @@ import { API_URL } from '../../../../core/services/environment/environment'
 import { KeeperService } from 'src/app/core/services/user/keeper/keeperService/keeper.service';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import { KeeperBookingService } from 'src/app/core/services/user/keeper/keeperBooking/keeper-booking.service';
-
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-keeper-details',
@@ -20,7 +27,9 @@ export class KeeperDetailsComponent {
   pets: any;
   keeperBookingData: any;
   keeperImage: any;
-  constructor(private keeperService: KeeperService,
+  bookingFormGroup!: FormGroup;
+  constructor(private _formBuilder: FormBuilder,
+    private keeperService: KeeperService,
     private keeperAppointmentService: KeeperAppointmentService,
     private datePipe: DatePipe,
     private petsService: PetsService,
@@ -33,6 +42,11 @@ export class KeeperDetailsComponent {
     this.getKeeperAppointments("649794f8999ea0fe2cd3d9ef");
     this.getPetsByOwnerId("648f9646bd39fe8c0527ee4f");
     // this.getKeeperBookingData("648f98130dcac62b73ca2f62");
+
+    this.bookingFormGroup = this._formBuilder.group({
+      pet: ['', Validators.required],
+      appointment: ['', Validators.required],
+    });
   }
 
   getkeeperData(id: string) {
