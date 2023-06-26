@@ -88,7 +88,8 @@
                 </div>
                 <div class="col-md-11">
                   <h3 class="fs-4">Book An Appointment</h3>
-                  <form [formGroup]="bookingFormGroup" class="pt-3">
+                  <form [formGroup]="bookingFormGroup" class="pt-3"
+                    *ngIf="vetAppointments?.length != 0; else noAppointment">
                     <div class="row">
                       <!-- Pets -->
                       <div class="col-md-6">
@@ -137,6 +138,15 @@
                     </div>
 
                   </form>
+                  <ng-template #noAppointment>
+                    <div class="card border-0 position-sticky top-0 px-4" [ngClass]="{'sticky-element': isSticky}">
+                      <p class="fs-5 lh-base text-danger">
+                        <span class="text-capitalize">
+                          You can't book an appointment right now
+                        </span>
+                      </p>
+                    </div>
+                  </ng-template>
                 </div>
               </div>
 
