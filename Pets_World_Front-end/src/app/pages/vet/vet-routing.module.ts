@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { VetDetailsComponent } from './vet-details/vet-details.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
+import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,9 @@ const routes: Routes = [
   },
   {
     path: 'schedule', component: VetScheduleComponent
+  },
+  {
+    path: 'appointments', component: VetAppointmentsComponent
   }
 ];
 

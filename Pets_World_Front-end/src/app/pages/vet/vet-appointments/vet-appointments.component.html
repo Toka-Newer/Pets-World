@@ -1,0 +1,23 @@
+<h1 class="text-center my-5">Appointments</h1>
+<section class="container">
+  <div class="row">
+    <div *ngFor="let Appointment of Appointments" class="p-3 col-md-3">
+      <article class="appointment">
+        <h2 class="text-capitalize">{{ Appointment.day }}</h2>
+        <h2 class="text-capitalize">
+          {{ Appointment.start_time }} to {{ Appointment.end_time }}
+        </h2>
+        <h2 class="text-capitalize">
+          Clients left: {{ Appointment.number_of_clients }}
+        </h2>
+        <button class="btn btn-primary m-2">Edit</button>
+        <button
+          class="btn btn-danger"
+          (click)="deleteVetAppointment(Appointment._id)"
+        >
+          Delete
+        </button>
+      </article>
+    </div>
+  </div>
+</section>
