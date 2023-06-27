@@ -22,6 +22,18 @@ getKeeperAppointmentsById = async (req, res, next) => {
   }
 };
 
+getKeeperLastAppointmentsById = async (req, res, next) => {
+  try {
+    const keeperAppointments = await KeeperAppointmentSchema.findOne({
+      keeper_id: req.params.id,
+    }).sort({ createdAt: -1 })
+      .exec();
+    return res.status(200).json(keeperAppointments);
+  } catch (err) {
+    next(err);
+  }
+};
+
 addAppointment = async (req, res, next) => {
   try {
     const appointment = new KeeperAppointmentSchema({
@@ -75,6 +87,7 @@ deleteAppointment = async (req, res, next) => {
 module.exports = {
   getKeeperAppointments,
   getKeeperAppointmentsById,
+  getKeeperLastAppointmentsById,
   addAppointment,
   updateAppointment,
   deleteAppointment,

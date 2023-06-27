@@ -7,17 +7,16 @@ import { VetScheduleService } from 'src/app/core/services/vet/vetSchedule/vet-sc
   styleUrls: ['./vet-schedule.component.css'],
 })
 export class VetScheduleComponent {
-  vetSchedule:any;
-  filter:any=
-  {
-    vet_id:'649083094a2f463c76c5153b',
-    day:'2023-06-25'
-  }
+  vetSchedule: any;
+  filter: any =
+    {
+      vet_id: '648dd6c55a2fb5c9b45df45b',
+      day: '2023-06-25'
+    }
   constructor(private _vetSchedule: VetScheduleService) {
 
   }
-  ngOnInit()
-  {
+  ngOnInit() {
     this.getVetData();
   }
 

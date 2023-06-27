@@ -9,8 +9,12 @@ keeperRoute.route("/keepers/:id")
     .get(keeperValidation.getKeeperByIdValidator,
         checkValidation,
         keeperController.getKeeperById)
-        keeperRoute.route("/keepers")
-        .get(keeperController.getAllKeeprs)
+    .patch(keeperValidation.getKeeperByIdValidator,
+        checkValidation,
+        keeperController.updateRating)
+
+keeperRoute.route("/keepers")
+    .get(keeperController.getAllKeeprs)
 module.exports = keeperRoute;
 
 

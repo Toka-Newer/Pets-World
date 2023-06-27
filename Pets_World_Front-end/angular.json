@@ -94,12 +94,16 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/sweetalert2/dist/sweetalert2.min.css"
             ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "c1000d8d-507e-411b-ba05-68df87e54774"
   }
 }

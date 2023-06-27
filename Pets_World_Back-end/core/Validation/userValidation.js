@@ -63,3 +63,15 @@ module.exports.deleteUserValidator = [
 module.exports.getUserByIdValidator = [
   param("id").isMongoId().withMessage("The User id is doesn't exist"),
 ];
+
+module.exports.updateUserPasswordValidator = [
+  param("id").isMongoId().withMessage("The User id is doesn't exist"),
+  body("password")
+    .isString()
+    .isLength({ min: 7 })
+    .withMessage("password  must be string and more than 7 chars"),
+  body("newPassword")
+    .isString()
+    .isLength({ min: 7 })
+    .withMessage("password  must be string and more than 7 chars"),
+];

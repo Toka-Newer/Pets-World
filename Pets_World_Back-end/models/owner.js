@@ -30,7 +30,8 @@ const OwnerSchema = mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
+
 );
 
 const Owner = mongoose.model("Owner", OwnerSchema);

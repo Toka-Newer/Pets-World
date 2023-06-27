@@ -9,7 +9,7 @@
             <div class="row g-0">
               <div class="col-md-4">
                 <figure>
-                  <img [src]="vetImage" class="img-fluid" alt="...">
+                  <img [src]="vetImage" class="img-fluid w-100" style="height: 270px;" alt="...">
                 </figure>
               </div>
               <div class="col-md-8">
@@ -88,19 +88,66 @@
                 </div>
                 <div class="col-md-11">
                   <h3 class="fs-4">Book An Appointment</h3>
-                  <p class="card-text text-secondary fs-5 lh-base">
-                    <!-- <mat-form-field>
-                      <mat-label>Favorite animal</mat-label>
-                      <mat-select [formControl]="animalControl" required>
-                        <mat-option>--</mat-option>
-                        <mat-option *ngFor="let animal of animals" [value]="animal">
-                          {{animal.name}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
-                      <mat-hint>{{animalControl.value?.sound}}</mat-hint>
-                    </mat-form-field> -->
-                  </p>
+                  <form [formGroup]="bookingFormGroup" class="pt-3"
+                    *ngIf="vetAppointments?.length != 0; else noAppointment">
+                    <div class="row">
+                      <!-- Pets -->
+                      <div class="col-md-6">
+                        <mat-form-field class="w-100 pb-3">
+                          <mat-label>Pet</mat-label>
+                          <mat-select formControlName="pet">
+                            <mat-option *ngFor="let option of pets" [value]="option._id">
+                              {{ option.name }}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="
+                          bookingFormGroup.get('pet')?.invalid &&
+                          bookingFormGroup.get('pet')?.touched &&
+                          bookingFormGroup.get('pet')?.errors?.['required']">
+                            Pet is required.
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6 form-field-group">
+                        <mat-form-field class="w-100 pb-3">
+                          <mat-label>Appointment</mat-label>
+                          <mat-select formControlName="appointment">
+                            <mat-option class="" *ngFor="let option of vetAppointments" [value]="option._id">
+                              <div class="d-flex justify-content-between">
+                                <p>
+                                  <span>{{ option.day | date:'EEEE' }}</span> -
+                                  <span>{{ option.start_time | date: 'h:mm a' }}</span>
+                                </p>
+                              </div>
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="
+                          bookingFormGroup.get('appointment')?.invalid &&
+                          bookingFormGroup.get('appointment')?.touched &&
+                          bookingFormGroup.get('appointment')?.errors?.['required']">
+                            Appointment is required.
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="text-end">
+                      <button mat-button color="primary" [disabled]="bookingFormGroup.invalid" (click)="submitForm()">
+                        Submit
+                      </button>
+                    </div>
+
+                  </form>
+                  <ng-template #noAppointment>
+                    <div class="card border-0 position-sticky top-0 px-4" [ngClass]="{'sticky-element': isSticky}">
+                      <p class="fs-5 lh-base text-danger">
+                        <span class="text-capitalize">
+                          You can't book an appointment right now
+                        </span>
+                      </p>
+                    </div>
+                  </ng-template>
                 </div>
               </div>
 
@@ -120,7 +167,8 @@
           <div>
             <ul class="list-group list-group-flush">
               <li *ngFor="let appointment of vetAppointments" class="list-group-item d-flex justify-content-between">
-                {{appointment?.day}}: <span>{{appointment?.start_time}} - {{appointment?.end_time}}</span>
+                {{appointment?.day | date: 'EEEE'}}: <span>{{appointment?.start_time | date: 'h:mm a'}} -
+                  {{appointment?.end_time | date: 'h:mm a'}}</span>
               </li>
             </ul>
           </div>
