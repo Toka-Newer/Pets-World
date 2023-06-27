@@ -6,7 +6,10 @@ const {
   addAppointment,
   updateAppointment,
   deleteAppointment,
+  getKeeperLastAppointmentsById,
 } = require("../../../controllers/Keeper/KeeperAppointment/KeeperAppointmentController");
+const keeperAppointmentValidation = require("./../../../core/Validation/KeeperAppointmentValidation");
+const checkValidation = require("./../../../core/Validation/checkValidation");
 
 KeeperAppointmentsRoute.route("/keeper/appointments")
   .get(getKeeperAppointments)
@@ -16,5 +19,9 @@ KeeperAppointmentsRoute.route("/keeper/appointments")
 KeeperAppointmentsRoute.route("/keeper/appointments/:id")
   .get(getKeeperAppointmentsById)
   .post(addAppointment);
+
+KeeperAppointmentsRoute.route("/keeper/lastAppointments/:id")
+  .get(keeperAppointmentValidation.getKeeperAppointmentByKeeperIdValidator,
+    getKeeperLastAppointmentsById)
 
 module.exports = KeeperAppointmentsRoute;

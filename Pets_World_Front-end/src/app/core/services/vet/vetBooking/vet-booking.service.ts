@@ -22,9 +22,16 @@ export class VetBookingService {
     return this.http.get(this.base_url, { headers,params });
   }
 
-  deleteVetBooking(id:any)
-  {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
-    return this.http.delete(this.base_url+`/${id}`,{headers});
+  addVetBooking(data: any) {
+    const headers = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('Authorization', `Bearer ${this.token}`);
+    return this.http.post(this.base_url, JSON.stringify(data), { headers });
   }
+
+    deleteVetBooking(id:any)
+    {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
+      return this.http.delete(this.base_url+`/${id}`,{headers});
+    }
 }

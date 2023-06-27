@@ -9,6 +9,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,14 @@ import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.co
   imports: [
     CommonModule,
     VetRoutingModule,
-    MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class VetModule { }

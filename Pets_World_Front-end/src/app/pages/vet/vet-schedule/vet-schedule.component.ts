@@ -21,8 +21,7 @@ export class VetScheduleComponent {
   constructor(private _VetBooking: VetBookingService,private datePipe: DatePipe) {
 
   }
-  ngOnInit()
-  {
+  ngOnInit() {
     this.getVetData();
   }
 

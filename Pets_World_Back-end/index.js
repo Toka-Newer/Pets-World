@@ -14,6 +14,8 @@ const VetBookingRoute = require("./routes/Vet/VetBookingRoute");
 const KeeperRoute = require("./routes/Keeper/KeeperRoute");
 const KeeperBookingRoute = require("./routes/Keeper/KeeperBookingRoute");
 const OwnerRoute = require("./routes/Owner/ownerRoute");
+const PetsRoute = require("./routes/Pets/petsRoute");
+const UserRoute = require("./routes/Auth_Routes/user");
 
 ////// please don't change anything and use the middlewores //////
 
@@ -37,8 +39,12 @@ mongoose
 app.use((req, res, next) => {
   next();
 });
-app.use(express.json());
 app.use(cors());
+// app.use(cors({
+//   origin: 'http://localhost:4200' // Replace with your Angular app's URL
+// }));
+
+app.use(express.json());
 app.use("/assets", express.static("assets"));
 
 //  middelware layers of routing and authentication
@@ -47,11 +53,13 @@ app.use(KeeperAppointmentssRoute);
 app.use(registerRoute);
 app.use(loginRoute);
 app.use(authorizationMW);
+app.use(UserRoute);
 app.use(VetRoute);
 app.use(VetBookingRoute);
 app.use(KeeperRoute);
 app.use(KeeperBookingRoute);
 app.use(OwnerRoute);
+app.use(PetsRoute);
 
 //  third layer no page found
 app.use((req, res, next) => {

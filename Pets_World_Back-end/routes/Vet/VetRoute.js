@@ -18,4 +18,10 @@ vetRoute.route("/vets/:id")
     checkValidation,
     vetController.getVetById
   )
+  .patch(
+    vetValidation.getVetByIdValidator,
+    checkValidation,
+    vetController.updateRating
+  )
+
 module.exports = vetRoute;
