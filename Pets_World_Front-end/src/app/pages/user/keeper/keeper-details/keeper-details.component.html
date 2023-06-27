@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-md-11">
                   <h3 class="fs-4">Book An Appointment</h3>
-                  <form [formGroup]="bookingFormGroup" class="pt-3">
+                  <form [formGroup]="bookingFormGroup" class="pt-3" *ngIf="keeperAppointments; else noAppointment">
                     <div class="row">
                       <!-- Pets -->
                       <div class="col-md-6">
@@ -115,8 +115,8 @@
                         <mat-form-field class="w-100 pb-3">
                           <mat-label>Appointment</mat-label>
                           <mat-select formControlName="appointment">
-                            <mat-option *ngFor="let option of pets" [value]="option._id">
-                              {{ option.name }}
+                            <mat-option *ngFor="let day of days" [value]="day | date:'yyyy-MM-dd'">
+                              {{ day | date:'EEEE' }} - {{ day | date:'yyyy-MM-dd' }}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="
@@ -129,7 +129,25 @@
                       </div>
 
                     </div>
+
+                    <div class="text-end">
+                      <button mat-button color="primary" [disabled]="bookingFormGroup.invalid" (click)="submitForm()">
+                        Submit
+                      </button>
+                    </div>
+
                   </form>
+
+                  <ng-template #noAppointment>
+                    <div class="card border-0 position-sticky top-0 px-4" [ngClass]="{'sticky-element': isSticky}">
+                      <p class="fs-5 lh-base text-danger">
+                        <span class="text-capitalize">
+                          You can't book an appointment right now
+                        </span>
+                      </p>
+                    </div>
+                  </ng-template>
+
                 </div>
               </div>
 
@@ -140,7 +158,7 @@
       </div>
 
       <div class="col-md-4">
-        <div *ngIf="keeperAppointments?.length != 0; else show" class="card border-0 position-sticky top-0 py-5 px-4"
+        <div *ngIf="keeperAppointments; else show" class="card border-0 position-sticky top-0 py-5 px-4"
           [ngClass]="{'sticky-element': isSticky}">
           <div class="text-center">
             <h3 class="fs-3 fw-normal">Working Hours</h3>
@@ -148,9 +166,12 @@
           </div>
           <div>
             <ul class="list-group list-group-flush">
-              <li *ngFor="let appointment of keeperAppointments" class="list-group-item d-flex justify-content-between">
-                {{appointment?.day}}: <span>{{appointment?.start_time}} - {{appointment?.end_time}}</span>
-              </li>
+              <ng-container *ngFor="let day of days">
+                <li class="list-group-item d-flex justify-content-between">
+                  {{ day | date:'EEEE' }}:
+                  <span>{{ day | date:'yyyy-MM-dd' }}</span>
+                </li>
+              </ng-container>
             </ul>
           </div>
         </div>

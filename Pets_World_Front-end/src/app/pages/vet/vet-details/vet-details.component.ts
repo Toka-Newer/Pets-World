@@ -22,7 +22,6 @@ interface Appointment {
   start_time: String,
   end_time: String,
   number_of_clients: Number,
-  dayAppiontment: String
 }
 
 interface AddAppointment {
@@ -91,9 +90,6 @@ export class VetDetailsComponent {
     this.vetAppointmentService.getVetAppointment(id).subscribe(
       (data: any) => {
         this.vetAppointments = data.map((appointment: any) => {
-          appointment.dayAppiontment = this.datePipe.transform(appointment.day, 'EEEE');
-          appointment.start_time = this.datePipe.transform(appointment.start_time, 'h:mm a');
-          appointment.end_time = this.datePipe.transform(appointment.end_time, 'h:mm a');
           // Extracting date portion from the day value
           appointment.day = appointment.day.split('T')[0];
           return appointment;

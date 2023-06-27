@@ -116,7 +116,8 @@
                             <mat-option class="" *ngFor="let option of vetAppointments" [value]="option._id">
                               <div class="d-flex justify-content-between">
                                 <p>
-                                  <span>{{ option.dayAppiontment }}</span> - <span>{{ option.start_time }}</span>
+                                  <span>{{ option.day | date:'EEEE' }}</span> -
+                                  <span>{{ option.start_time | date: 'h:mm a' }}</span>
                                 </p>
                               </div>
                             </mat-option>
@@ -166,7 +167,8 @@
           <div>
             <ul class="list-group list-group-flush">
               <li *ngFor="let appointment of vetAppointments" class="list-group-item d-flex justify-content-between">
-                {{appointment?.dayAppiontment}}: <span>{{appointment?.start_time}} - {{appointment?.end_time}}</span>
+                {{appointment?.day | date: 'EEEE'}}: <span>{{appointment?.start_time | date: 'h:mm a'}} -
+                  {{appointment?.end_time | date: 'h:mm a'}}</span>
               </li>
             </ul>
           </div>

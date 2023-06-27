@@ -13,6 +13,23 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import Swal from 'sweetalert2';
+
+interface Appointment {
+  _id: String,
+  keeper_id: String,
+  start_time: String,
+  end_time: String,
+  number_of_pets: Number,
+}
+
+interface AddAppointment {
+  appointment_id: String,
+  keeper_id: String,
+  owner_id: String,
+  pet_id: String,
+  day: String,
+}
 
 @Component({
   selector: 'app-keeper-details',
@@ -28,6 +45,15 @@ export class KeeperDetailsComponent {
   keeperBookingData: any;
   keeperImage: any;
   bookingFormGroup!: FormGroup;
+  days: Date[] = [];
+  addAppointment: AddAppointment = {
+    appointment_id: '',
+    keeper_id: '',
+    owner_id: '',
+    pet_id: '',
+    day: ''
+  };
+
   constructor(private _formBuilder: FormBuilder,
     private keeperService: KeeperService,
     private keeperAppointmentService: KeeperAppointmentService,
@@ -65,20 +91,23 @@ export class KeeperDetailsComponent {
   getKeeperAppointments(id: string) {
     this.keeperAppointmentService.getKeeperAppointment(id).subscribe(
       (data: any) => {
-        // this.keeperAppointments = data.map((appointment: any) => {
-        //   appointment.day = this.datePipe.transform(appointment.day, 'EEEE');
-        //   appointment.start_time = this.datePipe.transform(appointment.start_time, 'h:mm a');
-        //   appointment.end_time = this.datePipe.transform(appointment.end_time, 'h:mm a');
-        //   return appointment;
-        // });
-        // console.log(this.keeperAppointments);
         this.keeperAppointments = data;
-        console.log(data)
+        this.getAppointmentDays(this.keeperAppointments)
       },
       (error: any) => {
         console.error(error);
       }
     );
+  }
+
+  getAppointmentDays(appointment: any) {
+    const startDate = new Date(appointment.start_time);
+    const endDate = new Date(appointment.end_time);
+
+    for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+      this.days.push(new Date(date));
+    }
+
   }
 
   getPetsByOwnerId(id: string) {
@@ -103,6 +132,46 @@ export class KeeperDetailsComponent {
   //     }
   //   );
   // }
+
+  submitForm() {
+    if (this.bookingFormGroup.valid) {
+      console.log(this.keeperAppointments)
+      this.addAppointment = {
+        appointment_id: this.keeperAppointments._id,
+        keeper_id: "649794f8999ea0fe2cd3d9ef",
+        owner_id: "648f9646bd39fe8c0527ee4f",
+        pet_id: this.bookingFormGroup.value.pet,
+        day: this.bookingFormGroup.value.appointment
+      }
+
+      this.keeperBookingService.addKeeperBooking(this.addAppointment).subscribe(
+        (data: any) => {
+          console.log(data)
+          Swal.fire({
+            title: 'Success!',
+            text: 'Booking done successfully',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            // Handle the result or perform additional actions
+          });
+        },
+        (error: any) => {
+          Swal.fire({
+            title: 'Error!',
+            text: `${error.error.message}`,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            // Handle the result or perform additional actions
+          });
+        }
+      );
+
+    } else {
+      console.log('Please fill in all required fields.');
+    }
+  }
 
   @HostListener('window:scroll', ['$event'])
   onScroll(event: any) {

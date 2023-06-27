@@ -24,14 +24,10 @@ getKeeperAppointmentsById = async (req, res, next) => {
 
 getKeeperLastAppointmentsById = async (req, res, next) => {
   try {
-    let startOfWeek = new Date();
-    let endOfWeek = new Date();
-    startOfWeek.setDate(startOfWeek.getDate());
-    endOfWeek.setDate(startOfWeek.getDate() + 7);
-    const keeperAppointments = await KeeperAppointmentSchema.find({
+    const keeperAppointments = await KeeperAppointmentSchema.findOne({
       keeper_id: req.params.id,
-      day: { $gte: startOfWeek, $lte: endOfWeek },
-    });
+    }).sort({ createdAt: -1 })
+      .exec();
     return res.status(200).json(keeperAppointments);
   } catch (err) {
     next(err);

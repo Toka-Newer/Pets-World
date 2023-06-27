@@ -14,4 +14,11 @@ export class KeeperBookingService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     return this.http.get(this.base_url + `/${id}`, { headers });
   }
+
+  addKeeperBooking(data: any) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${this.token}`);
+    return this.http.post(this.base_url, JSON.stringify(data), { headers });
+  }
 }
