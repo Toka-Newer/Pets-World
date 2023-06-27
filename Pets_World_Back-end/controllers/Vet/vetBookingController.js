@@ -113,6 +113,7 @@ updateVetBooking = async (req, res, next) => {
 
 deleteVetBooking = async (req, res, next) => {
   // add apppionntments count number
+  console.log(req.params.id);
   try {
     const bookingId = req.params.id;
 
