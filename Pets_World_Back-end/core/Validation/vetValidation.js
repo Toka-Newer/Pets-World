@@ -14,7 +14,7 @@ module.exports.addVetValidator = [
     .custom((value) => {
       return parseFloat(value) >= 10;
     })
-    .withMessage("experience should be numeric and 10 or more"),
+    .withMessage("cost should be numeric and 10 or more"),
   body("description")
     .optional()
     .isString()
