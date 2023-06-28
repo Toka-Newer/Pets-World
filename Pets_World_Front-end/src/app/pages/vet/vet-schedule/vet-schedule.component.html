@@ -1,6 +1,15 @@
+<div>
+  <mat-form-field>
+    <mat-label>Choose a date</mat-label>
+    <input (dateChange)="pickDay($event)" matInput [matDatepicker]="picker" />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
+
 <h1 class="text-center m-5">My Schedule</h1>
 <section class="container">
-  <table class="table">
+  <table class="table text-center">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -9,11 +18,16 @@
         <!-- <th scope="col">Pet image</th> -->
         <th scope="col">Pet name</th>
         <th scope="col">Type</th>
-        <th scope="col">gender</th>
-        <th scope="col">age</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Age</th>
+        <th scope="col">Day</th>
+        <th scope="col">...</th>
       </tr>
     </thead>
     <tbody>
+      <tr *ngIf="vetSchedule?.length == 0">
+        <td colspan="12">there is no bookings in this day</td>
+      </tr>
       <tr *ngFor="let booking of vetSchedule; let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td>
@@ -27,6 +41,12 @@
         <td>{{ booking.pet_id.type }}</td>
         <td>{{ booking.pet_id.gender }}</td>
         <td>{{ booking.pet_id.age }}</td>
+        <td>{{ booking.day }}</td>
+        <td>
+          <button (click)="deleteBooking(booking._id)" class="btn btn-danger">
+            delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

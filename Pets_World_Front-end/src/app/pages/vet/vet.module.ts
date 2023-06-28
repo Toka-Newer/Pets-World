@@ -1,31 +1,39 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { VetRoutingModule } from './vet-routing.module';
 import { HomeComponent } from './home/home.component';
 import { VetDetailsComponent } from './vet-details/vet-details.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 @NgModule({
   declarations: [
     HomeComponent,
     VetDetailsComponent,
-    VetScheduleComponent
+    VetScheduleComponent,
+    VetAppointmentsComponent,
   ],
   imports: [
     CommonModule,
     VetRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+    ButtonModule,
+    CardModule,
+  ],
 })
-export class VetModule { }
+export class VetModule {}

@@ -39,6 +39,8 @@ interface AddAppointment {
 })
 export class VetDetailsComponent {
   isSticky = false;
+  rating: number | null = null;
+  hoveredStar: number | null = null;
 
   vetData: any;
   vetAppointments: any;
@@ -93,7 +95,7 @@ export class VetDetailsComponent {
           // Extracting date portion from the day value
           appointment.day = appointment.day.split('T')[0];
           return appointment;
-        });
+        }).filter((appointment: any) => appointment.number_of_clients > 0); // Filter appointments with number_of_clients > 0
         console.log(this.vetAppointments);
       },
       (error: any) => {
@@ -125,14 +127,6 @@ export class VetDetailsComponent {
   //   );
   // }
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: any) {
-    if (window.pageYOffset > 100) { // Adjust the scroll threshold as needed
-      this.isSticky = true;
-    } else {
-      this.isSticky = false;
-    }
-  }
 
   submitForm() {
     if (this.bookingFormGroup.valid) {
@@ -178,4 +172,50 @@ export class VetDetailsComponent {
     }
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any) {
+    if (window.pageYOffset > 100) { // Adjust the scroll threshold as needed
+      this.isSticky = true;
+    } else {
+      this.isSticky = false;
+    }
+  }
+
+  getStarClass(index: number): string {
+    if (this.rating !== null && index <= this.rating) {
+      return 'active';
+    } else if (this.hoveredStar !== null && index <= this.hoveredStar) {
+      return 'hover';
+    } else {
+      return '';
+    }
+  }
+
+  hoverStar(index: number): void {
+    this.hoveredStar = index;
+  }
+
+  unhoverStar(): void {
+    this.hoveredStar = null;
+  }
+
+  rateStar(index: number): void {
+    if (this.rating === index) {
+      this.rating = null; // Unrate the star if it was already selected
+    } else {
+      this.rating = index; // Set the rating to the selected star index
+    }
+    const data = {
+      owner_id: "648f9646bd39fe8c0527ee4f",
+      rate: index
+    }
+    this.vetService.updateVetRating("648dd6c55a2fb5c9b45df45b", data).subscribe(
+      (data: any) => {
+        console.log(data)
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
 }
