@@ -93,7 +93,7 @@ export class VetDetailsComponent {
           // Extracting date portion from the day value
           appointment.day = appointment.day.split('T')[0];
           return appointment;
-        });
+        }).filter((appointment: any) => appointment.number_of_clients > 0); // Filter appointments with number_of_clients > 0
         console.log(this.vetAppointments);
       },
       (error: any) => {
