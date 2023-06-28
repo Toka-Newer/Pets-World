@@ -53,20 +53,23 @@ updateRating = async (req, res, next) => {
         // compare the rating send in body with the rating of the found owner
         const existingRating = owner.keeperRating.find(rating => rating.keeper_id.toString() === req.params.id);
 
-        const increment = Number(existingRating.rate) > Number(req.body.rate) ?
-          -(Number(existingRating.rate)) - Number(req.body.rate) :
-          Number(req.body.rate) - Number(existingRating.rate);
+        const increment = Number(existingRating.rate) > Number(req.body.rate)
+          ? -(Number(existingRating.rate) - Number(req.body.rate))
+          : Number(req.body.rate) - Number(existingRating.rate);
 
         const keeperRating = await KeeperSchema.findOneAndUpdate(
           { _id: req.params.id },
           {
-            $inc: { totalOfReviews: increment }
+            $inc:
+            {
+              totalOfReviews: increment
+            }
           },
           { new: true }
         );
 
         if (keeperRating) {
-          return res.status(404).json(keeperRating);
+          return res.status(200).json(keeperRating);
         } else {
           return res.status(200).json({ message: "can't update Keeper data rating" });
         }
@@ -86,7 +89,11 @@ updateRating = async (req, res, next) => {
         const keeperRating = await KeeperSchema.findOneAndUpdate(
           { _id: req.params.id },
           {
-            $inc: { numberOfReviews: 1, totalOfReviews: req.body.rate }
+            $inc:
+            {
+              numberOfReviews: 1,
+              totalOfReviews: req.body.rate
+            }
           },
           { new: true }
         );

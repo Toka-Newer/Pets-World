@@ -217,6 +217,18 @@ export class KeeperDetailsComponent {
     } else {
       this.rating = index; // Set the rating to the selected star index
     }
+    const data = {
+      owner_id: "648f9646bd39fe8c0527ee4f",
+      rate: index
+    }
+    this.keeperService.updateKeeperRating("649794f8999ea0fe2cd3d9ef", data).subscribe(
+      (data: any) => {
+        console.log(data)
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
   }
 
 }

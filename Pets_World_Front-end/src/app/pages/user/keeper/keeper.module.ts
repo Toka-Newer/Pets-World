@@ -12,7 +12,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 @NgModule({
-  declarations: [HomeComponent, KeeperDetailsComponent],
+  declarations: [
+    HomeComponent,
+    KeeperDetailsComponent
+  ],
   imports: [
     CommonModule,
     KeeperRoutingModule,
@@ -26,4 +29,4 @@ import { CardModule } from 'primeng/card';
     ButtonModule,
   ],
 })
-export class KeeperModule {}
+export class KeeperModule { }

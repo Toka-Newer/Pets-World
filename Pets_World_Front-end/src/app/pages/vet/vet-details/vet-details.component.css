@@ -2,3 +2,12 @@
   transform: translateY(20%);
   transition: transform 0.3s ease;
 }
+
+.fas.fa-star {
+  color: #ddd;
+}
+
+.fas.fa-star.active,
+.fas.fa-star.hover {
+  color: #ffc107;
+}

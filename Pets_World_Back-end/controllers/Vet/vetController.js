@@ -83,9 +83,9 @@ updateRating = async (req, res, next) => {
       if (ownerUpdateVetRate) {
         // compare the rating send in body with the rating of the found owner
         const existingRating = owner.vetRating.find(rating => rating.vet_id.toString() === req.params.id);
-        const increment = Number(existingRating.rate) > Number(req.body.rate) ?
-          -(Number(existingRating.rate)) - Number(req.body.rate) :
-          Number(req.body.rate) - Number(existingRating.rate);
+        const increment = Number(existingRating.rate) > Number(req.body.rate)
+          ? -(Number(existingRating.rate) - Number(req.body.rate))
+          : Number(req.body.rate) - Number(existingRating.rate);
 
         const vetRating = await VetSchema.findOneAndUpdate(
           { _id: req.params.id },
@@ -96,8 +96,9 @@ updateRating = async (req, res, next) => {
         );
 
         if (vetRating) {
-          return res.status(404).json(vetRating);
+          return res.status(200).json(vetRating);
         } else {
+          clg
           return res.status(200).json({ message: "can't update vet data rating" });
         }
 
