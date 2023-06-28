@@ -11,7 +11,6 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     const loginUrl = `${API_URL}/login`;
     const loginData = { email, password };
-
     return this.http.post(loginUrl, loginData);
   }
 }

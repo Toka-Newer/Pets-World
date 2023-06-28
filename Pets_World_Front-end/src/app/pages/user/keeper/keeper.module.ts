@@ -9,12 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 @NgModule({
-  declarations: [
-    HomeComponent,
-    KeeperDetailsComponent
-  ],
+  declarations: [HomeComponent, KeeperDetailsComponent],
   imports: [
     CommonModule,
     KeeperRoutingModule,
@@ -24,6 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+    CardModule,
+    ButtonModule,
+  ],
 })
-export class KeeperModule { }
+export class KeeperModule {}
