@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -261,9 +261,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  // test() {
-  //   console.log(this.secondFormGroup);
-  // }
   selectRole(value: any) {
     if (value === 'vet') {
       this.secondFormGroup.controls['pets'].disable();
@@ -274,39 +271,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  // onUserImageChange(event: any): void {
-  //   const files: FileList = event.target.files;
-  //   if (files && files.length > 0) {
-  //     const count = files.length > 1 ? `(+${files.length - 1} files)` : '';
-  //     const fileName = files[0].name;
-  //     this.secondFormGroup.controls['userImage'].patchValue(
-  //       `${fileName}${count}`
-  //     );
-  //     this.file_store = Array.from(files);
-  //     console.log(this.file_store);
-  //   } else {
-  //     this.secondFormGroup.controls['userImage'].patchValue('');
-  //     this.file_store = [];
-  //   }
-  // }
-
-  // onVetLicenseChange(event: any): void {
-  //   const files: FileList = event.target.files;
-  //   if (files && files.length > 0) {
-  //     const count = files.length > 1 ? `(+${files.length - 1} files)` : '';
-  //     const fileName = files[0].name;
-  //     this.secondFormGroup.controls['vetLicense'].patchValue(
-  //       `${fileName}${count}`
-  //     );
-  //     // Handle the vetLicense file as needed
-  //     this.file_store = Array.from(files);
-  //     console.log(this.file_store);
-  //   } else {
-  //     this.secondFormGroup.controls['vetLicense'].patchValue('');
-  //     // Handle the case when no vetLicense file is selected
-  //     this.file_store = [];
-  //   }
-  // }
   checkPasswords() {
     const passwordControl = this.firstFormGroup.get('password');
     const retypePasswordControl = this.firstFormGroup.get('retypePassword');
