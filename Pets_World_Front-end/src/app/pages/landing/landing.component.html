@@ -146,62 +146,106 @@
 </section>
 
 <!-- services -->
-<section class="services h-100 ">
+<section class="services pb-3 ">
   <div class="container">
     <div class=" title row justify-content-center text-center ">
       <div class="col-4 ">
         <h2 class=" py-3 text-green">Our Services</h2>
       </div>
     </div>
-    <div class="row justify-content-between align-items-center py-3">
-      <div class="card text-center p-0" style="width: 18rem;">
-        <img src="../../../assets/images/landing/service5.jpg" width="100%" class="card-img-top" alt="...">
-        <div class="card-body bg-light ">
-          <h4 class="pt-2">Dog Walking</h4>
-          <p class="text-p py-3">Nulla vel metus scelerisque ante sollicitudinlorem ipsuet commodo. Cras purus odio,
-            vestibulum in vulputate a Imperdiet
-            interdum donec eget metus auguen unc vel lorem.
-          </p>
-          <a href="#" class="btn-orange mx-auto">For Details</a>
-        </div>
-      </div>
+    <owl-carousel-o [options]="serviceOptions" class="row justify-content-between align-items-center py-3">
 
-      <div class="card text-center p-0" style="width: 18rem;">
-        <img src="../../../assets/images/landing/service1.jpg" width="100%" class="card-img-top" alt="...">
-        <div class="card-body bg-light ">
-          <h4 class="pt-2">Dog Walking</h4>
-          <p class="text-p py-3">Nulla vel metus scelerisque ante sollicitudinlorem ipsuet commodo. Cras purus odio,
-            vestibulum in vulputate a Imperdiet
-            interdum donec eget metus auguen unc vel lorem.
-          </p>
-          <a href="#" class="btn-orange mx-auto">For Details</a>
+      <ng-template carouselSlide class="my-3 col-4">
+        <div class="card text-center p-0" style="width: 24rem;">
+          <img src="../../../assets/images/landing/service5.jpg" width="100%" class="card-img-top" alt="...">
+          <div class="card-body bg-light ">
+            <h4 class="pt-2">Dog Walking</h4>
+            <p class="text-p py-3">Nulla vel metus scelerisque ante sollicitudinlorem ipsuet commodo. Cras purus odio,
+              vestibulum in vulputate a Imperdiet
+              interdum donec eget metus auguen unc vel lorem.
+            </p>
+            <a href="#" class="btn-orange mx-auto">For Details</a>
+          </div>
         </div>
-      </div>
 
-      <div class="card text-center p-0" style="width: 18rem;">
-        <img src="../../../assets/images/landing/service3.jpg" width="100%" class="card-img-top" alt="...">
-        <div class="card-body bg-light ">
-          <h4 class="pt-2">Dog Walking</h4>
-          <p class="text-p py-3">Nulla vel metus scelerisque ante sollicitudinlorem ipsuet commodo. Cras purus odio,
-            vestibulum in vulputate a Imperdiet
-            interdum donec eget metus auguen unc vel lorem.
-          </p>
-          <a href="#" class="btn-orange mx-auto">For Details</a>
-        </div>
-      </div>
+      </ng-template>
 
-      <div class="card text-center p-0" style="width: 18rem;">
-        <img src="../../../assets/images/landing/service4.jpg" width="100%" class="card-img-top" alt="...">
-        <div class="card-body bg-light ">
-          <h4 class="pt-2">Dog Walking</h4>
-          <p class="text-p py-3">Nulla vel metus scelerisque ante sollicitudinlorem ipsuet commodo. Cras purus odio,
-            vestibulum in vulputate a Imperdiet
-            interdum donec eget metus auguen unc vel lorem.
-          </p>
-          <a href="#" class="btn-orange mx-auto">For Details</a>
+      <ng-template carouselSlide class="my-3 col-4">
+        <div class="card text-center p-0" style="width: 24rem;">
+          <img src="../../../assets/images/landing/service1.jpg" width="100%" class="card-img-top" alt="...">
+          <div class="card-body bg-light ">
+            <h4 class="pt-2">Dog Walking</h4>
+            <p class="text-p py-3">Nulla vel metus scelerisque ante sollicitudinlorem ipsuet commodo. Cras purus odio,
+              vestibulum in vulputate a Imperdiet
+              interdum donec eget metus auguen unc vel lorem.
+            </p>
+            <a href="#" class="btn-orange mx-auto">For Details</a>
+          </div>
         </div>
+
+      </ng-template>
+
+      <ng-template carouselSlide class="my-3 col-4">
+        <div class="card text-center p-0" style="width: 24rem;">
+          <img src="../../../assets/images/landing/service3.jpg" width="100%" class="card-img-top" alt="...">
+          <div class="card-body bg-light ">
+            <h4 class="pt-2">Dog Walking</h4>
+            <p class="text-p py-3">Nulla vel metus scelerisque ante sollicitudinlorem ipsuet commodo. Cras purus odio,
+              vestibulum in vulputate a Imperdiet
+              interdum donec eget metus auguen unc vel lorem.
+            </p>
+            <a href="#" class="btn-orange mx-auto">For Details</a>
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template carouselSlide class="my-3 col-4">
+        <div class="card text-center p-0" style="width: 24rem;">
+          <img src="../../../assets/images/landing/service4.jpg" width="100%" class="card-img-top" alt="...">
+          <div class="card-body bg-light ">
+            <h4 class="pt-2">Dog Walking</h4>
+            <p class="text-p py-3">Nulla vel metus scelerisque ante sollicitudinlorem ipsuet commodo. Cras purus odio,
+              vestibulum in vulputate a Imperdiet
+              interdum donec eget metus auguen unc vel lorem.
+            </p>
+            <a href="#" class="btn-orange mx-auto">For Details</a>
+          </div>
+        </div>
+
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</section>
+
+<!-- footer -->
+<footer class="bg-dark text-light py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <img src="../../../assets/images/landing/logo.png" alt="Footer Logo">
+
+      </div>
+      <div class="col-lg-4">
+        <h5 class="text-orange fs-5">Contact</h5>
+        <ul class="list-unstyled">
+          <li>Address: 123 Street, City, Country</li>
+          <li>Phone: 123-456-7890</li>
+          <li>Email: petez@example.com</li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h5 class="text-orange fs-5">Follow Us</h5>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
       </div>
     </div>
-  </div>
+    <hr>
+    <div class="text-center">
 
-</section>
+      <p>&copy; 2023 Your Website. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
