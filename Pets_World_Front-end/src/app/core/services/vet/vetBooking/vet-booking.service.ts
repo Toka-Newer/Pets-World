@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders ,HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { API_URL } from '../../environment/environment';
 
 @Injectable({
@@ -16,22 +16,21 @@ export class VetBookingService {
     return this.http.get(this.base_url + `/${id}`, { headers });
   }
 
-  getVetSchedule(filter:any) {
+  getVetSchedule(filter: any) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
     const params = new HttpParams({ fromObject: filter });
-    return this.http.get(this.base_url, { headers,params });
+    return this.http.get(this.base_url, { headers, params });
   }
 
   addVetBooking(data: any) {
     const headers = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set('Authorization', `Bearer ${this.token}`);
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${this.token}`);
     return this.http.post(this.base_url, JSON.stringify(data), { headers });
   }
 
-    deleteVetBooking(id:any)
-    {
-      const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
-      return this.http.delete(this.base_url+`/${id}`,{headers});
-    }
+  deleteVetBooking(id: any) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
+    return this.http.delete(this.base_url + `/${id}`, { headers });
+  }
 }

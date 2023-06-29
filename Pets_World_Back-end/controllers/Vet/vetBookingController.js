@@ -22,10 +22,10 @@ getVetBooking = async (req, res, next) => {
   }
 };
 
-getVetBookingById = async (req, res, next) => {
+getVetBookingByVetId = async (req, res, next) => {
   try {
     const vetBooking = await VetBookingSchema.findOne({
-      _id: req.params.id,
+      vet_id: req.params.id,
     }).populate([
       { path: "appointment_id" },
       { path: "owner_id" },
@@ -143,7 +143,7 @@ deleteVetBooking = async (req, res, next) => {
 
 module.exports = {
   getVetBooking,
-  getVetBookingById,
+  getVetBookingByVetId,
   addVetBooking,
   updateVetBooking,
   deleteVetBooking,

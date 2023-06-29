@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { VetDetailsComponent } from './vet-details/vet-details.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
 import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.component';
+import { VetBookingComponent } from './vet-booking/vet-booking.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,9 @@ const routes: Routes = [
   },
   {
     path: 'appointments', component: VetAppointmentsComponent
+  },
+  {
+    path: 'booking', component: VetBookingComponent
   }
 ];
 

@@ -14,12 +14,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { VetBookingComponent } from './vet-booking/vet-booking.component';
+
 @NgModule({
   declarations: [
     HomeComponent,
     VetDetailsComponent,
     VetScheduleComponent,
     VetAppointmentsComponent,
+    VetBookingComponent,
   ],
   imports: [
     CommonModule,
@@ -36,4 +39,4 @@ import { CardModule } from 'primeng/card';
     CardModule,
   ],
 })
-export class VetModule {}
+export class VetModule { }

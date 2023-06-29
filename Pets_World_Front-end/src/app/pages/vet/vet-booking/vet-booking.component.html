@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData">
+          <td>{{ row.time }}</td>
+          <td>{{ row.event }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
