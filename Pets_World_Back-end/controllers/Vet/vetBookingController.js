@@ -6,8 +6,15 @@ const petsSchema = mongoose.model("Pets");
 getVetBooking = async (req, res, next) => {
   try {
     const VetBooking = await VetBookingSchema.find(req.query).populate([
+      { path: "appointment_id" },
       {
         path: "owner_id",
+        populate: {
+          path: "user_id",
+        },
+      },
+      {
+        path: "vet_id",
         populate: {
           path: "user_id",
         },

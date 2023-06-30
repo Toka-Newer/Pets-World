@@ -11,10 +11,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { KeeperScheduleComponent } from './keeper-schedule/keeper-schedule.component';
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
   declarations: [
     HomeComponent,
-    KeeperDetailsComponent
+    KeeperDetailsComponent,
+    KeeperScheduleComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +31,7 @@ import { CardModule } from 'primeng/card';
     ReactiveFormsModule,
     CardModule,
     ButtonModule,
+    MatCardModule,
   ],
 })
 export class KeeperModule { }
