@@ -15,7 +15,21 @@ body {
 
 body {
   margin: 0;
-  font-family: 'BalooThambi', sans-serif !important
+  font-family: 'BalooThambi', sans-serif !important;
+  background-color: #f8f9fa !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'BalooThambi' !important;
+  font-weight: 500;
+}
+
+p {
+  font-family: Roboto, sans-serif !important;
 }
 
 .text-orange {
