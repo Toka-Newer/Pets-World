@@ -24,11 +24,9 @@ import { MatCardModule } from '@angular/material/card';
     VetDetailsComponent,
     VetScheduleComponent,
     VetAppointmentsComponent,
-<<<<<<< HEAD
     EditVetComponent,
-=======
     VetBookingComponent,
->>>>>>> 780ca8cb1b70ffe7623d9b18b2832893a138d42c
+
   ],
   imports: [
     CommonModule,
