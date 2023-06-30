@@ -11,11 +11,6 @@ export class VetBookingService {
 
   constructor(private http: HttpClient) { }
 
-  getBookingByVetId(id: string) {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-    return this.http.get(this.base_url + `/${id}`, { headers });
-  }
-
   getVetSchedule(filter: any) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
     const params = new HttpParams({ fromObject: filter });

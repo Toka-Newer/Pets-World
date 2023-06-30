@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { VetBookingComponent } from './vet-booking/vet-booking.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { VetBookingComponent } from './vet-booking/vet-booking.component';
     ReactiveFormsModule,
     ButtonModule,
     CardModule,
+    MatCardModule,
   ],
 })
 export class VetModule { }

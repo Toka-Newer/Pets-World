@@ -20,7 +20,7 @@ vetRoute
   .get(
     vetBookingValidation.getVetBookingByIdValidator,
     checkValidation,
-    vetBookingController.getVetBookingByVetId
+    vetBookingController.getVetBookingById
   )
   .patch(
     vetBookingValidation.updateVetBookingValidator,

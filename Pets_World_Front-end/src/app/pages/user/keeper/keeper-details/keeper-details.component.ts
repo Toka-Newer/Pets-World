@@ -42,10 +42,11 @@ export class KeeperDetailsComponent {
   hoveredStar: number | null = null;
 
   keeperData: any;
+  keeperImage: any;
+  keeperRating: number | null = null;
   keeperAppointments: any;
   pets: any;
   keeperBookingData: any;
-  keeperImage: any;
   bookingFormGroup!: FormGroup;
   days: Date[] = [];
   addAppointment: AddAppointment = {
@@ -80,9 +81,10 @@ export class KeeperDetailsComponent {
   getkeeperData(id: string) {
     this.keeperService.getKeeperById(id).subscribe(
       (data: any) => {
-        console.log(data)
         this.keeperData = data;
         this.keeperImage = `${API_URL}/${this.keeperData.owner_id.user_id.image}`;
+        this.staticRate();
+        console.log(data)
       },
       (error: any) => {
         console.error(error);
@@ -229,6 +231,18 @@ export class KeeperDetailsComponent {
         console.error(error);
       }
     );
+  }
+
+  staticRate(): void {
+    this.keeperRating = this.keeperData.totalOfReviews / this.keeperData.numberOfReviews;
+  }
+
+  getStaticStarClass(index: number): string {
+    if (this.keeperRating !== null && index <= this.keeperRating) {
+      return 'active';
+    } else {
+      return '';
+    }
   }
 
 }

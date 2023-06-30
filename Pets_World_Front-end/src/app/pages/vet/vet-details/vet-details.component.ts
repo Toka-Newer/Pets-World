@@ -43,10 +43,11 @@ export class VetDetailsComponent {
   hoveredStar: number | null = null;
 
   vetData: any;
+  vetImage: any;
+  vetRating: number | null = null;
   vetAppointments: any;
   pets: any;
   vetBookingData: any;
-  vetImage: any;
   bookingFormGroup!: FormGroup;
   addAppointment: AddAppointment = {
     appointment_id: '',
@@ -81,6 +82,8 @@ export class VetDetailsComponent {
       (data: any) => {
         this.vetData = data;
         this.vetImage = `${API_URL}/${this.vetData.user_id.image}`;
+        this.staticRate();
+        console.log(data)
       },
       (error: any) => {
         console.error(error);
@@ -218,4 +221,17 @@ export class VetDetailsComponent {
       }
     );
   }
+
+  staticRate(): void {
+    this.vetRating = this.vetData.totalOfReviews / this.vetData.numberOfReviews;
+  }
+
+  getStaticStarClass(index: number): string {
+    if (this.vetRating !== null && index <= this.vetRating) {
+      return 'active';
+    } else {
+      return '';
+    }
+  }
+
 }

@@ -34,12 +34,12 @@
                   </h1>
 
                   <div class="mb-2">
-                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
-                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
-                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
-                    <i class="fas fa-star me-1" style="color: #FFC107;"></i>
-                    <i class="fas fa-star me-1" style="color: #ddd;"></i>
-                    <small class="text-muted fw-semibold">(145)</small>
+                    <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(1)"></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(2)"></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(3)"></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(4)"></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(5)"></i>
+                    <small class="text-muted fw-semibold">({{ vetData?.numberOfReviews }})</small>
                   </div>
 
                   <div class="card-text">
@@ -148,7 +148,7 @@
 
                     <div class="text-end">
                       <button mat-button color="primary" [disabled]="bookingFormGroup.invalid" (click)="submitForm()">
-                        Submit
+                        MAKE AN APPOINTMENT
                       </button>
                     </div>
 
