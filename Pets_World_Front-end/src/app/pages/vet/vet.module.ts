@@ -14,12 +14,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
 @NgModule({
   declarations: [
     HomeComponent,
     VetDetailsComponent,
     VetScheduleComponent,
     VetAppointmentsComponent,
+    EditVetComponent,
   ],
   imports: [
     CommonModule,
