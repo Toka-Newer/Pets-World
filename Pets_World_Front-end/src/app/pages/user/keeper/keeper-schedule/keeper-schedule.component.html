@@ -1,13 +1,21 @@
-<div class="bg-light">
-  <div class="container py-5">
-    <div class="d-flex align-items-start">
-      <button class="btn btn-link" (click)="previousDate()"><i class="fa-solid fa-arrow-left"></i></button>
-      <h2>{{ getFormattedDate() | date:'MMMM, dd' }}</h2>
-      <button class="btn btn-link" (click)="nextDate()"><i class="fa-solid fa-arrow-right"></i></button>
+<div class="container py-5">
+  <div *ngIf="keeperAppointments?.length > 0; else noAppointment">
+    <div class="d-flex">
+      <form [formGroup]="form" class="pt-3">
+        <!-- Appointments -->
+        <mat-form-field class="w-100 pb-3">
+          <mat-label>Appointments</mat-label>
+          <mat-select formControlName="appointment" (selectionChange)="onAppointmentChange()">
+            <mat-option *ngFor="let option of keeperAppointments" [value]="option._id">
+              {{ option.start_time | date: 'MMMM, dd' }} : {{ option.end_time | date: 'MMMM, dd' }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
     </div>
     <div class="card-wrapper">
-      <div class="row">
-        <ng-container *ngFor="let booking of vetBookingData; let i = index">
+      <div class="row" *ngIf="keeperBookingData?.length > 0; else noBooking">
+        <ng-container *ngFor="let booking of keeperBookingData; let i = index">
           <div class="col-md-6 mb-3">
             <mat-card class="example-card">
               <mat-card-content>
@@ -50,6 +58,24 @@
           </div>
         </ng-container>
       </div>
+      <ng-template #noBooking>
+        <div class="card border-0 p-4">
+          <p class="fs-5 lh-base text-danger">
+            <span class="text-capitalize">
+              There is No Booking
+            </span>
+          </p>
+        </div>
+      </ng-template>
     </div>
   </div>
+  <ng-template #noAppointment>
+    <div class="card border-0 p-4">
+      <p class="fs-5 lh-base text-danger">
+        <span class="text-capitalize">
+          There is No Appointments
+        </span>
+      </p>
+    </div>
+  </ng-template>
 </div>

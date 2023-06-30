@@ -5,7 +5,18 @@ const petsSchema = mongoose.model("Pets");
 
 getKeeperBooking = async (req, res, next) => {
   try {
-    const keeperBooking = await KeeperBookingSchema.find({});
+    const keeperBooking = await KeeperBookingSchema.find(req.query).populate([
+      { path: "appointment_id" },
+      {
+        path: "owner_id",
+        populate: {
+          path: "user_id",
+        },
+      },
+      {
+        path: "pet_id",
+      },
+    ]);
     return res.status(200).json(keeperBooking);
   } catch (err) {
     next(err);
@@ -18,7 +29,12 @@ getKeeperBookingById = async (req, res, next) => {
       _id: req.params.id,
     }).populate([
       { path: "appointment_id" },
-      { path: "owner_id" },
+      {
+        path: "owner_id",
+        populate: {
+          path: "user_id",
+        },
+      },
       { path: "pet_id" },
     ]);
     return res.status(200).json(keeperBooking);

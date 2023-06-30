@@ -15,13 +15,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
+import { VetBookingComponent } from './vet-booking/vet-booking.component';
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
   declarations: [
     HomeComponent,
     VetDetailsComponent,
     VetScheduleComponent,
     VetAppointmentsComponent,
+<<<<<<< HEAD
     EditVetComponent,
+=======
+    VetBookingComponent,
+>>>>>>> 780ca8cb1b70ffe7623d9b18b2832893a138d42c
   ],
   imports: [
     CommonModule,
@@ -36,6 +43,7 @@ import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
     ReactiveFormsModule,
     ButtonModule,
     CardModule,
+    MatCardModule,
   ],
 })
-export class VetModule {}
+export class VetModule { }

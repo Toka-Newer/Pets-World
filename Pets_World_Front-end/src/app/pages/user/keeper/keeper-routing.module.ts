@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { KeeperDetailsComponent } from './keeper-details/keeper-details.component';
+import { KeeperScheduleComponent } from './keeper-schedule/keeper-schedule.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,9 @@ const routes: Routes = [
   },
   {
     path: 'details', component: KeeperDetailsComponent
+  },
+  {
+    path: 'schedule', component: KeeperScheduleComponent
   }
 ];
 

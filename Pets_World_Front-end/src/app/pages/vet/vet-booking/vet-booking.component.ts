@@ -1,15 +1,13 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { API_URL } from 'src/app/core/services/environment/environment';
+import { Component } from '@angular/core';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
-import Swal from 'sweetalert2';
+import { API_URL } from 'src/app/core/services/environment/environment';
 
 @Component({
-  selector: 'app-vet-schedule',
-  templateUrl: './vet-schedule.component.html',
-  styleUrls: ['./vet-schedule.component.css'],
+  selector: 'app-vet-booking',
+  templateUrl: './vet-booking.component.html',
+  styleUrls: ['./vet-booking.component.css']
 })
-export class VetScheduleComponent {
+export class VetBookingComponent {
   currentDate = new Date();
   vetBookingData: any;
 
@@ -52,29 +50,4 @@ export class VetScheduleComponent {
 
   }
 
-  // deleteBooking(id: any) {
-  //   Swal.fire({
-  //     title: 'Are you sure?',
-  //     text: "You won't be able to revert this!",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Yes, delete it!'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       this._VetBooking.deleteVetBooking(id).subscribe((data: any) => {
-  //         this.vetSchedule = this.vetSchedule.filter((element: any) => element._id != id);
-  //         console.log(data)
-  //       }, (error: any) => {
-  //         console.log(error)
-  //       })
-  //       Swal.fire(
-  //         'Deleted!',
-  //         'Your file has been deleted.',
-  //         'success'
-  //       )
-  //     }
-  //   })
-  // }
 }

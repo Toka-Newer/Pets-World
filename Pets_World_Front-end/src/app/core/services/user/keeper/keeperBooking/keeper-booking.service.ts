@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { API_URL } from '../../../environment/environment';
 
 @Injectable({
@@ -20,5 +20,11 @@ export class KeeperBookingService {
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`);
     return this.http.post(this.base_url, JSON.stringify(data), { headers });
+  }
+
+  getKeeperSchedule(filter: any) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    const params = new HttpParams({ fromObject: filter });
+    return this.http.get(this.base_url, { headers, params });
   }
 }
