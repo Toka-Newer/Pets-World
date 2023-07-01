@@ -19,6 +19,7 @@ import { VetBookingComponent } from './vet-booking/vet-booking.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatCardModule,
     MatIconModule,
     NgxMaterialTimepickerModule,
+    MatPaginatorModule,
   ],
 })
 export class VetModule { }
