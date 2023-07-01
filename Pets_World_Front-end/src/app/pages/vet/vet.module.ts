@@ -14,8 +14,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
 import { VetBookingComponent } from './vet-booking/vet-booking.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { MatCardModule } from '@angular/material/card';
     VetDetailsComponent,
     VetScheduleComponent,
     VetAppointmentsComponent,
+    EditVetComponent,
     VetBookingComponent,
   ],
   imports: [
@@ -39,6 +42,7 @@ import { MatCardModule } from '@angular/material/card';
     ButtonModule,
     CardModule,
     MatCardModule,
+    MatIconModule,
   ],
 })
-export class VetModule { }
+export class VetModule {}
