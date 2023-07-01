@@ -20,7 +20,6 @@ getOwnerById = async (req, res, next) => {
 };
 
 updateOwnerById = async (req, res, next) => {
-  console.log("put" + req.body);
   try {
     const owner = await ownerSchema.findOneAndUpdate(
       { _id: req.body.id },
