@@ -14,6 +14,15 @@ getKeeperBooking = async (req, res, next) => {
         },
       },
       {
+        path: "keeper_id",
+        populate: {
+          path: "owner_id",
+          populate: {
+            path: "user_id",
+          },
+        },
+      },
+      {
         path: "pet_id",
       },
     ]);
@@ -22,6 +31,30 @@ getKeeperBooking = async (req, res, next) => {
     next(err);
   }
 };
+
+// getOwnerBooking = async (req, res, next) => {
+//   const keeperBooking = await KeeperBookingSchema.find({
+//     owner_id: req.params.id,
+//   })
+//     .populate({
+//       path: "appointment_id",
+//       match: {
+//         start_time: { $lte: new Date(req.query.day) },
+//         end_time: { $gte: new Date(req.query.day) },
+//       },
+//     })
+//     .populate({
+//       path: "owner_id",
+//       populate: {
+//         path: "user_id",
+//       },
+//     })
+//     .populate("pet_id");
+
+//   const ownerBooking = keeperBooking.filter(booking => booking.appointment_id !== null)
+//   return res.status(200).json(ownerBooking);
+
+// }
 
 getKeeperBookingById = async (req, res, next) => {
   try {
@@ -48,6 +81,7 @@ addKeeperBooking = async (req, res, next) => {
     const check = await KeeperBookingSchema.findOne({
       appointment_id: req.body.appointment_id,
       owner_id: req.body.owner_id,
+      pet_id: req.body.pet_id,
     });
 
     if (check) {

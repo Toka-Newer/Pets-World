@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { UserVetScheduleComponent } from './user-vet-schedule/user-vet-schedule.component';
+import { UserScheduleComponent } from './user-schedule/user-schedule.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'vet/schedule', component: UserVetScheduleComponent },
+  { path: 'schedule', component: UserScheduleComponent },
   {
     path: 'keeper',
     loadChildren: () =>

@@ -15,7 +15,7 @@
     </div>
     <div class="card-wrapper">
       <div class="row" *ngIf="keeperBookingData?.length > 0; else noBooking">
-        <ng-container *ngFor="let booking of keeperBookingData; let i = index">
+        <ng-container *ngFor="let booking of pagedKeeperBookingData; let i = index">
           <div class="col-md-6 mb-3">
             <mat-card class="example-card">
               <mat-card-content>
@@ -58,6 +58,8 @@
           </div>
         </ng-container>
       </div>
+      <mat-paginator [length]="keeperBookingData?.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+      </mat-paginator>
       <ng-template #noBooking>
         <div class="card border-0 p-4">
           <p class="fs-5 lh-base text-danger">

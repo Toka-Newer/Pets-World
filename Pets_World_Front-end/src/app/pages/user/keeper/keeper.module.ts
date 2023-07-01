@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { KeeperScheduleComponent } from './keeper-schedule/keeper-schedule.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatCardModule } from '@angular/material/card';
     CardModule,
     ButtonModule,
     MatCardModule,
+    MatPaginatorModule,
   ],
 })
 export class KeeperModule { }

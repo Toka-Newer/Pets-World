@@ -1,0 +1,128 @@
+<div class="container py-5">
+  <div class="d-flex align-items-start">
+    <form [formGroup]="form" class="pt-3">
+      <!-- <div class="row"> -->
+      <!-- Day -->
+      <!-- <div class="col-md-6"> -->
+      <mat-form-field class="w-100 pb-2">
+        <mat-label>Day</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="day" required />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <!-- </div> -->
+      <!-- Appointments -->
+      <!-- <div class="col-md-6">
+          <mat-form-field class="w-50 pb-3">
+            <mat-label>Appointments</mat-label>
+            <mat-select formControlName="appointment" (selectionChange)="onAppointmentChange()">
+              <mat-option *ngFor="let option of ownerBookingKeeper" [value]="option.appointment_id._id">
+                {{ option.appointment_id.start_time | date: 'MMMM, dd' }} :
+                {{ option.appointment_id.end_time | date: 'MMMM, dd' }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+      <!-- </div> -->
+    </form>
+  </div>
+  <div class="card-wrapper">
+    <div class="row">
+      <div class="col-md-6" *ngIf="ownerBookingData.length > 0"
+        [ngClass]="{'row': ownerBookingKeeperDay.length === 0, 'col-md-6': ownerBookingKeeperDay.length > 0}">
+        <h2 class="fs-3">Vet Schedule</h2>
+        <ng-container *ngFor="let booking of ownerBookingData; let i = index">
+          <div class="mb-3"
+            [ngClass]="{'col-md-6': ownerBookingData.length === 0, 'col-md-12': ownerBookingData.length > 0}">
+            <mat-card class="example-card">
+              <mat-card-content>
+                <div class="d-flex flex-column flex-sm-row w-100">
+                  <img class="mb-1" mat-card-lg-image [src]="booking?.userImage" alt="Angular Logo">
+                  <div class="ms-3 w-75">
+                    <h2 class="text-capitalize mb-2 fs-4">
+                      Dr. {{ booking?.vet_id?.user_id?.firstName }} {{ booking?.vet_id?.user_id?.lastName }}
+                    </h2>
+                    <ul class="list-group">
+                      <li
+                        class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                        style="color: #00000078;">
+                        <span>Pet Name</span> {{ booking?.pet_id?.name }}
+                      </li>
+                      <li
+                        class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                        style="color: #00000078;">
+                        <span>Booking Time</span>
+                        {{ booking?.appointment_id?.start_time | date: 'h:mm a' }}
+                        : {{ booking?.appointment_id?.end_time | date: 'h:mm a' }}
+                      </li>
+                      <li
+                        class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                        style="color: #00000078;">
+                        <span>Phone Number</span>
+                        {{ booking?.vet_id?.user_id?.phone }}
+                      </li>
+                      <li
+                        class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                        style="color: #00000078;">
+                        <span>Email</span>
+                        {{ booking?.vet_id?.user_id?.email }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </ng-container>
+      </div>
+      <div *ngIf="ownerBookingKeeperDay.length > 0"
+        [ngClass]="{'row': ownerBookingData.length === 0, 'col-md-6': ownerBookingData.length > 0}">
+        <h2 class="fs-3">Keeper Schedule</h2>
+        <ng-container *ngFor="let booking of ownerBookingKeeperDay; let i = index">
+          <div class="mb-3"
+            [ngClass]="{'col-md-6': ownerBookingData.length === 0, 'col-md-12': ownerBookingData.length > 0}">
+            <mat-card class="example-card">
+              <mat-card-content>
+                <div class="d-flex flex-column flex-sm-row w-100">
+                  <img class="mb-1" mat-card-lg-image [src]="booking?.userImage" alt="Angular Logo">
+                  <div class="ms-3 w-75">
+                    <h2 class="text-capitalize mb-2 fs-4">
+                      {{ booking?.keeper_id?.owner_id?.user_id?.firstName }} {{
+                      booking?.keeper_id?.owner_id?.user_id?.lastName }}
+                    </h2>
+                    <ul class="list-group">
+                      <li
+                        class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                        style="color: #00000078;">
+                        <span>Pet Name</span> {{ booking?.pet_id?.name }}
+                      </li>
+                      <li
+                        class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                        style="color: #00000078;">
+                        <span>Booking Time</span>
+                        {{ booking?.appointment_id?.start_time | date: 'MMMM, dd' }}
+                        : {{ booking?.appointment_id?.end_time | date: 'MMMM, dd' }}
+                      </li>
+                      <li
+                        class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                        style="color: #00000078;">
+                        <span>Phone Number</span>
+                        {{ booking?.keeper_id?.owner_id?.user_id?.phone }}
+                      </li>
+                      <li
+                        class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                        style="color: #00000078;">
+                        <span>Email</span>
+                        {{ booking?.keeper_id?.owner_id?.user_id?.email }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

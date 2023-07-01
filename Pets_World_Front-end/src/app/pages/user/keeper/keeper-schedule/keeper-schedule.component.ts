@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { API_URL } from 'src/app/core/services/environment/environment';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import { KeeperBookingService } from 'src/app/core/services/user/keeper/keeperBooking/keeper-booking.service';
@@ -16,6 +17,9 @@ export class KeeperScheduleComponent {
   keeperAppointments: any;
   appointment: any;
   keeperBookingData: any;
+  pagedKeeperBookingData: any[] = []; // Array to hold the paged booking data
+  pageSize = 10; // Number of items to display per page
+  currentPage = 0; // Current page index
 
   constructor(private _formBuilder: FormBuilder,
     private datePipe: DatePipe,
@@ -70,11 +74,23 @@ export class KeeperScheduleComponent {
           booking.userImage = `${API_URL}/${booking.owner_id.user_id.image}`;
           return booking;
         });
+        this.updatePagedKeeperBookingData();
       },
       (error: any) => {
         console.error(error);
       }
     );
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.updatePagedKeeperBookingData();
+  }
+
+  updatePagedKeeperBookingData() {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedKeeperBookingData = this.keeperBookingData?.slice(startIndex, endIndex);
   }
 
   // deleteBooking(id: any) {
