@@ -26,7 +26,8 @@ getKeeperLastAppointmentsById = async (req, res, next) => {
   try {
     const keeperAppointments = await KeeperAppointmentSchema.findOne({
       keeper_id: req.params.id,
-    }).sort({ createdAt: -1 })
+    })
+      .sort({ createdAt: -1 })
       .exec();
     return res.status(200).json(keeperAppointments);
   } catch (err) {
@@ -45,7 +46,7 @@ addAppointment = async (req, res, next) => {
     await appointment.save();
     return res
       .status(201)
-      .json({ message: "appintment is added successfully" });
+      .json({ message: "appointment is added successfully", status: "201" });
   } catch (err) {
     next(err);
   }
@@ -62,7 +63,7 @@ updateAppointment = async (req, res, nex) => {
       },
       { new: true }
     );
-    return res.status(201).json(keeper);
+    return res.status(201).json({ status: "201" });
   } catch (err) {
     next(err);
   }

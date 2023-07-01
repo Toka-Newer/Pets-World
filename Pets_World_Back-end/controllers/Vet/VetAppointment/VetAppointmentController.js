@@ -15,7 +15,9 @@ getVetAppointmentsById = async (req, res, next) => {
   try {
     const vetAppointments = await VetAppointmentsSchema.find({
       vet_id: req.params.id,
-    });
+    })
+      .sort({ day: -1 })
+      .exec();
     return res.status(200).json(vetAppointments);
   } catch (err) {
     next(err);
@@ -55,7 +57,7 @@ addAppointment = async (req, res, next) => {
     }
     return res
       .status(201)
-      .json({ message: "appintment is added successfully", status: "201" });
+      .json({ message: "appointment is added successfully", status: "201" });
   } catch (err) {
     next(err);
   }
