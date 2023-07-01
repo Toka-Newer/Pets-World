@@ -17,9 +17,10 @@ getVetById = async (req, res, next) => {
 };
 
 updateVetById = async (req, res, next) => {
+  console.log(req.body);
   try {
     const vet = await VetSchema.findOneAndUpdate(
-      { _id: req.params.id },
+      { _id: req.body.id },
       {
         $set: {
           experience: req.body.experience,
@@ -51,8 +52,7 @@ updateVetById = async (req, res, next) => {
 
 getAllVet = async (req, res, next) => {
   try {
-    const vet = await VetSchema.find({
-    }).populate({
+    const vet = await VetSchema.find({}).populate({
       path: "user_id",
     });
     return res.status(200).json(vet);
@@ -68,29 +68,32 @@ updateRating = async (req, res, next) => {
     const owner = await ownerSchema.findOne({
       _id: req.body.owner_id,
       vetRating: {
-        $elemMatch: { vet_id: req.params.id }
-      }
+        $elemMatch: { vet_id: req.params.id },
+      },
     });
 
     if (owner) {
       // Vet does exist in owner's ratings
       const ownerUpdateVetRate = await ownerSchema.findOneAndUpdate(
-        { _id: req.body.owner_id, 'vetRating.vet_id': req.params.id },
-        { $set: { 'vetRating.$.rate': req.body.rate } },
+        { _id: req.body.owner_id, "vetRating.vet_id": req.params.id },
+        { $set: { "vetRating.$.rate": req.body.rate } },
         { new: true }
       );
 
       if (ownerUpdateVetRate) {
         // compare the rating send in body with the rating of the found owner
-        const existingRating = owner.vetRating.find(rating => rating.vet_id.toString() === req.params.id);
-        const increment = Number(existingRating.rate) > Number(req.body.rate)
-          ? -(Number(existingRating.rate) - Number(req.body.rate))
-          : Number(req.body.rate) - Number(existingRating.rate);
+        const existingRating = owner.vetRating.find(
+          (rating) => rating.vet_id.toString() === req.params.id
+        );
+        const increment =
+          Number(existingRating.rate) > Number(req.body.rate)
+            ? -(Number(existingRating.rate) - Number(req.body.rate))
+            : Number(req.body.rate) - Number(existingRating.rate);
 
         const vetRating = await VetSchema.findOneAndUpdate(
           { _id: req.params.id },
           {
-            $inc: { totalOfReviews: increment }
+            $inc: { totalOfReviews: increment },
           },
           { new: true }
         );
@@ -98,18 +101,23 @@ updateRating = async (req, res, next) => {
         if (vetRating) {
           return res.status(200).json(vetRating);
         } else {
-          clg
-          return res.status(200).json({ message: "can't update vet data rating" });
+          clg;
+          return res
+            .status(200)
+            .json({ message: "can't update vet data rating" });
         }
-
       } else {
-        return res.status(200).json({ message: "can't update owner data rating" });
+        return res
+          .status(200)
+          .json({ message: "can't update owner data rating" });
       }
     } else {
       // Vet does not exist in owner's ratings, push a new rating entry
       const updatedOwner = await ownerSchema.findOneAndUpdate(
         { _id: req.body.owner_id, "vetRating.vet_id": { $ne: req.params.id } }, // Find owner by ID and check if vetId is not already in vetRating
-        { $push: { vetRating: { vet_id: req.params.id, rate: req.body.rate } } },
+        {
+          $push: { vetRating: { vet_id: req.params.id, rate: req.body.rate } },
+        },
         { new: true }
       );
 
@@ -117,11 +125,10 @@ updateRating = async (req, res, next) => {
         const vetRating = await VetSchema.findOneAndUpdate(
           { _id: req.params.id },
           {
-            $inc: { numberOfReviews: 1, totalOfReviews: req.body.rate }
+            $inc: { numberOfReviews: 1, totalOfReviews: req.body.rate },
           },
           { new: true }
         );
-
 
         if (vetRating) {
           return res.status(200).json(vetRating);
@@ -129,17 +136,19 @@ updateRating = async (req, res, next) => {
           return res.status(200).json({ message: "Can't update vet rating" });
         }
       } else {
-        return res.status(404).json({ message: "Owner not found or vet rating already exists" });
+        return res
+          .status(404)
+          .json({ message: "Owner not found or vet rating already exists" });
       }
     }
   } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = {
   getVetById,
   getAllVet,
   updateVetById,
-  updateRating
+  updateRating,
 };

@@ -10,19 +10,30 @@
     <mat-form-field class="col-10 my-1">
       <textarea matInput placeholder="Description" [(ngModel)]="vet.description" name="description"></textarea>
     </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Image</mat-label>
+      <button mat-icon-button matSuffix (click)="hiddenInput.click()">
+        <mat-icon>folder_open</mat-icon>
+      </button>
+      <input type="text" readonly matInput name="image" />
+      <input type="file" hidden #hiddenInput (change)="onUserImageChange($event)" accept="image/*" />
+      <img *ngIf="vet.user_id.image" [src]="vet.user_id.image" alt="Vet Image" class="vet-image" width="200px"
+        height="200px" />
+    </mat-form-field>
+
 
     <!-- User fields -->
     <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="First Name" [(ngModel)]="user.firstName" name="firstName">
+      <input matInput placeholder="First Name" [(ngModel)]="vet.user_id.firstName" name="firstName">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="Last Name" [(ngModel)]="user.lastName" name="lastName">
+      <input matInput placeholder="Last Name" [(ngModel)]="vet.user_id.lastName" name="lastName">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="Phone" [(ngModel)]="user.phone" name="phone">
+      <input matInput placeholder="Phone" [(ngModel)]="vet.user_id.phone" name="phone">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="Gender" [(ngModel)]="user.gender" name="gender">
+      <input matInput placeholder="Gender" [(ngModel)]="vet.user_id.gender" name="gender">
     </mat-form-field>
 
   </div>

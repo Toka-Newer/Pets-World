@@ -17,6 +17,7 @@ import { CardModule } from 'primeng/card';
 import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
 import { VetBookingComponent } from './vet-booking/vet-booking.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,6 @@ import { MatCardModule } from '@angular/material/card';
     VetAppointmentsComponent,
     EditVetComponent,
     VetBookingComponent,
-
   ],
   imports: [
     CommonModule,
@@ -42,6 +42,7 @@ import { MatCardModule } from '@angular/material/card';
     ButtonModule,
     CardModule,
     MatCardModule,
+    MatIconModule,
   ],
 })
-export class VetModule { }
+export class VetModule {}

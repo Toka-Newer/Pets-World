@@ -13,20 +13,24 @@ export class EditVetService {
 
   constructor(private http: HttpClient) {}
 
-  updateVetById(vetId: string, vetData: any, userData: any): Observable<any> {
-    const url = `${this.baseUrl}/vets/${vetId}`; // Adjust the URL endpoint as per your API
+  updateVetById(vetData: any): Observable<any> {
+    const url = `${this.baseUrl}/vets`; // URL with the vet ID in it
     const headers = new HttpHeaders().set(
       'Authorization',
       `Bearer ${this.token}`
     );
 
-    const options = {
-      headers: headers,
-    };
-
-    return this.http.put(url, { vet: vetData, user: userData }, options).pipe(
+    return this.http.patch(url, vetData, { headers }).pipe(
       catchError(this.handleError) // Handle any errors that occur during the HTTP request
     );
+  }
+  getVetById(id: string) {
+    const url = `${this.baseUrl}/vets`; // URL with the vet ID in it
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${this.token}`
+    );
+    return this.http.get(url + `/${id}`, { headers });
   }
 
   private handleError(error: any): Observable<never> {
