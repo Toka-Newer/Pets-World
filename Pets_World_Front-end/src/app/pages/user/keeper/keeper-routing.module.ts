@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { KeeperDetailsComponent } from './keeper-details/keeper-details.component';
 import { KeeperScheduleComponent } from './keeper-schedule/keeper-schedule.component';
+import { KeeperAppointmentsComponent } from './keeper-appointments/keeper-appointments.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,9 @@ const routes: Routes = [
   },
   {
     path: 'schedule', component: KeeperScheduleComponent
+  },
+  {
+    path: 'appointments', component: KeeperAppointmentsComponent
   }
 ];
 

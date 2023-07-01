@@ -37,10 +37,7 @@ export class VetAppointmentsComponent {
   {
     this._VetAppointments.getVetAppointments(this.id).subscribe((data:any)=>
     {
-      this.appointments = data.map((appointment: any) => {
-        appointment.day = this.datePipe.transform(appointment.day, 'EEEE');
-        return appointment;
-    })},(error)=>
+      this.appointments = data},(error)=>
     {
       console.log(error);
     })
@@ -78,6 +75,15 @@ export class VetAppointmentsComponent {
 
       }
     })
+  }
+
+  formatDate(date:any)
+  {
+    const dateString = date; // Replace with your date string
+    const datePipe = new DatePipe('en-US');
+    const dateObj = new Date(dateString);
+    const formattedDate = datePipe.transform(dateObj, 'MMMM d');
+    return formattedDate;
   }
 
   resetForm()
