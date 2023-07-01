@@ -9,8 +9,9 @@ import { EditVetService } from 'src/app/core/services/vet/editVet/edit-vet.servi
 })
 export class EditVetComponent {
   vet: any = {}; // Object to store vet data
-  constructor(private vetService: EditVetService) {}
+  constructor(private vetService: EditVetService) { }
   vetId = '648dd6c55a2fb5c9b45df45b'; // Replace with the actual vet ID
+  vetImage: any;
 
   ngOnInit(): void {
     this.getVetData(this.vetId);
@@ -20,7 +21,7 @@ export class EditVetComponent {
     this.vetService.getVetById(id).subscribe(
       (data: any) => {
         this.vet = data;
-        this.vet.user_id.image = `${API_URL}/${this.vet.user_id.image}`;
+        this.vetImage = `${API_URL}/${this.vet.user_id.image}`;
         console.log(this.vet);
       },
       (error: any) => {
@@ -28,22 +29,29 @@ export class EditVetComponent {
       }
     );
   }
+
+  onUserImageClick(event: MouseEvent): void {
+    event.preventDefault();
+    const hiddenInput = document.querySelector('input[type="file"]');
+    hiddenInput?.dispatchEvent(new MouseEvent('click'));
+  }
+
   onUserImageChange(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
       const fileName = file.name;
-      this.vet.user_id.image = fileName;
+      this.vetImage = fileName;
 
       // Read the image file and display it preview
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.vet.user_id.image = e.target.result;
-        console.log(e.target.result);
+        this.vetImage = e.target.result;
       };
       reader.readAsDataURL(file);
-      console.log(file);
+      this.vet.user_id.image = file;
+
     } else {
-      this.vet.user_id.image = ''; // Clear the image preview
+      this.vetImage = ''; // Clear the image preview
     }
   }
 
@@ -52,7 +60,18 @@ export class EditVetComponent {
     const vetData = this.vet;
     vetData.id = vetId;
 
-    this.vetService.updateVetById(vetData).subscribe(
+    const formData = new FormData();
+    formData.append('id', vetId);
+    formData.append('firstName', this.vet.user_id.firstName);
+    formData.append('lastName', this.vet.user_id.lastName);
+    formData.append('phone', this.vet.user_id.phone);
+    formData.append('gender', this.vet.user_id.gender);
+    formData.append('experience', this.vet.experience);
+    formData.append('cost', this.vet.cost);
+    formData.append('description', this.vet.description);
+    formData.append('image', this.vet.user_id.image);
+
+    this.vetService.updateVetById(formData).subscribe(
       (res) => {
         // Handle response from the backend
         console.log(res);

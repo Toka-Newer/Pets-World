@@ -17,7 +17,6 @@ getVetById = async (req, res, next) => {
 };
 
 updateVetById = async (req, res, next) => {
-  console.log(req.body);
   try {
     const vet = await VetSchema.findOneAndUpdate(
       { _id: req.body.id },
@@ -39,6 +38,7 @@ updateVetById = async (req, res, next) => {
           // password: req.body.password,
           phone: req.body.phone,
           gender: req.body.gender,
+          ...req.file && { image: req.file.path }, // Merge image property if req.file exists
           // image: req.body.image,
         },
       },
