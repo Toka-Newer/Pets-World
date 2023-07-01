@@ -22,10 +22,21 @@ export class VetAppointmentService {
     return this.http.get(this.second_base_url + `/${id}`, { headers });
   }
 
+  addVetAppointments(request_body: any,id: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
+    const body=request_body;
+    return this.http.post(this.second_base_url + `/${id}`, request_body,{ headers });
+  }
+
+  updateVetAppointment(request_body: any) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
+    return this.http.patch(this.second_base_url, request_body,{ headers });
+  }
+
   deleteVetAppointment(id:any)
   {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
-    const body=JSON.stringify({id:id});
+    const body={id:id};
     return this.http.delete(this.second_base_url,{headers,body});
   }
 

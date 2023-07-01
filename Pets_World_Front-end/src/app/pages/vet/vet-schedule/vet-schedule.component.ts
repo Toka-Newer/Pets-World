@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./vet-schedule.component.css'],
 })
 export class VetScheduleComponent {
-  picker:any;
   vetSchedule:any;
   selectedDate:any;
   filter:any=

@@ -63,9 +63,9 @@ export class VetDetailsComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.getVetData("648dd6c55a2fb5c9b45df45b");
-    this.getVetAppointments("648dd6c55a2fb5c9b45df45b");
-    this.getPetsByOwnerId("648f9646bd39fe8c0527ee4f");
+    this.getVetData("649c9deeae3f8709e1837942");
+    this.getVetAppointments("649c9deeae3f8709e1837942");
+    this.getPetsByOwnerId("649c9deeae3f8709e1837942");
     // this.getVetBookingData("648f98130dcac62b73ca2f62");
 
     this.bookingFormGroup = this._formBuilder.group({

@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

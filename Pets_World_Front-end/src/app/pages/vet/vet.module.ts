@@ -12,6 +12,8 @@ import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaterialTimepickerModule,
+    MatIconModule
   ]
 })
 export class VetModule { }
