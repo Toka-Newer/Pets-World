@@ -9,11 +9,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { KeeperScheduleComponent } from './keeper-schedule/keeper-schedule.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    KeeperDetailsComponent
+    KeeperDetailsComponent,
+    KeeperScheduleComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +30,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+    CardModule,
+    ButtonModule,
+    MatCardModule,
+    MatPaginatorModule,
+  ],
 })
 export class KeeperModule { }

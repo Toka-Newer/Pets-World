@@ -35,4 +35,31 @@ export class LandingComponent {
     },
     // nav: true,
   };
+  serviceOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    autoplay: true,
+    autoplayTimeout: 2000,
+    autoplayHoverPause: false,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      400: {
+        items: 1,
+      },
+      740: {
+        items: 2,
+      },
+      940: {
+        items: 3,
+      },
+    },
+    nav: true,
+  };
 }

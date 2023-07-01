@@ -28,7 +28,7 @@ interface AddAppointment {
   keeper_id: String,
   owner_id: String,
   pet_id: String,
-  day: String,
+  // day: String,
 }
 
 @Component({
@@ -38,12 +38,15 @@ interface AddAppointment {
 })
 export class KeeperDetailsComponent {
   isSticky = false;
+  rating: number | null = null;
+  hoveredStar: number | null = null;
 
   keeperData: any;
+  keeperImage: any;
+  keeperRating: number | null = null;
   keeperAppointments: any;
   pets: any;
   keeperBookingData: any;
-  keeperImage: any;
   bookingFormGroup!: FormGroup;
   days: Date[] = [];
   addAppointment: AddAppointment = {
@@ -51,7 +54,7 @@ export class KeeperDetailsComponent {
     keeper_id: '',
     owner_id: '',
     pet_id: '',
-    day: ''
+    // day: ''
   };
 
   constructor(private _formBuilder: FormBuilder,
@@ -78,9 +81,10 @@ export class KeeperDetailsComponent {
   getkeeperData(id: string) {
     this.keeperService.getKeeperById(id).subscribe(
       (data: any) => {
-        console.log(data)
         this.keeperData = data;
         this.keeperImage = `${API_URL}/${this.keeperData.owner_id.user_id.image}`;
+        this.staticRate();
+        console.log(data)
       },
       (error: any) => {
         console.error(error);
@@ -91,8 +95,17 @@ export class KeeperDetailsComponent {
   getKeeperAppointments(id: string) {
     this.keeperAppointmentService.getKeeperAppointment(id).subscribe(
       (data: any) => {
-        this.keeperAppointments = data;
-        this.getAppointmentDays(this.keeperAppointments)
+        const currentDate = new Date();
+        const formattedDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+        this.keeperAppointments = data.filter((appointment: any) => {
+          if (appointment && appointment.end_time && formattedDate) {
+            appointment.end_time = this.datePipe.transform(appointment.end_time, 'yyyy-MM-dd');
+            return appointment.number_of_pets > 0 && appointment.end_time > formattedDate;
+          }
+          return false;
+        });
+        console.log(this.keeperAppointments)
+        // this.getAppointmentDays(this.keeperAppointments)
       },
       (error: any) => {
         console.error(error);
@@ -100,15 +113,15 @@ export class KeeperDetailsComponent {
     );
   }
 
-  getAppointmentDays(appointment: any) {
-    const startDate = new Date(appointment.start_time);
-    const endDate = new Date(appointment.end_time);
+  // getAppointmentDays(appointment: any) {
+  //   const startDate = new Date(appointment.start_time);
+  //   const endDate = new Date(appointment.end_time);
 
-    for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
-      this.days.push(new Date(date));
-    }
+  //   for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+  //     this.days.push(new Date(date));
+  //   }
 
-  }
+  // }
 
   getPetsByOwnerId(id: string) {
     this.petsService.getPetsByOwnerId(id).subscribe(
@@ -137,11 +150,11 @@ export class KeeperDetailsComponent {
     if (this.bookingFormGroup.valid) {
       console.log(this.keeperAppointments)
       this.addAppointment = {
-        appointment_id: this.keeperAppointments._id,
+        appointment_id: this.bookingFormGroup.value.appointment,
         keeper_id: "649794f8999ea0fe2cd3d9ef",
         owner_id: "648f9646bd39fe8c0527ee4f",
         pet_id: this.bookingFormGroup.value.pet,
-        day: this.bookingFormGroup.value.appointment
+        // day: this.bookingFormGroup.value.appointment
       }
 
       this.keeperBookingService.addKeeperBooking(this.addAppointment).subscribe(
@@ -181,4 +194,55 @@ export class KeeperDetailsComponent {
       this.isSticky = false;
     }
   }
+
+  getStarClass(index: number): string {
+    if (this.rating !== null && index <= this.rating) {
+      return 'active';
+    } else if (this.hoveredStar !== null && index <= this.hoveredStar) {
+      return 'hover';
+    } else {
+      return '';
+    }
+  }
+
+  hoverStar(index: number): void {
+    this.hoveredStar = index;
+  }
+
+  unhoverStar(): void {
+    this.hoveredStar = null;
+  }
+
+  rateStar(index: number): void {
+    if (this.rating === index) {
+      this.rating = null; // Unrate the star if it was already selected
+    } else {
+      this.rating = index; // Set the rating to the selected star index
+    }
+    const data = {
+      owner_id: "648f9646bd39fe8c0527ee4f",
+      rate: index
+    }
+    this.keeperService.updateKeeperRating("649794f8999ea0fe2cd3d9ef", data).subscribe(
+      (data: any) => {
+        console.log(data)
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+
+  staticRate(): void {
+    this.keeperRating = this.keeperData.totalOfReviews / this.keeperData.numberOfReviews;
+  }
+
+  getStaticStarClass(index: number): string {
+    if (this.keeperRating !== null && index <= this.keeperRating) {
+      return 'active';
+    } else {
+      return '';
+    }
+  }
+
 }

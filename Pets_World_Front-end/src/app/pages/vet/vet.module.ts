@@ -4,15 +4,19 @@ import { VetRoutingModule } from './vet-routing.module';
 import { HomeComponent } from './home/home.component';
 import { VetDetailsComponent } from './vet-details/vet-details.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
+import { VetBookingComponent } from './vet-booking/vet-booking.component';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
@@ -20,7 +24,9 @@ import { MatIconModule } from '@angular/material/icon';
     HomeComponent,
     VetDetailsComponent,
     VetScheduleComponent,
-    VetAppointmentsComponent
+    VetAppointmentsComponent,
+    EditVetComponent,
+    VetBookingComponent,
   ],
   imports: [
     CommonModule,
@@ -33,8 +39,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaterialTimepickerModule,
-    MatIconModule
-  ]
+    ButtonModule,
+    CardModule,
+    MatCardModule,
+    MatIconModule,
+  ],
 })
-export class VetModule { }
+export class VetModule {}
