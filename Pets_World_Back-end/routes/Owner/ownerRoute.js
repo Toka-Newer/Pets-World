@@ -6,17 +6,16 @@ const ownerController = require("./../../controllers/Owner/ownerController");
 const ownerPetsController = require("./../../controllers/Owner/ownerPetsController");
 const ownerRoute = express.Router();
 
-ownerRoute.route("/owners/:id").patch(ownerController.updateOwnerById);
-
-
-
+ownerRoute.route("/owners").patch(ownerController.updateOwnerById);
+ownerRoute.route("/owner/:id").get(ownerController.getOwnerById);
 
 ownerRoute.route("/owners/pets/:id").get(ownerPetsController.getOwnerPets);
-ownerRoute.route("/owners/pets/:id/:petid").delete(ownerPetsController.deleteOwnerPets);
+ownerRoute
+  .route("/owners/pets/:id/:petid")
+  .delete(ownerPetsController.deleteOwnerPets);
 ownerRoute.route("/owners/pets/:id").post(ownerPetsController.createOwnerPets);
-ownerRoute.route("/owners/pets/:id/:petid").patch(ownerPetsController.updateOwnerPets);
+ownerRoute
+  .route("/owners/pets/:id/:petid")
+  .patch(ownerPetsController.updateOwnerPets);
 
 module.exports = ownerRoute;
-
-
-

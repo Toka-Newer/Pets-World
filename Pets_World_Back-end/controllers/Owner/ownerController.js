@@ -3,10 +3,27 @@ const ownerSchema = mongoose.model("Owner");
 const userSchema = mongoose.model("User");
 const keeperSchema = mongoose.model("Keeper");
 
+getOwnerById = async (req, res, next) => {
+  try {
+    const owner = await ownerSchema
+      .findOne({
+        _id: req.params.id,
+      })
+      .populate({
+        path: "user_id",
+      });
+    console.log(owner);
+    return res.status(200).json(owner);
+  } catch (err) {
+    next(err);
+  }
+};
+
 updateOwnerById = async (req, res, next) => {
+  console.log("put" + req.body);
   try {
     const owner = await ownerSchema.findOneAndUpdate(
-      { _id: req.params.id },
+      { _id: req.body.id },
       {
         $set: {
           isKeeper: req.body.isKeeper,
@@ -51,7 +68,7 @@ updateOwnerById = async (req, res, next) => {
           // password: req.body.password,
           phone: req.body.phone,
           gender: req.body.gender,
-          // image: req.body.image,
+          image: req.body.image,
         },
       },
       { new: true }
@@ -63,4 +80,5 @@ updateOwnerById = async (req, res, next) => {
 };
 module.exports = {
   updateOwnerById,
+  getOwnerById,
 };
