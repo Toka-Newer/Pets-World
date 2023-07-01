@@ -13,18 +13,22 @@ const checkValidation = require("./../../../core/Validation/checkValidation");
 
 VetAppointmentsRoute.route("/vet/appointments")
   .get(getVetAppointments)
-  .patch(vetAppointmentValidation.updateVetAppointmentValidator,
-    updateAppointment)
+  .patch(
+    vetAppointmentValidation.updateVetAppointmentValidator,
+    updateAppointment
+  )
   .delete(deleteAppointment);
 
 VetAppointmentsRoute.route("/vet/appointments/:id")
-  .get(vetAppointmentValidation.getVetAppointmentByVetIdValidator,
-    getVetAppointmentsById)
-  .post(vetAppointmentValidation.addVetAppointmentValidator,
-    addAppointment);
+  .get(
+    vetAppointmentValidation.getVetAppointmentByVetIdValidator,
+    getVetAppointmentsById
+  )
+  .post(vetAppointmentValidation.addVetAppointmentValidator, addAppointment);
 
-VetAppointmentsRoute.route("/vet/lastAppointments/:id")
-  .get(vetAppointmentValidation.getVetAppointmentByVetIdValidator,
-    getVetLastAppointmentsById)
+VetAppointmentsRoute.route("/vet/lastAppointments/:id").get(
+  vetAppointmentValidation.getVetAppointmentByVetIdValidator,
+  getVetLastAppointmentsById
+);
 
 module.exports = VetAppointmentsRoute;

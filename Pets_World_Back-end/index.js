@@ -14,6 +14,7 @@ const VetBookingRoute = require("./routes/Vet/VetBookingRoute");
 const KeeperRoute = require("./routes/Keeper/KeeperRoute");
 const KeeperBookingRoute = require("./routes/Keeper/KeeperBookingRoute");
 const OwnerRoute = require("./routes/Owner/ownerRoute");
+const BlogRoute = require("./routes/Owner/blogRoute");
 const PetsRoute = require("./routes/Pets/petsRoute");
 const UserRoute = require("./routes/Auth_Routes/user");
 
@@ -59,6 +60,7 @@ app.use(VetBookingRoute);
 app.use(KeeperRoute);
 app.use(KeeperBookingRoute);
 app.use(OwnerRoute);
+app.use(BlogRoute);
 app.use(PetsRoute);
 
 //  third layer no page found

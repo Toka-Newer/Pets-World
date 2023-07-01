@@ -3,16 +3,23 @@ const { Schema } = mongoose;
 
 const VetAppointmentsSchema = mongoose.Schema(
   {
-    vet_id: { type: mongoose.Schema.Types.ObjectId, ref: "Vet", required: true },
+    vet_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Vet",
+      required: true,
+    },
     day: { type: Date, required: true },
-    start_time: { type: Date, required: true },
-    end_time: { type: Date, required: true },
+    start_time: { type: String, required: true },
+    end_time: { type: String, required: true },
     number_of_clients: { type: Number, required: true },
   },
   { timestamps: true }
 );
 
-const VetAppointments = mongoose.model("VetAppointments", VetAppointmentsSchema);
+const VetAppointments = mongoose.model(
+  "VetAppointments",
+  VetAppointmentsSchema
+);
 
 // start_hour: {
 //     type: Number,

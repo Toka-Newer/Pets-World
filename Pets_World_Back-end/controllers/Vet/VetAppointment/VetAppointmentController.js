@@ -46,8 +46,8 @@ addAppointment = async (req, res, next) => {
       const appointment = new VetAppointmentsSchema({
         vet_id: req.params.id,
         day: start_date,
-        start_time: new Date(req.body.start_time),
-        end_time: new Date(req.body.end_time),
+        start_time: req.body.start_time,
+        end_time: req.body.end_time,
         number_of_clients: req.body.number_of_clients,
       });
       await appointment.save();
@@ -55,7 +55,7 @@ addAppointment = async (req, res, next) => {
     }
     return res
       .status(201)
-      .json({ message: "appintment is added successfully" });
+      .json({ message: "appintment is added successfully", status: "201" });
   } catch (err) {
     next(err);
   }
@@ -72,7 +72,7 @@ updateAppointment = async (req, res, nex) => {
       },
       { new: true }
     );
-    return res.status(201).json(vet);
+    return res.status(201).json({ status: "201" });
   } catch (err) {
     next(err);
   }

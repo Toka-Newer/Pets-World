@@ -7,3 +7,4 @@ require("./models/keeperAppointments");
 require("./models/keeperBooking");
 require("./models/vetAppointments");
 require("./models/vetBooking");
+require("./models/blog");
