@@ -11,11 +11,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { UserScheduleComponent } from './user-schedule/user-schedule.component';
+import { EditOwnerComponent } from './edit-owner/edit-owner.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    UserScheduleComponent
+    UserScheduleComponent,
+    EditOwnerComponent
   ],
   imports: [
     CommonModule,

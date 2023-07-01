@@ -7,11 +7,12 @@ import { EditVetService } from 'src/app/core/services/vet/editVet/edit-vet.servi
   templateUrl: './edit-vet.component.html',
   styleUrls: ['./edit-vet.component.css'],
 })
-export class EditVetComponent {
+export class EditVetComponent implements OnInit {
   vet: any = {}; // Object to store vet data
-  constructor(private vetService: EditVetService) { }
   vetId = '648dd6c55a2fb5c9b45df45b'; // Replace with the actual vet ID
   vetImage: any;
+
+  constructor(private vetService: EditVetService) {}
 
   ngOnInit(): void {
     this.getVetData(this.vetId);
@@ -49,7 +50,6 @@ export class EditVetComponent {
       };
       reader.readAsDataURL(file);
       this.vet.user_id.image = file;
-
     } else {
       this.vetImage = ''; // Clear the image preview
     }

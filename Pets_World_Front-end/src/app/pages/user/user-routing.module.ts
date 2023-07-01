@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UserScheduleComponent } from './user-schedule/user-schedule.component';
-import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
+import { EditOwnerComponent } from './edit-owner/edit-owner.component';
 
 const routes: Routes = [
   {
@@ -17,6 +17,10 @@ const routes: Routes = [
     path: 'keeper',
     loadChildren: () =>
       import('./keeper/keeper.module').then((keeper) => keeper.KeeperModule),
+  },
+  {
+    path: 'edit',
+    component: EditOwnerComponent,
   },
 ];
 

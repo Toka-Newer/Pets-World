@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 import { KeeperRoutingModule } from './keeper-routing.module';
 import { HomeComponent } from './home/home.component';
 import { KeeperDetailsComponent } from './keeper-details/keeper-details.component';
@@ -14,12 +15,14 @@ import { CardModule } from 'primeng/card';
 import { KeeperScheduleComponent } from './keeper-schedule/keeper-schedule.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { KeeperAppointmentsComponent } from './keeper-appointments/keeper-appointments.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     KeeperDetailsComponent,
-    KeeperScheduleComponent
+    KeeperScheduleComponent,
+    KeeperAppointmentsComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +37,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ButtonModule,
     MatCardModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 })
 export class KeeperModule { }

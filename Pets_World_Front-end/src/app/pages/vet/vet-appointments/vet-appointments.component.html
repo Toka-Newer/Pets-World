@@ -6,7 +6,8 @@
   <div class="row">
     <div *ngFor="let appointment of pagedAppointments" class="p-3 col-md-3">
       <article class="appointment">
-        <h2 class="text-capitalize">{{ appointment.day }}</h2>
+        <h2 class="text-capitalize">{{ appointment.day | date : "EEEE" }}</h2>
+        <h2 class="text-capitalize">{{ formatDate(appointment.day) }}</h2>
         <h2 class="text-capitalize">
           {{ appointment.start_time }} to {{ appointment.end_time }}
         </h2>
