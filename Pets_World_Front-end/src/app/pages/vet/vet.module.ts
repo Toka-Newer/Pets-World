@@ -46,4 +46,4 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     NgxMaterialTimepickerModule
   ],
 })
-export class VetModule {}
+export class VetModule { }
