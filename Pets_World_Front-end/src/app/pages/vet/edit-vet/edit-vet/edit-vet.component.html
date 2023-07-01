@@ -2,12 +2,15 @@
   <!-- Vet fields -->
   <div class="row">
     <mat-form-field class="col-10 my-1">
+      <mat-label>Experience</mat-label>
       <input matInput placeholder="Experience" [(ngModel)]="vet.experience" name="experience">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
+      <mat-label>Cost</mat-label>
       <input matInput placeholder="Cost" [(ngModel)]="vet.cost" name="cost">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
+      <mat-label>Description</mat-label>
       <textarea matInput placeholder="Description" [(ngModel)]="vet.description" name="description"></textarea>
     </mat-form-field>
     <mat-form-field class="w-100">
@@ -22,19 +25,26 @@
 
     <!-- User fields -->
     <mat-form-field class="col-10 my-1">
+      <mat-label>First Name</mat-label>
       <input matInput placeholder="First Name" [(ngModel)]="vet?.user_id.firstName" name="firstName">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
+      <mat-label>Last Name</mat-label>
       <input matInput placeholder="Last Name" [(ngModel)]="vet?.user_id.lastName" name="lastName">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
+      <mat-label>Phone</mat-label>
       <input matInput placeholder="Phone" [(ngModel)]="vet?.user_id.phone" name="phone">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="Gender" [(ngModel)]="vet?.user_id.gender" name="gender">
+      <mat-label>Gender</mat-label>
+      <mat-select [(ngModel)]="vet?.user_id.gender" name="gender">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+      </mat-select>
     </mat-form-field>
-
   </div>
+
   <!-- Submit button -->
   <button mat-raised-button color="primary" type="submit">Update</button>
 </form>
