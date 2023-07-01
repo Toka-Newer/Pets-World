@@ -56,17 +56,17 @@ export class EditOwnerComponent implements OnInit {
   }
 
   onSubmit() {
-    const ownerId = '648dd6c55a2fb5c9b45df45b'; // Replace with the actual owner ID
-    const ownerData = this.owner;
-    ownerData.id = ownerId;
-
+    const ownerId = '64964de55dc2c9fdbf7a9ab7'; // Replace with the actual owner ID
     const formData = new FormData();
     formData.append('id', ownerId);
-    formData.append('isKeeper', this.owner.isKeeper);
+    formData.append('isKeeper', this.owner.user_id.isKeeper);
     formData.append('firstName', this.owner.user_id.firstName);
     formData.append('lastName', this.owner.user_id.lastName);
     formData.append('phone', this.owner.user_id.phone);
     formData.append('gender', this.owner.user_id.gender);
+    formData.append('experience', this.owner.experience);
+    formData.append('cost', this.owner.cost);
+    formData.append('description', this.owner.description);
     formData.append('image', this.owner.user_id.image);
 
     this.ownerService.updateOwnerById(formData).subscribe(
