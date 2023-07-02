@@ -12,7 +12,7 @@ export class EditOwnerComponent implements OnInit {
   ownerId = '64964de55dc2c9fdbf7a9ab7'; // Replace with the actual owner ID
   ownerImage: any;
 
-  constructor(private ownerService: EditOwnerService) {}
+  constructor(private ownerService: EditOwnerService) { }
 
   ngOnInit(): void {
     this.getOwnerData(this.ownerId);
