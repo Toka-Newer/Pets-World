@@ -1,11 +1,6 @@
 <h1 class="text-center my-5">Appointments</h1>
 <section class="container">
-  <button
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
-    (click)="resetForm()"
-  >
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="resetForm()">
     Add
   </button>
   <div class="row">
@@ -22,44 +17,28 @@
         <h2 class="text-capitalize">
           Clients left: {{ appointment.number_of_pets }}
         </h2>
-        <button
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-          class="btn btn-primary m-2"
-          (click)="fillForm(appointment)"
-        >
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary m-2"
+          (click)="fillForm(appointment)">
           Edit
         </button>
-        <button
-          class="btn btn-danger"
-          (click)="deleteKeeperAppointment(appointment._id)"
-        >
+        <button class="btn btn-danger" (click)="deleteKeeperAppointment(appointment._id)">
           Delete
         </button>
       </article>
     </div>
   </div>
+  <mat-paginator [length]="appointments?.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+  </mat-paginator>
 </section>
 
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
           {{ modelStatus == "Add" ? "Add appointment" : "Edit appointment" }}
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="appointmentFormGroup">
@@ -68,22 +47,18 @@
               <mat-form-field class="w-100 pb-3">
                 <input matInput formControlName="number_of_pets" />
                 <mat-label>Number of pets</mat-label>
-                <mat-error
-                  *ngIf="
+                <mat-error *ngIf="
                   appointmentFormGroup.get('number_of_pets')?.invalid &&
                   appointmentFormGroup.get('number_of_pets')?.touched &&
-                  appointmentFormGroup.get('number_of_pets')?.errors?.['required']"
-                >
+                  appointmentFormGroup.get('number_of_pets')?.errors?.['required']">
                   Number of pets is required.
                 </mat-error>
                 <mat-error
-                  *ngIf="appointmentFormGroup.get('number_of_pets')?.touched && appointmentFormGroup.get('number_of_pets')?.errors?.['min']"
-                >
+                  *ngIf="appointmentFormGroup.get('number_of_pets')?.touched && appointmentFormGroup.get('number_of_pets')?.errors?.['min']">
                   number of pets can't be zero
                 </mat-error>
                 <mat-error
-                  *ngIf="appointmentFormGroup.get('number_of_pets')?.touched && appointmentFormGroup.get('number_of_pets')?.errors?.['pattern']"
-                >
+                  *ngIf="appointmentFormGroup.get('number_of_pets')?.touched && appointmentFormGroup.get('number_of_pets')?.errors?.['pattern']">
                   number of pets should have numbers only
                 </mat-error>
               </mat-form-field>
@@ -91,25 +66,15 @@
 
             <div class="col-md-6">
               <mat-form-field class="w-100 pb-3">
-                <input
-                  matInput
-                  formControlName="start_time"
-                  [matDatepicker]="startPicker"
-                  required
-                />
+                <input matInput formControlName="start_time" [matDatepicker]="startPicker" required />
                 <mat-label>Start time</mat-label>
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="startPicker"
-                ></mat-datepicker-toggle>
+                <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
                 <mat-datepicker #startPicker></mat-datepicker>
-                <mat-error
-                  *ngIf="
+                <mat-error *ngIf="
                     appointmentFormGroup.get('start_time')?.invalid &&
                     (appointmentFormGroup.get('start_time')?.touched ||
                       appointmentFormGroup.get('start_time')?.dirty)
-                  "
-                >
+                  ">
                   Start time is required
                 </mat-error>
               </mat-form-field>
@@ -117,25 +82,15 @@
 
             <div class="col-md-6">
               <mat-form-field class="w-100 pb-3">
-                <input
-                  matInput
-                  formControlName="end_time"
-                  [matDatepicker]="endPicker"
-                  required
-                />
+                <input matInput formControlName="end_time" [matDatepicker]="endPicker" required />
                 <mat-label>End time</mat-label>
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="endPicker"
-                ></mat-datepicker-toggle>
+                <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
                 <mat-datepicker #endPicker></mat-datepicker>
-                <mat-error
-                  *ngIf="
+                <mat-error *ngIf="
                     appointmentFormGroup.get('end_time')?.invalid &&
                     (appointmentFormGroup.get('end_time')?.touched ||
                       appointmentFormGroup.get('end_time')?.dirty)
-                  "
-                >
+                  ">
                   End time is required
                 </mat-error>
               </mat-form-field>
@@ -147,12 +102,8 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          [disabled]="!appointmentFormGroup.valid || clicked"
-          (click)="submitForm()"
-        >
+        <button type="button" class="btn btn-primary" [disabled]="!appointmentFormGroup.valid || clicked"
+          (click)="submitForm()">
           Save changes
         </button>
       </div>

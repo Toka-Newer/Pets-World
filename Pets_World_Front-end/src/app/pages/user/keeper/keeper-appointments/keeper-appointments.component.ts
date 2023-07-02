@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import Swal from 'sweetalert2';
 
@@ -17,11 +18,15 @@ export class KeeperAppointmentsComponent {
   id = '648d7df968534eb332418a8d';
   clicked: boolean = false;
   modelStatus: any = 'Add';
+  pagedAppointments: any[] = []; // Array to hold the paged booking data
+  pageSize = 1; // Number of items to display per page
+  currentPage = 0; // Current page index
+
   constructor(
     private _keeperAppointments: KeeperAppointmentService,
     private datePipe: DatePipe,
     private _formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getkeeperAppointments();
@@ -39,7 +44,8 @@ export class KeeperAppointmentsComponent {
   getkeeperAppointments() {
     this._keeperAppointments.getKeeperAppointment(this.id).subscribe(
       (data: any) => {
-        this.appointments=data;
+        this.appointments = data;
+        this.updatePagedAppointments();
       },
       (error: any) => {
         console.log(error);
@@ -83,8 +89,7 @@ export class KeeperAppointmentsComponent {
     // this.appointmentFormGroup.reset();
   }
 
-  formatDate(date:any)
-  {
+  formatDate(date: any) {
     const dateString = date; // Replace with your date string
     const datePipe = new DatePipe('en-US');
     const dateObj = new Date(dateString);
@@ -198,5 +203,15 @@ export class KeeperAppointmentsComponent {
           });
         }
       );
+  }
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.updatePagedAppointments();
+  }
+
+  updatePagedAppointments() {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedAppointments = this.appointments?.slice(startIndex, endIndex);
   }
 }
