@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { VetListComponent } from './vet-list/vet-list.component';
 import { VetDetailsComponent } from './vet-details/vet-details.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
 import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.component';
@@ -10,7 +10,7 @@ import { VetBookingComponent } from './vet-booking/vet-booking.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: VetListComponent,
   },
   {
     path: 'details',
@@ -27,10 +27,6 @@ const routes: Routes = [
   {
     path: 'edit',
     component: EditVetComponent,
-  },
-  {
-    path: 'appointments',
-    component: VetAppointmentsComponent,
   },
   {
     path: 'booking',

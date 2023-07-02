@@ -4,19 +4,25 @@ import { Title } from '@angular/platform-browser';
 import { IVET } from '../models/IVET';
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  templateUrl: './vet-list.component.html',
+  styleUrls: ['./vet-list.component.css'],
 })
-export class HomeComponent implements OnInit {
+
+export class VetListComponent implements OnInit {
+
   vetsArray: IVET[]=[];
-  constructor(public vetAPis: VetService, private titleService: Title) {}
+
+  constructor(public vetAPis: VetService,
+              private titleService: Title) {}
   ngOnInit(): void {
     this.titleService.setTitle('Vets Home');
     this.getAllData()
   }
-  //function for get all data
+
   getAllData(): void {
-    this.vetAPis.getAllVets().subscribe((data)=>{
-      console.log(data);
-    })  }
+    this.vetAPis.getAllVets().subscribe((data: any)=>{
+      this.vetsArray = data;
+      console.log(data)
+    })
+  }
 }

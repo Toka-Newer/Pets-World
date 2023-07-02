@@ -8,4 +8,10 @@ export interface IVET{
   experience: number;
   cost: number;
   description: string;
+  user_id: User;
+}
+
+export interface User{
+  firstName: string;
+  lastName: string;
 }

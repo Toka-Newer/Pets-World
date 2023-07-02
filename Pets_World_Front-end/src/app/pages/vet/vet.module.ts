@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VetRoutingModule } from './vet-routing.module';
-import { HomeComponent } from './home/home.component';
+import { VetListComponent } from './vet-list/vet-list.component';
 import { VetDetailsComponent } from './vet-details/vet-details.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 @NgModule({
   declarations: [
-    HomeComponent,
+    VetListComponent,
     VetDetailsComponent,
     VetScheduleComponent,
     VetAppointmentsComponent,
