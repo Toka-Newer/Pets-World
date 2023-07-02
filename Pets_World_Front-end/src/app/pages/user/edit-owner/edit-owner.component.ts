@@ -9,7 +9,7 @@ import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owne
 })
 export class EditOwnerComponent implements OnInit {
   owner: any = {}; // Object to store owner data
-  ownerId = '64a0eab27a580e6a44539033'; // Replace with the actual owner ID
+  ownerId = '64a1690fc149169c3c2acd26'; // Replace with the actual owner ID
   ownerImage: any;
   keeper: any = {};
 
@@ -24,7 +24,10 @@ export class EditOwnerComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.owner = data.owner;
-        this.keeper = data.keeper;
+        if (data.keeper) {
+          this.keeper = data.keeper;
+        }
+        console.log(this.keeper);
         this.ownerImage = `${API_URL}/${this.owner.user_id.image}`;
       },
       (error: any) => {
@@ -58,8 +61,10 @@ export class EditOwnerComponent implements OnInit {
   }
 
   onSubmit() {
-    const ownerId = '64a0eab27a580e6a44539033'; // Replace with the actual owner ID
+    const ownerId = '64a1690fc149169c3c2acd26'; // Replace with the actual owner ID
     const formData = new FormData();
+    console.log(this.keeper);
+    console.log(this.owner);
     formData.append('id', ownerId);
     formData.append('isKeeper', this.owner.isKeeper);
     formData.append('firstName', this.owner.user_id.firstName);
@@ -67,6 +72,7 @@ export class EditOwnerComponent implements OnInit {
     formData.append('phone', this.owner.user_id.phone);
     formData.append('gender', this.owner.user_id.gender);
     formData.append('experience', this.keeper.experience);
+    console.log(formData.get('experience'));
     formData.append('cost', this.keeper.cost);
     formData.append('description', this.keeper.description);
     formData.append('image', this.owner.user_id.image);

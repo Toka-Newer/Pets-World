@@ -72,7 +72,7 @@ updateOwnerById = async (req, res, next) => {
           // password: req.body.password,
           phone: req.body.phone,
           gender: req.body.gender,
-          image: req.body.image,
+          ...(req.file && { image: req.file.path }), // Merge image property if req.file exists
         },
       },
       { new: true }
