@@ -26,7 +26,8 @@ getOwnerById = async (req, res, next) => {
 
 updateOwnerById = async (req, res, next) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
+    console.log(req.file);
     const owner = await ownerSchema.findOneAndUpdate(
       { _id: req.body.id },
       {

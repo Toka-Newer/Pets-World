@@ -16,13 +16,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./user/user.module').then((user) => user.UserModule),
     canActivate: [AuthGuard],
-    data: { roles: ['owner', 'keeper'] }
+    data: { roles: ['owner', 'keeper'] },
   },
   {
     path: 'vet',
     loadChildren: () => import('./vet/vet.module').then((vet) => vet.VetModule),
     canActivate: [AuthGuard],
-    data: { roles: ['vet'] }
+    data: { roles: ['vet'] },
   },
 ];
 
@@ -30,4 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PagesRoutingModule { }
+export class PagesRoutingModule {}

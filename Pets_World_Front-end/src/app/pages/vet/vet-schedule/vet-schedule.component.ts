@@ -13,19 +13,20 @@ export class VetScheduleComponent {
   currentDate = new Date();
   vetBookingData: any;
 
-  constructor(private vetBookingService: VetBookingService) { }
+  constructor(private vetBookingService: VetBookingService) {}
 
   ngOnInit(): void {
-    this.getVetBookingData("648dd6c55a2fb5c9b45df45b");
+    this.getVetBookingData('64a0edae7a580e6a4453903f');
   }
 
   getVetBookingData(id: string) {
     const filter = {
       vet_id: id,
-      day: this.currentDate.toISOString().substring(0, 10)
-    }
+      day: this.currentDate.toISOString().substring(0, 10),
+    };
     this.vetBookingService.getVetSchedule(filter).subscribe(
       (data: any) => {
+        console.log(data);
         this.vetBookingData = data.map((booking: any) => {
           booking.userImage = `${API_URL}/${booking.owner_id.user_id.image}`;
           return booking;
@@ -43,13 +44,12 @@ export class VetScheduleComponent {
 
   previousDate(): void {
     this.currentDate.setDate(this.currentDate.getDate() - 1);
-    this.getVetBookingData("648dd6c55a2fb5c9b45df45b");
+    this.getVetBookingData('64a0edae7a580e6a4453903f');
   }
 
   nextDate(): void {
     this.currentDate.setDate(this.currentDate.getDate() + 1);
-    this.getVetBookingData("648dd6c55a2fb5c9b45df45b");
-
+    this.getVetBookingData('64a0edae7a580e6a4453903f');
   }
 
   // deleteBooking(id: any) {

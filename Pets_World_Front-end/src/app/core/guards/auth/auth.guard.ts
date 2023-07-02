@@ -1,12 +1,25 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  constructor(private authService: AuthService, private router: Router) {}
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -16,8 +29,15 @@ export class AuthGuard implements CanActivate {
         return true; // User is authorized to access the route
       } else {
         // Redirect to unauthorized page or a different route
-        console.log("Redirect to unauthorized page or a different route")
-        this.router.navigate(['/unauthorized']);
+        if (
+          this.authService.role == 'owner' ||
+          this.authService.role == 'keeper'
+        ) {
+          this.router.navigate(['/user']);
+        } else {
+          this.router.navigate(['/vet/schedule']);
+        }
+        console.log('Redirect to unauthorized page or a different route');
         return false; // User is not authorized to access the route
       }
     }

@@ -12,7 +12,10 @@ export class AuthService {
   role!: string;
   user_id!: string;
   token!: string;
-  constructor(private http: HttpClient) { }
+  keeper_id: any;
+  owner_id: any;
+  vet_id: any;
+  constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
     const loginUrl = `${API_URL}/login`;
@@ -22,10 +25,8 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     this.token = localStorage.getItem('token') as string;
-    if (this.token)
-      this.isLogin = true;
-    else
-      this.isLogin = false;
+    if (this.token) this.isLogin = true;
+    else this.isLogin = false;
     return this.isLogin;
   }
 
@@ -34,13 +35,16 @@ export class AuthService {
     if (this.token) {
       const decoded: any = jwtDecode(this.token);
       this.role = decoded?.role;
-      this.user_id = decoded?.id
+      this.user_id = decoded?.id;
+      this.owner_id = decoded?.owner_id;
+      this.keeper_id = decoded?.keeper_id;
+      this.vet_id = decoded?.vet_id;
     }
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.role = ''
-    this.user_id = ''
+    this.role = '';
+    this.user_id = '';
   }
 }
