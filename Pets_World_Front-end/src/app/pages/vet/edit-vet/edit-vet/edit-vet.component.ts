@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { API_URL } from 'src/app/core/services/environment/environment';
 import { EditVetService } from 'src/app/core/services/vet/editVet/edit-vet.service';
 
@@ -9,12 +10,17 @@ import { EditVetService } from 'src/app/core/services/vet/editVet/edit-vet.servi
 })
 export class EditVetComponent implements OnInit {
   vet: any = {}; // Object to store vet data
-  vetId = '648dd6c55a2fb5c9b45df45b'; // Replace with the actual vet ID
+  vetId: any; // Replace with the actual vet ID
   vetImage: any;
 
-  constructor(private vetService: EditVetService) {}
+  constructor(
+    private vetService: EditVetService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.authService.getTokenData();
+    this.vetId = this.authService.vet_id;
     this.getVetData(this.vetId);
   }
 
@@ -56,12 +62,8 @@ export class EditVetComponent implements OnInit {
   }
 
   onSubmit() {
-    const vetId = '648dd6c55a2fb5c9b45df45b'; // Replace with the actual vet ID
-    const vetData = this.vet;
-    vetData.id = vetId;
-
     const formData = new FormData();
-    formData.append('id', vetId);
+    formData.append('id', this.vetId);
     formData.append('firstName', this.vet.user_id.firstName);
     formData.append('lastName', this.vet.user_id.lastName);
     formData.append('phone', this.vet.user_id.phone);
