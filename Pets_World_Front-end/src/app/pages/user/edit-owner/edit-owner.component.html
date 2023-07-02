@@ -1,16 +1,15 @@
 <form (ngSubmit)="onSubmit()" class="w-50 mx-auto">
   <!-- Owner fields -->
   <div class="row">
-    <mat-checkbox class="col-10 my-1" [(ngModel)]="owner.user_id.isKeeper" name="isKeeper">Is Keeper</mat-checkbox>
+    <mat-checkbox class="col-10 my-1" [(ngModel)]="owner.isKeeper" name="isKeeper">Is Keeper</mat-checkbox>
     <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="Experience" [(ngModel)]="owner.user_id.experience" name="experience">
+      <input matInput placeholder="Experience" [(ngModel)]="owner.experience" name="experience">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="Cost" [(ngModel)]="owner.user_id.cost" name="cost">
+      <input matInput placeholder="Cost" [(ngModel)]="owner.cost" name="cost">
     </mat-form-field>
     <mat-form-field class="col-10 my-1">
-      <textarea matInput placeholder="Description" [(ngModel)]="owner.user_id.description"
-        name="description"></textarea>
+      <textarea matInput placeholder="Description" [(ngModel)]="owner.description" name="description"></textarea>
     </mat-form-field>
   </div>
 
