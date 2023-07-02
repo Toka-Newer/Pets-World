@@ -9,7 +9,7 @@ import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owne
 })
 export class EditOwnerComponent implements OnInit {
   owner: any = {}; // Object to store owner data
-  ownerId = '64964de55dc2c9fdbf7a9ab7'; // Replace with the actual owner ID
+  ownerId = '648ce57b670ad4b5396a8919'; // Replace with the actual owner ID
   ownerImage: any;
 
   constructor(private ownerService: EditOwnerService) { }
@@ -56,7 +56,7 @@ export class EditOwnerComponent implements OnInit {
   }
 
   onSubmit() {
-    const ownerId = '64964de55dc2c9fdbf7a9ab7'; // Replace with the actual owner ID
+    const ownerId = '648ce57b670ad4b5396a8919'; // Replace with the actual owner ID
     const formData = new FormData();
     formData.append('id', ownerId);
     formData.append('isKeeper', this.owner.user_id.isKeeper);

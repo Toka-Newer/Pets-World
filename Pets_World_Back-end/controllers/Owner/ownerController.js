@@ -12,7 +12,12 @@ getOwnerById = async (req, res, next) => {
       .populate({
         path: "user_id",
       });
-    console.log(owner);
+    if (owner.isKeeper == true) {
+      const keeper = await keeperSchema.findOne({
+        owner_id: req.params.id,
+      });
+      return res.status(200).json({ owner, keeper });
+    }
     return res.status(200).json(owner);
   } catch (err) {
     next(err);
