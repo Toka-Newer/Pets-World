@@ -9,8 +9,9 @@ import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owne
 })
 export class EditOwnerComponent implements OnInit {
   owner: any = {}; // Object to store owner data
-  ownerId = '648ce57b670ad4b5396a8919'; // Replace with the actual owner ID
+  ownerId = '64a0eab27a580e6a44539033'; // Replace with the actual owner ID
   ownerImage: any;
+  keeper: any = {};
 
   constructor(private ownerService: EditOwnerService) {}
 
@@ -21,9 +22,10 @@ export class EditOwnerComponent implements OnInit {
   getOwnerData(id: string) {
     this.ownerService.getOwnerById(id).subscribe(
       (data: any) => {
-        this.owner = data;
+        console.log(data);
+        this.owner = data.owner;
+        this.keeper = data.keeper;
         this.ownerImage = `${API_URL}/${this.owner.user_id.image}`;
-        console.log(this.owner);
       },
       (error: any) => {
         console.error(error);
@@ -56,17 +58,17 @@ export class EditOwnerComponent implements OnInit {
   }
 
   onSubmit() {
-    const ownerId = '648ce57b670ad4b5396a8919'; // Replace with the actual owner ID
+    const ownerId = '64a0eab27a580e6a44539033'; // Replace with the actual owner ID
     const formData = new FormData();
     formData.append('id', ownerId);
-    formData.append('isKeeper', this.owner.user_id.isKeeper);
+    formData.append('isKeeper', this.owner.isKeeper);
     formData.append('firstName', this.owner.user_id.firstName);
     formData.append('lastName', this.owner.user_id.lastName);
     formData.append('phone', this.owner.user_id.phone);
     formData.append('gender', this.owner.user_id.gender);
-    formData.append('experience', this.owner.experience);
-    formData.append('cost', this.owner.cost);
-    formData.append('description', this.owner.description);
+    formData.append('experience', this.keeper.experience);
+    formData.append('cost', this.keeper.cost);
+    formData.append('description', this.keeper.description);
     formData.append('image', this.owner.user_id.image);
 
     this.ownerService.updateOwnerById(formData).subscribe(

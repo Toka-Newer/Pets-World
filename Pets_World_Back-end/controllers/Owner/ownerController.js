@@ -18,7 +18,7 @@ getOwnerById = async (req, res, next) => {
       });
       return res.status(200).json({ owner, keeper });
     }
-    return res.status(200).json(owner);
+    return res.status(200).json({ owner });
   } catch (err) {
     next(err);
   }

@@ -12,13 +12,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { UserScheduleComponent } from './user-schedule/user-schedule.component';
 import { EditOwnerComponent } from './edit-owner/edit-owner.component';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ButtonModule } from 'primeng/button';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
-  declarations: [
-    HomeComponent,
-    UserScheduleComponent,
-    EditOwnerComponent
-  ],
+  declarations: [HomeComponent, UserScheduleComponent, EditOwnerComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -31,6 +29,9 @@ import { EditOwnerComponent } from './edit-owner/edit-owner.component';
     MatNativeDateModule,
     MatSelectModule,
     // CardModule,
-  ]
+    MatCheckboxModule,
+    ButtonModule,
+    MatIconModule,
+  ],
 })
-export class UserModule { }
+export class UserModule {}

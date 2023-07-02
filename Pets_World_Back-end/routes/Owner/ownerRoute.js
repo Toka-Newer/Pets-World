@@ -4,9 +4,12 @@ const vetValidation = require("./../../core/Validation/vetValidation");
 const checkValidation = require("./../../core/Validation/checkValidation");
 const ownerController = require("./../../controllers/Owner/ownerController");
 const ownerPetsController = require("./../../controllers/Owner/ownerPetsController");
+const uploadImage = require("./../../core/upload_Image/userImage");
 const ownerRoute = express.Router();
 
-ownerRoute.route("/owners").patch(ownerController.updateOwnerById);
+ownerRoute
+  .route("/owners")
+  .patch(uploadImage.single("image"), ownerController.updateOwnerById);
 ownerRoute.route("/owner/:id").get(ownerController.getOwnerById);
 
 ownerRoute.route("/owners/pets/:id").get(ownerPetsController.getOwnerPets);
