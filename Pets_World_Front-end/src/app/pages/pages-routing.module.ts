@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./user/user.module').then((user) => user.UserModule),
     canActivate: [AuthGuard],
-    data: { roles: ['owner'] }
+    data: { roles: ['owner', 'keeper'] }
   },
   {
     path: 'vet',

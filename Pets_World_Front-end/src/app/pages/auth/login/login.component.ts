@@ -41,7 +41,8 @@ export class LoginComponent {
           localStorage.setItem('token', data.token);
           console.log('Successfully logged');
           this.authService.getTokenData();
-          if (this.authService.role === 'owner') {
+          // localStorage.setItem('role', this.authService.role);
+          if (this.authService.role === 'owner' || this.authService.role === 'keeper') {
             this.router.navigate(['/user']);
           } else if (this.authService.role === 'vet') {
             this.router.navigate(['/vet']);

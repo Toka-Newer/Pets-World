@@ -11,7 +11,7 @@ export class EditOwnerService {
   token: string =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoib3duZXIiLCJpZCI6IjY0OTA4NGYwMTk1NTkyNDQ0NThhMDljZiIsImlhdCI6MTY4NzE5MjgyOH0.6wIXTzPXpGpJUqy4zs5vOZFf4Q58JtYJXXpd7BECgSc';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   updateOwnerById(ownerData: any): Observable<any> {
     const url = `${this.baseUrl}/owners`; // URL with the vet ID in it
@@ -19,7 +19,6 @@ export class EditOwnerService {
       'Authorization',
       `Bearer ${this.token}`
     );
-
     return this.http.patch(url, ownerData, { headers }).pipe(
       catchError(this.handleError) // Handle any errors that occur during the HTTP request
     );
