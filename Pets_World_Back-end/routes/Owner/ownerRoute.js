@@ -7,10 +7,9 @@ const ownerPetsController = require("./../../controllers/Owner/ownerPetsControll
 const uploadImage = require("./../../core/upload_Image/userImage");
 const ownerRoute = express.Router();
 
-ownerRoute.route("/owners").patch(
-  uploadImage.single("image"),
-  ownerController.updateOwnerById
-);
+ownerRoute
+  .route("/owners")
+  .patch(uploadImage.single("image"), ownerController.updateOwnerById);
 ownerRoute.route("/owner/:id").get(ownerController.getOwnerById);
 
 ownerRoute.route("/owners/pets/:id").get(ownerPetsController.getOwnerPets);

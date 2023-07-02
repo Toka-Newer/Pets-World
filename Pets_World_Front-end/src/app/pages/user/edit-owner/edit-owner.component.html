@@ -2,13 +2,13 @@
   <!-- Owner fields -->
   <div class="row">
     <mat-checkbox class="col-10 my-1" [(ngModel)]="owner.isKeeper" name="isKeeper">Is Keeper</mat-checkbox>
-    <mat-form-field class="col-10 my-1">
+    <mat-form-field class="col-10 my-1" *ngIf="owner.isKeeper">
       <input matInput placeholder="Experience" [(ngModel)]="keeper.experience" name="experience">
     </mat-form-field>
-    <mat-form-field class="col-10 my-1">
+    <mat-form-field class="col-10 my-1" *ngIf="owner.isKeeper">
       <input matInput placeholder="Cost" [(ngModel)]="keeper.cost" name="cost">
     </mat-form-field>
-    <mat-form-field class="col-10 my-1">
+    <mat-form-field class="col-10 my-1" *ngIf="owner.isKeeper">
       <textarea matInput placeholder="Description" [(ngModel)]="keeper.description" name="description"></textarea>
     </mat-form-field>
   </div>
@@ -31,6 +31,16 @@
         <mat-option value="female">Female</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Image</mat-label>
+      <button mat-icon-button matSuffix (click)="onUserImageClick($event)">
+        <mat-icon>folder_open</mat-icon>
+      </button>
+      <input type="text" readonly matInput name="image" />
+      <input type="file" hidden #hiddenInput (change)="onUserImageChange($event)" accept="image/*" />
+      <img *ngIf="ownerImage" [src]="ownerImage" alt="owner Image" class="owner-image" width="200px" height="200px" />
+    </mat-form-field>
+
   </div>
 
   <!-- Submit button -->
