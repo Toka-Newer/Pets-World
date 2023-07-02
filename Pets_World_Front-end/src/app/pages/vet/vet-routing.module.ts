@@ -13,8 +13,8 @@ const routes: Routes = [
     component: VetListComponent,
   },
   {
-    path: 'details',
-    component: VetDetailsComponent,
+    path: 'details/:id',
+    component: VetDetailsComponent,pathMatch: 'full'
   },
   {
     path: 'schedule',
