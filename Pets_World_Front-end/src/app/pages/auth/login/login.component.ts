@@ -42,10 +42,14 @@ export class LoginComponent {
           console.log('Successfully logged');
           this.authService.getTokenData();
           // localStorage.setItem('role', this.authService.role);
-          if (this.authService.role === 'owner' || this.authService.role === 'keeper') {
+          if (
+            this.authService.role === 'owner' ||
+            this.authService.role === 'keeper'
+          ) {
             this.router.navigate(['/user']);
+            // window.location.reload();
           } else if (this.authService.role === 'vet') {
-            this.router.navigate(['/vet']);
+            this.router.navigate(['/vet/schedule']);
           }
         },
         error: (err) => {

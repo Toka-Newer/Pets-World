@@ -24,7 +24,9 @@ export class EditOwnerComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.owner = data.owner;
-        this.keeper = data.keeper;
+        if (data.keeper) {
+          this.keeper = data.keeper;
+        }
         this.ownerImage = `${API_URL}/${this.owner.user_id.image}`;
       },
       (error: any) => {
@@ -70,7 +72,6 @@ export class EditOwnerComponent implements OnInit {
     formData.append('cost', this.keeper.cost);
     formData.append('description', this.keeper.description);
     formData.append('image', this.owner.user_id.image);
-
     // const ownerData: { [key: string]: any } = {
     //   id: ownerId,
     //   isKeeper: this.owner.isKeeper,

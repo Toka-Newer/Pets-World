@@ -25,10 +25,8 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     this.token = localStorage.getItem('token') as string;
-    if (this.token)
-      this.isLogin = true;
-    else
-      this.isLogin = false;
+    if (this.token) this.isLogin = true;
+    else this.isLogin = false;
     return this.isLogin;
   }
 
@@ -70,7 +68,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    this.role = ''
-    this.user_id = ''
+    this.role = '';
+    this.user_id = '';
   }
 }
