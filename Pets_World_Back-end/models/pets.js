@@ -17,7 +17,7 @@ const PetsSchema = mongoose.Schema({
     dateOfBirth: { type: Date, required: false },
     age: { type: Number, required: true },
     description: { type: String, required: false, default: "" },
-    image: { type: String, required: false, default: "Assets\\images\\anonymous.png" },
+    // image: { type: String, required: false, default: "Assets\\images\\anonymous.png" },
 }, { timestamps: true });
 
 const Pets = mongoose.model("Pets", PetsSchema);
