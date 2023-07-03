@@ -44,15 +44,44 @@ addAppointment = async (req, res, next) => {
   try {
     const start_date = new Date(req.body.start_date);
     const end_date = new Date(req.body.end_date);
+    const start_time = req.body.start_time;
+    const end_time = req.body.end_time;
     for (start_date; start_date <= end_date;) {
-      const appointment = new VetAppointmentsSchema({
-        vet_id: req.params.id,
+      const vetAppointments = await VetAppointmentsSchema.find({
         day: start_date,
-        start_time: req.body.start_time,
-        end_time: req.body.end_time,
-        number_of_clients: req.body.number_of_clients,
       });
-      await appointment.save();
+      if (vetAppointments.length != 0) {
+        for (let i = 0; i < vetAppointments.length; i++) {
+          if (
+            !(
+              (start_time >= vetAppointments[i].start_time &&
+                start_time <= vetAppointments[i].end_time) ||
+              (end_time <= vetAppointments[i].end_time &&
+                end_time >= vetAppointments[i].start_time)
+            )
+          ) {
+            const appointment = new VetAppointmentsSchema({
+              vet_id: req.params.id,
+              day: start_date,
+              start_time: req.body.start_time,
+              end_time: req.body.end_time,
+              number_of_clients: req.body.number_of_clients,
+            });
+            await appointment.save();
+            break;
+          }
+        }
+      } else {
+        const appointment = new VetAppointmentsSchema({
+          vet_id: req.params.id,
+          day: start_date,
+          start_time: req.body.start_time,
+          end_time: req.body.end_time,
+          number_of_clients: req.body.number_of_clients,
+        });
+        await appointment.save();
+      }
+
       start_date.setDate(start_date.getDate() + 1);
     }
     return res

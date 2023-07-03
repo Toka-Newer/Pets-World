@@ -65,6 +65,7 @@ export class VetAppointmentsComponent {
       if (result.isConfirmed) {
         this._VetAppointments.deleteVetAppointment(id).subscribe((data: any) => {
           this.appointments = this.appointments.filter((element: any) => element._id != id);
+          this.pagedAppointments = this.appointments
           Swal.fire(
             'Deleted!',
             'Your file has been deleted.',
@@ -78,7 +79,6 @@ export class VetAppointmentsComponent {
             confirmButtonText: 'OK'
           })
         })
-
       }
     })
   }
@@ -129,7 +129,6 @@ export class VetAppointmentsComponent {
       end_time: this.appointmentFormGroup.value.end_time
     }
     this.clicked = true;
-    console.log(this.addAppointment);
     this._VetAppointments.addVetAppointments(this.addAppointment, this.id).subscribe(
       (data: any) => {
         if (data.status == "201") {
@@ -140,6 +139,9 @@ export class VetAppointmentsComponent {
             confirmButtonText: 'OK'
           }
           )
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         }
         else {
           Swal.fire({
@@ -148,10 +150,8 @@ export class VetAppointmentsComponent {
             icon: 'error',
             confirmButtonText: 'OK'
           })
+          this.clicked = false;
         }
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
       },
       (error: any) => {
         Swal.fire({
@@ -181,10 +181,9 @@ export class VetAppointmentsComponent {
             confirmButtonText: 'OK'
           }
           )
-          const model = document.getElementById("exampleModal");
           setTimeout(() => {
             window.location.reload();
-          }, 1000);
+          }, 1500);
         }
         else {
           Swal.fire({

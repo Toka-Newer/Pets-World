@@ -89,7 +89,7 @@ export class KeeperAppointmentsComponent {
 
   resetForm() {
     this.modelStatus = 'Add';
-    // this.appointmentFormGroup.reset();
+    this.appointmentFormGroup.reset();
   }
 
   formatDate(date: any) {
@@ -144,6 +144,9 @@ export class KeeperAppointmentsComponent {
               icon: 'success',
               confirmButtonText: 'OK',
             });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
           } else {
             Swal.fire({
               title: 'Error!',
@@ -151,10 +154,8 @@ export class KeeperAppointmentsComponent {
               icon: 'error',
               confirmButtonText: 'OK',
             });
+            this.clicked = false;
           }
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
         },
         (error: any) => {
           Swal.fire({
@@ -187,7 +188,7 @@ export class KeeperAppointmentsComponent {
             });
             setTimeout(() => {
               window.location.reload();
-            }, 1000);
+            }, 1500);
           } else {
             Swal.fire({
               title: 'Error!',

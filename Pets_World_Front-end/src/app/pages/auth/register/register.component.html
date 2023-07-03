@@ -380,27 +380,34 @@
           <p><strong>Image:</strong> {{ secondFormGroup.value.userImage }}</p>
           <p><strong>Role:</strong> {{ secondFormGroup.value.role }}</p>
           <div *ngIf="secondFormGroup.value.role === 'owner'">
-            <h4>Pets</h4>
+            <h4 class="text-green">Pets Information</h4>
             <ul>
               <li *ngFor="let pet of secondFormGroup.value.pets">
-                <strong>Name:</strong> {{ pet.name }} | <strong>Type:</strong>
-                {{ pet.type }} | <strong>Gender:</strong> {{ pet.gender }} |
-                <strong>Date of Birth:</strong> {{ pet.dateOfBirth }} |
-                <strong>Age:</strong> {{ pet.age }} |
-                <strong>Description:</strong> {{ pet.description }}
+                <p>
+                  <strong>Name:</strong> {{ pet.name }} | <strong>Type:</strong>
+                  {{ pet.type }} | <strong>Gender:</strong> {{ pet.gender }} |
+                  <strong>Date of Birth:</strong> {{ pet.dateOfBirth }} |
+                  <strong>Age:</strong> {{ pet.age }} |
+                  <strong>Description:</strong> {{ pet.description }}
+                </p>
               </li>
+
             </ul>
           </div>
           <div *ngIf="secondFormGroup.value.role === 'vet'">
             <h4 class="text-green">Vet Information</h4>
-            <p><strong>Cost:</strong> {{ secondFormGroup.value.cost }}</p>
+            <p><strong>Cost:</strong> {{ secondFormGroup.value.vet.cost }}</p>
             <p>
               <strong>Experience:</strong>
-              {{ secondFormGroup.value.experience }}
+              {{ secondFormGroup.value.vet.experience }}
             </p>
             <p>
               <strong>License:</strong>
-              {{ secondFormGroup.value.vetLicense }}
+              {{ secondFormGroup.value.vet.vetLicense }}
+            </p>
+            <p>
+
+              <strong>Description:</strong> {{secondFormGroup.value.vet.description }}
             </p>
           </div>
         </div>
