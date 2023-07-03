@@ -1,19 +1,13 @@
-import { PetsService } from './../../../../core/services/pet/pets.service';
+import { PetsService } from '../../../../core/services/pet/pets.service';
 import { Component, HostListener } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { API_URL } from '../../../../core/services/environment/environment'
 import { KeeperService } from 'src/app/core/services/user/keeper/keeperService/keeper.service';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import { KeeperBookingService } from 'src/app/core/services/user/keeper/keeperBooking/keeper-booking.service';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
+import {ActivatedRoute} from "@angular/router";
 
 interface Appointment {
   _id: String,
@@ -37,6 +31,7 @@ interface AddAppointment {
   styleUrls: ['./keeper-details.component.css']
 })
 export class KeeperDetailsComponent {
+  keepId: string = '';
   isSticky = false;
   rating: number | null = null;
   hoveredStar: number | null = null;
@@ -57,7 +52,9 @@ export class KeeperDetailsComponent {
     // day: ''
   };
 
-  constructor(private _formBuilder: FormBuilder,
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private _formBuilder: FormBuilder,
     private keeperService: KeeperService,
     private keeperAppointmentService: KeeperAppointmentService,
     private datePipe: DatePipe,
@@ -65,19 +62,19 @@ export class KeeperDetailsComponent {
     private keeperBookingService: KeeperBookingService) { }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.getkeeperData("649794f8999ea0fe2cd3d9ef");
-    this.getKeeperAppointments("649794f8999ea0fe2cd3d9ef");
-    this.getPetsByOwnerId("648f9646bd39fe8c0527ee4f");
-    // this.getKeeperBookingData("648f98130dcac62b73ca2f62");
+    this.activatedRoute.params.subscribe(params => {
+      this.keepId = params["id"];
+      this.getkeeperData(this.keepId);
+      this.getKeeperAppointments(this.keepId);
+      this.getPetsByOwnerId("648f9646bd39fe8c0527ee4f");
+      // this.getKeeperBookingData("648f98130dcac62b73ca2f62");
 
-    this.bookingFormGroup = this._formBuilder.group({
-      pet: ['', Validators.required],
-      appointment: ['', Validators.required],
-    });
+      this.bookingFormGroup = this._formBuilder.group({
+        pet: ['', Validators.required],
+        appointment: ['', Validators.required],
+      });
+    })
   }
-
   getkeeperData(id: string) {
     this.keeperService.getKeeperById(id).subscribe(
       (data: any) => {

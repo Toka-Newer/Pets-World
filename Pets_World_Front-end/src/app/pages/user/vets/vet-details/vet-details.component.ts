@@ -1,19 +1,13 @@
-import { PetsService } from './../../../core/services/pet/pets.service';
-import { VetAppointmentService } from './../../../core/services/vet/vetAppointment/vet-appointment.service';
-import { VetService } from './../../../core/services/vet/vetService/vet.service';
+import { PetsService } from '../../../../core/services/pet/pets.service';
+import { VetAppointmentService } from '../../../../core/services/vet/vetAppointment/vet-appointment.service';
+import { VetService } from '../../../../core/services/vet/vetService/vet.service';
 import { Component, HostListener } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
-import { API_URL } from '../../../core/services/environment/environment';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { API_URL } from '../../../../core/services/environment/environment';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import {ActivatedRoute} from "@angular/router";
 
 interface Appointment {
   _id: String;
@@ -42,6 +36,7 @@ export class VetDetailsComponent {
   rating: number | null = null;
   hoveredStar: number | null = null;
 
+  vetId: string = '';
   vetData: any;
   vetImage: any;
   vetRating: number | null = null;
@@ -57,6 +52,7 @@ export class VetDetailsComponent {
     day: '',
   };
   constructor(
+    private activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private vetService: VetService,
     private vetAppointmentService: VetAppointmentService,
@@ -66,16 +62,17 @@ export class VetDetailsComponent {
   ) {}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.getVetData("649c9deeae3f8709e1837942");
-    this.getVetAppointments("649c9deeae3f8709e1837942");
+    this.activatedRoute.params.subscribe(params => {
+      this.vetId = params["id"];
+    this.getVetData(this.vetId);
+    this.getVetAppointments(this.vetId);
     this.getPetsByOwnerId("649c9deeae3f8709e1837942");
     // this.getVetBookingData("648f98130dcac62b73ca2f62");
 
     this.bookingFormGroup = this._formBuilder.group({
       pet: ['', Validators.required],
       appointment: ['', Validators.required],
+    });
     });
   }
 

@@ -24,7 +24,7 @@ export class KeeperService {
       'Authorization',
       `Bearer ${this.token}`
     );
-    return this.http.get(this.base_url + `/keepers`, { headers });
+    return this.http.get(this.base_url, { headers });
   }
   updateKeeperRating(id: string, data: any) {
     const headers = new HttpHeaders()
