@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { API_URL } from 'src/app/core/services/environment/environment';
 import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owner.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-owner',
@@ -10,12 +11,13 @@ import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owne
 })
 export class EditOwnerComponent implements OnInit {
   owner: any = {}; // Object to store owner data
-  // ownerId = '648f9646bd39fe8c0527ee4f'; // Replace with the actual owner ID
   ownerId!: any; // Replace with the actual owner ID
   ownerImage: any;
   keeper: any = {};
+  isKeeper: boolean = false;
 
-  constructor(private ownerService: EditOwnerService, private authService: AuthService) {
+  constructor(private ownerService: EditOwnerService,
+    private authService: AuthService) {
     this.ownerId = authService.getOwnerId();
   }
 
@@ -30,6 +32,7 @@ export class EditOwnerComponent implements OnInit {
         this.owner = data.owner;
         if (data.keeper) {
           this.keeper = data.keeper;
+          this.isKeeper = true;
         }
         this.ownerImage = `${API_URL}/${this.owner.user_id.image}`;
       },
@@ -76,13 +79,32 @@ export class EditOwnerComponent implements OnInit {
     formData.append('description', this.keeper.description);
     formData.append('image', this.owner.user_id.image);
 
+    if (this.isKeeper !== this.owner.isKeeper) {
+      Swal.fire({
+        title: 'A keeper!',
+        text: "You will have to login again.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.updateOwnerData(formData)
+          this.authService.logout();
+          window.location.reload();
+        }
+      })
+    } else {
+      this.updateOwnerData(formData);
+      window.location.reload();
+    }
+  }
+
+  updateOwnerData(formData: any) {
     this.ownerService.updateOwnerById(formData).subscribe(
       (res) => {
         // Handle response from the backend
-        if (this.owner.isKeeper) {
-          //////////////////////////////////////////////////////////////////////////////////////////////
-        }
-        console.log(res);
       },
       (error) => {
         // Handle error
