@@ -20,7 +20,7 @@ getKeeperById = async (req, res, next) => {
 getAllKeeprs = async (req, res, next) => {
   try {
     const keeper = await KeeperSchema.find({
-      owner_id: { $ne: req.params.id },
+      owner_id: { $ne: req.query.id },
     }).populate({
       path: "owner_id",
     });

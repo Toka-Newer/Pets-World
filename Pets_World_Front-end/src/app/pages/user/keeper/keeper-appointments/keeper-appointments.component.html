@@ -4,7 +4,7 @@
     Add
   </button>
   <div class="row">
-    <div *ngFor="let appointment of appointments" class="p-3 col-md-3">
+    <div *ngFor="let appointment of pagedAppointments" class="p-3 col-md-3">
       <article class="appointment">
         <h2 class="text-capitalize">
           {{ appointment.start_time | date : "EEEE" }} to

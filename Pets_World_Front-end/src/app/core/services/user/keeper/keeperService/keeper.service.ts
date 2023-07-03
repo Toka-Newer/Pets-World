@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URL } from '../../../environment/environment';
 import { AuthService } from '../../../auth.service';
@@ -8,7 +8,6 @@ import { AuthService } from '../../../auth.service';
 })
 export class KeeperService {
   base_url: string = `${API_URL}/keepers`;
-  // token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoib3duZXIiLCJpZCI6IjY0OGUxYmE2YWRiZjQzNDkxYjE3MmUzOCIsImlhdCI6MTY4NzA0MDAwOH0.h0Upf4d0wX3PRsiiF4DFzVaNYNEFg0M8GCD84mOjFi4';
   token!: string;
 
   constructor(private http: HttpClient, private authService: AuthService) {
@@ -19,12 +18,13 @@ export class KeeperService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     return this.http.get(this.base_url + `/${id}`, { headers });
   }
-  geAlltKeepers() {
+  geAlltKeepers(filter: any) {
     const headers = new HttpHeaders().set(
       'Authorization',
       `Bearer ${this.token}`
     );
-    return this.http.get(this.base_url, { headers });
+    const params = new HttpParams({ fromObject: filter });
+    return this.http.get(this.base_url, { headers, params });
   }
   updateKeeperRating(id: string, data: any) {
     const headers = new HttpHeaders()

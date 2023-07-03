@@ -54,6 +54,7 @@ export class UserScheduleComponent {
           booking.userImage = `${API_URL}/${booking.owner_id.user_id.image}`;
           return booking;
         });
+        console.log(this.ownerBookingData)
       },
       (error: any) => {
         console.error(error);

@@ -20,7 +20,7 @@ export class KeeperAppointmentsComponent {
   clicked: boolean = false;
   modelStatus: any = 'Add';
   pagedAppointments: any[] = []; // Array to hold the paged booking data
-  pageSize = 1; // Number of items to display per page
+  pageSize = 10; // Number of items to display per page
   currentPage = 0; // Current page index
 
   constructor(private authService: AuthService,

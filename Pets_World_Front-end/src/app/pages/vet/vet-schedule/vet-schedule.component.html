@@ -1,13 +1,15 @@
 <div class="bg-light">
   <div class="container py-5">
     <div class="d-flex align-items-start">
-      <button class="btn btn-link" (click)="previousDate()">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-      <h2>{{ getFormattedDate() | date : "MMMM, dd" }}</h2>
-      <button class="btn btn-link" (click)="nextDate()">
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
+      <form [formGroup]="form" class="pt-3">
+        <!-- Day -->
+        <mat-form-field class="w-100 pb-2">
+          <mat-label>Day</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="day" required />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
     </div>
     <div class="card-wrapper">
       <div class="row">
