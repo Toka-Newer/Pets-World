@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import {Keeper} from '../../keeper/models/Keeper';
+import { Keeper } from '../../keeper/models/Keeper';
 import { KeeperService } from '../../../../core/services/user/keeper/keeperService/keeper.service';
-import {Router} from "@angular/router";
-import {PageEvent} from "@angular/material/paginator";
+import { Router } from "@angular/router";
+import { PageEvent } from "@angular/material/paginator";
 @Component({
   selector: 'app-home',
   templateUrl: './keeper-list.component.html',
@@ -17,16 +17,19 @@ export class KeeperListComponent implements OnInit {
   currentPage: number = 0;
 
   constructor(private titleService: Title,
-              private router: Router,
-              public keeperApis: KeeperService) {
+    private router: Router,
+    public keeperApis: KeeperService) {
     this.titleService.setTitle('Keeper Home');
   }
+
   ngOnInit(): void {
     this.getAllKeeper();
   }
+
   getAllKeeper(): void {
     this.keeperApis.geAlltKeepers().subscribe((data) => {
-      console.log(data);
+      this.keepers = data as Keeper[];
+      this.updatePagedVets();
     });
   }
 
