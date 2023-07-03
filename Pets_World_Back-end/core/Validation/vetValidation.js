@@ -19,6 +19,7 @@ module.exports.addVetValidator = [
     .optional()
     .isString()
     .withMessage("Description should be a string"),
+  body("address").isString().withMessage("Address should be a string"),
 ];
 
 module.exports.updateVetValidator = [
@@ -45,6 +46,7 @@ module.exports.updateVetValidator = [
     .optional()
     .isInt({ min: 0 })
     .withMessage("totalOfReviews should be integer and 0 or more"),
+  body("address").optional().isString().withMessage("Address should be a string"),
 ];
 
 module.exports.deleteVetValidator = [

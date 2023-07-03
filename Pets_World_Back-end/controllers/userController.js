@@ -97,6 +97,7 @@ addUser = async (req, res, next) => {
           cost: req.body.cost,
           experience: req.body.experience,
           description: req.body.description,
+          address: req.body.address,
         });
         // Handle the license image
         if (req.files && req.files.length > 1) {

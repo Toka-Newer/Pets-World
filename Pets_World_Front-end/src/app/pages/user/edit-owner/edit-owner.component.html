@@ -49,6 +49,9 @@
       <input matInput type="number" placeholder="Cost" [(ngModel)]="keeper.cost" name="cost">
     </mat-form-field>
     <mat-form-field class="col-12 my-1" *ngIf="owner.isKeeper">
+      <input matInput placeholder="Address" [(ngModel)]="keeper.address" name="address">
+    </mat-form-field>
+    <mat-form-field class="col-12 my-1" *ngIf="owner.isKeeper">
       <textarea matInput placeholder="Description" [(ngModel)]="keeper.description" name="description"></textarea>
     </mat-form-field>
   </div>

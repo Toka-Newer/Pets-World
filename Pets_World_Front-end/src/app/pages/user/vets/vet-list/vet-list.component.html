@@ -1,22 +1,23 @@
-
 <h1 class="text-center my-5">Vets</h1>
 <section class="container">
   <div class="row">
     <div *ngFor="let vet of pagedVets" class="p-3 col-md-3">
-      <article class="vet">
-        <h3 class="text-capitalize">{{vet.user_id.firstName}} {{vet.user_id.lastName}}</h3>
-        <p class=""> {{vet.user_id.email}}</p>
-        <p class=""> {{vet.user_id.phone}} </p>
-        <p class=""> Years of Experience + {{ vet.experience }}</p>
-        <p class=""> Cost: {{vet.cost}} </p>
-        <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary m-2"
-                (click)="viewVet(vet)">
-          View
-        </button>
-<!--        <button class="btn btn-danger" (click)="deleteVetAppointment(appointment._id)">-->
-<!--          Book-->
-<!--        </button>-->
-      </article>
+      <div class="card text-center my-3" style="width: 19rem;">
+        <div style="height: 200px; object-fit: cover;">
+          <img [src]="vet.userImage" height=" 100%" width="100%" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body bg-light">
+          <h4 class="pt-2 text-capitalize fs-5">{{vet.user_id.firstName}} {{vet.user_id.lastName}}</h4>
+          <!-- <p class="text-p py-1"> {{vet.user_id.email}}</p>
+          <p class="text-p py-1"> {{vet.user_id.phone}} </p> -->
+          <p class="text-p py-1"> Years of Experience + {{ vet.experience }}</p>
+          <p class="text-p py-1"> Cost: {{vet.cost}} </p>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary m-2"
+            (click)="viewVet(vet)">
+            View
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   <mat-paginator [length]="vets.length" [pageSize]="pageSize" (page)="onPageChange($event)">

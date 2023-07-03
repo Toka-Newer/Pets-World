@@ -7,14 +7,15 @@ export interface Keeper {
   numberOfReviews: number;
   totalOfReviews: number;
   owner_id: UserDetails;
+  userImage: string;
 }
 
-export interface UserDetails{
-  email: string;
-  firstName: string;
-  gender: string;
-  image: string;
-  lastName: string;
-  phone: string;
-  role: string;
+export interface UserDetails {
+  isKeeper: boolean;
+  user_id: any;
+  // gender: string;
+  // image: string;
+  // lastName: string;
+  // phone: string;
+  // role: string;
 }

@@ -6,6 +6,7 @@ const KeeperSchema = mongoose.Schema({
     experience: { type: Number, required: false, min: 0, default: 0 },
     cost: { type: Number, required: true, min: 10 },
     description: { type: String, required: false },
+    address: { type: String, required: true },
     numberOfReviews: { type: Number, min: 0, default: 0 },
     totalOfReviews: { type: Number, min: 0, default: 0 },
 }, { timestamps: true });

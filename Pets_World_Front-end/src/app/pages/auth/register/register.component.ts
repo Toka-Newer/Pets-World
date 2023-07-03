@@ -23,6 +23,7 @@ interface UserData {
   user_id?: string;
   cost?: number;
   experience?: number;
+  address?: string;
   description?: string;
   images: File[];
 }
@@ -91,6 +92,7 @@ export class RegisterComponent implements OnInit {
       vet: this._formBuilder.group({
         cost: [, Validators.required],
         experience: [, Validators.required],
+        address: [, Validators.required],
         description: [''],
         vetLicense: ['', Validators.required], // Control for vet license
       }),
@@ -139,17 +141,26 @@ export class RegisterComponent implements OnInit {
         const experienceControl = this.secondFormGroup
           .get('vet')
           ?.get('experience');
+        const addressControl = this.secondFormGroup
+          .get('vet')
+          ?.get('address');
+        const descriptionControl = this.secondFormGroup
+          .get('vet')
+          ?.get('description');
 
-        if (!costControl?.value || !experienceControl?.value) {
+        if (!costControl?.value || !experienceControl?.value || !addressControl?.value) {
           console.log('Please fill in all vet information.');
           return;
         }
-        userdata.cost = costControl?.value || '';
-        userdata.experience = experienceControl?.value;
-        userdata.description = this.secondFormGroup.get('description')?.value;
-        formData.append('cost', '' + userdata.cost);
-        formData.append('experience', '' + userdata.experience);
-        formData.append('description', '' + userdata.description);
+        // userdata.cost = costControl?.value || '';
+        // userdata.experience = experienceControl?.value;
+        // userdata.description = this.secondFormGroup.get('description')?.value;
+        // userdata.address = this.secondFormGroup.get('address')?.value;
+        formData.append('cost', '' + costControl?.value);
+        formData.append('experience', '' + experienceControl?.value);
+        formData.append('address', '' + addressControl?.value);
+        formData.append('description', '' + descriptionControl?.value);
+
       } else {
         console.log('Invalid role selected.');
         return;
@@ -169,6 +180,8 @@ export class RegisterComponent implements OnInit {
 
       formData.append('images', userdata.images[0]);
       formData.append('images', userdata.images[1]);
+      console.log(formData.get('description'));
+      console.log(formData.get('address'));
       this.userService.register(formData).subscribe({
         next: (res) => {
           this.router.navigate(['/login']);

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { VetService } from 'src/app/core/services/vet/vetService/vet.service';
 import { Title } from '@angular/platform-browser';
-import {Router} from "@angular/router";
-import {Vet} from "../../../vet/models/Vet";
-import {PageEvent} from "@angular/material/paginator";
+import { Router } from "@angular/router";
+import { Vet } from "../../../vet/models/Vet";
+import { PageEvent } from "@angular/material/paginator";
+import { API_URL } from 'src/app/core/services/environment/environment';
 
 @Component({
   selector: 'app-home',
@@ -19,16 +20,19 @@ export class VetListComponent implements OnInit {
   currentPage: number = 0;
 
   constructor(public vetAPis: VetService,
-              private router: Router,
-              private titleService: Title) {}
+    private router: Router,
+    private titleService: Title) { }
   ngOnInit(): void {
     this.titleService.setTitle('Vets Home');
     this.getAllData()
   }
 
   getAllData(): void {
-    this.vetAPis.getAllVets().subscribe((data: any)=>{
+    this.vetAPis.getAllVets().subscribe((data: any) => {
       this.vets = data;
+      this.vets.map((vet: Vet) => {
+        vet.userImage = `${API_URL}/${vet.user_id.image}`;
+      })
       this.updatePagedVets();
     })
   }

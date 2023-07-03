@@ -70,6 +70,7 @@ export class EditVetComponent implements OnInit {
     formData.append('gender', this.vet.user_id.gender);
     formData.append('experience', this.vet.experience);
     formData.append('cost', this.vet.cost);
+    formData.append('address', this.vet.address);
     formData.append('description', this.vet.description);
     formData.append('image', this.vet.user_id.image);
 

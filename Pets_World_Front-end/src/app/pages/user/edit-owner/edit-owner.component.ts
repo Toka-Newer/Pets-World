@@ -76,9 +76,10 @@ export class EditOwnerComponent implements OnInit {
     formData.append('gender', this.owner.user_id.gender);
     formData.append('experience', this.keeper.experience);
     formData.append('cost', this.keeper.cost);
+    formData.append('address', this.keeper.address);
     formData.append('description', this.keeper.description);
     formData.append('image', this.owner.user_id.image);
-
+    console.log(this.isKeeper)
     if (this.isKeeper !== this.owner.isKeeper) {
       Swal.fire({
         title: 'A keeper!',
@@ -104,6 +105,7 @@ export class EditOwnerComponent implements OnInit {
   updateOwnerData(formData: any) {
     this.ownerService.updateOwnerById(formData).subscribe(
       (res) => {
+        console.log(res)
         // Handle response from the backend
       },
       (error) => {

@@ -7,9 +7,10 @@ export interface Vet {
   numberOfReviews: number;
   totalOfReviews: number;
   user_id: UserDetails;
+  userImage: string;
 }
 
-export interface UserDetails{
+export interface UserDetails {
   email: string;
   firstName: string;
   gender: string;

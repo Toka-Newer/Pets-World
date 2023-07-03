@@ -5,6 +5,7 @@ import { KeeperService } from '../../../../core/services/user/keeper/keeperServi
 import { Router } from "@angular/router";
 import { PageEvent } from "@angular/material/paginator";
 import { AuthService } from 'src/app/core/services/auth.service';
+import { API_URL } from 'src/app/core/services/environment/environment';
 @Component({
   selector: 'app-home',
   templateUrl: './keeper-list.component.html',
@@ -17,6 +18,7 @@ export class KeeperListComponent implements OnInit {
   pageSize: number = 10;
   currentPage: number = 0;
   ownerId!: string;
+  userImage!: string;
 
   constructor(private titleService: Title,
     private router: Router,
@@ -34,7 +36,10 @@ export class KeeperListComponent implements OnInit {
     this.keeperApis.geAlltKeepers({ id: this.ownerId }).subscribe((data) => {
       this.keepers = data as Keeper[];
       this.updatePagedVets();
-      console.log(data)
+      this.keepers.map((keeper: Keeper) => {
+        keeper.userImage = `${API_URL}/${keeper.owner_id.user_id.image}`;
+      })
+      console.log(this.keepers)
     });
   }
 

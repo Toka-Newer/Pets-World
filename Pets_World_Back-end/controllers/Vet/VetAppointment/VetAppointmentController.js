@@ -14,6 +14,9 @@ getVetAppointments = async (req, res, next) => {
 getVetAppointmentsById = async (req, res, next) => {
   try {
     const vetAppointments = await VetAppointmentsSchema.find({
+      day: {
+        $gte: new Date()
+      },
       vet_id: req.params.id,
     })
       .sort({ day: -1 })

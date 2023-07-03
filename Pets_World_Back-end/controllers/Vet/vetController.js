@@ -25,6 +25,7 @@ updateVetById = async (req, res, next) => {
           experience: req.body.experience,
           cost: req.body.cost,
           description: req.body.description,
+          address: req.body.address,
         },
       },
       { new: true }

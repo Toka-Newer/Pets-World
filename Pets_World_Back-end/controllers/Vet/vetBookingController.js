@@ -4,7 +4,6 @@ const VetAppointmentsSchema = mongoose.model("VetAppointments");
 const petsSchema = mongoose.model("Pets");
 
 getVetBooking = async (req, res, next) => {
-  console.log(req.query)
   try {
     const VetBooking = await VetBookingSchema.find(req.query).populate([
       { path: "appointment_id" },
@@ -127,7 +126,6 @@ updateVetBooking = async (req, res, next) => {
 
 deleteVetBooking = async (req, res, next) => {
   // add apppionntments count number
-  console.log(req.params.id);
   try {
     const bookingId = req.params.id;
 
