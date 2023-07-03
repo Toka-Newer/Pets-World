@@ -35,7 +35,7 @@ exports.createOwnerPets = async (req, res) => {
     await pet.save();
     owner.pets_id = pet._id;
     await owner.save();
-    res.status(200).json(pet);
+    res.status(200).json({ message: "pet created successfully.",status:'201'});
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -58,7 +58,7 @@ exports.updateOwnerPets = async (req, res) => {
     const pet = await Pets.findById(req.params.petid);
     Object.assign(pet, req.body);
     await pet.save();
-    res.status(200).json({ message: "pet updated successfully." });
+    res.status(200).json({ message: "pet edit successfully.",status:'201'});
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
