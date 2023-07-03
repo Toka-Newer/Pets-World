@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { API_URL } from 'src/app/core/services/environment/environment';
 import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owner.service';
 
@@ -9,11 +10,14 @@ import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owne
 })
 export class EditOwnerComponent implements OnInit {
   owner: any = {}; // Object to store owner data
-  ownerId = '648f9646bd39fe8c0527ee4f'; // Replace with the actual owner ID
+  // ownerId = '648f9646bd39fe8c0527ee4f'; // Replace with the actual owner ID
+  ownerId!: any; // Replace with the actual owner ID
   ownerImage: any;
   keeper: any = {};
 
-  constructor(private ownerService: EditOwnerService) { }
+  constructor(private ownerService: EditOwnerService, private authService: AuthService) {
+    this.ownerId = authService.getOwnerId();
+  }
 
   ngOnInit(): void {
     this.getOwnerData(this.ownerId);

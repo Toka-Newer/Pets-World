@@ -14,6 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 interface Appointment {
   _id: String,
@@ -40,7 +41,8 @@ export class KeeperDetailsComponent {
   isSticky = false;
   rating: number | null = null;
   hoveredStar: number | null = null;
-
+  owner_Id!: string;
+  keeper_Id!: string;
   keeperData: any;
   keeperImage: any;
   keeperRating: number | null = null;
@@ -57,19 +59,22 @@ export class KeeperDetailsComponent {
     // day: ''
   };
 
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private authService: AuthService,
+    private _formBuilder: FormBuilder,
     private keeperService: KeeperService,
     private keeperAppointmentService: KeeperAppointmentService,
     private datePipe: DatePipe,
     private petsService: PetsService,
-    private keeperBookingService: KeeperBookingService) { }
+    private keeperBookingService: KeeperBookingService) {
+    this.owner_Id = authService.getOwnerId();
+  }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.getkeeperData("649794f8999ea0fe2cd3d9ef");
     this.getKeeperAppointments("649794f8999ea0fe2cd3d9ef");
-    this.getPetsByOwnerId("648f9646bd39fe8c0527ee4f");
+    this.getPetsByOwnerId(this.owner_Id);
     // this.getKeeperBookingData("648f98130dcac62b73ca2f62");
 
     this.bookingFormGroup = this._formBuilder.group({
@@ -152,7 +157,7 @@ export class KeeperDetailsComponent {
       this.addAppointment = {
         appointment_id: this.bookingFormGroup.value.appointment,
         keeper_id: "649794f8999ea0fe2cd3d9ef",
-        owner_id: "648f9646bd39fe8c0527ee4f",
+        owner_id: this.owner_Id,
         pet_id: this.bookingFormGroup.value.pet,
         // day: this.bookingFormGroup.value.appointment
       }
@@ -220,7 +225,7 @@ export class KeeperDetailsComponent {
       this.rating = index; // Set the rating to the selected star index
     }
     const data = {
-      owner_id: "648f9646bd39fe8c0527ee4f",
+      owner_id: this.owner_Id,
       rate: index
     }
     this.keeperService.updateKeeperRating("649794f8999ea0fe2cd3d9ef", data).subscribe(

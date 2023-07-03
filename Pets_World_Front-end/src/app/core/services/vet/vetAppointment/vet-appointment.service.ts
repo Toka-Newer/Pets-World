@@ -10,9 +10,11 @@ export class VetAppointmentService {
   base_url: string = `${API_URL}/vet/lastAppointments`;
   second_base_url: string = `${API_URL}/vet/appointments`;
   // token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoib3duZXIiLCJpZCI6IjY0OTA4NGYwMTk1NTkyNDQ0NThhMDljZiIsImlhdCI6MTY4NzE5MjgyOH0.6wIXTzPXpGpJUqy4zs5vOZFf4Q58JtYJXXpd7BECgSc';
-  token: string = this.authService.getToken();
+  token!: string;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.token = this.authService.getToken();
+  }
 
   getVetAppointment(id: string) {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
