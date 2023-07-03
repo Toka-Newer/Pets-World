@@ -31,3 +31,12 @@ module.exports.checkOwner = (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.checkOwner = (req, res, next) => {
+  if (req.role === "keeper") next();
+  else {
+    let error = new Error("Keeper Not Authorized");
+    error.status = 403;
+    next(error);
+  }
+};

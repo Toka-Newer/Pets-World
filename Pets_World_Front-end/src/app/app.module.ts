@@ -7,18 +7,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { FooterComponent } from './pages/components/footer/footer.component';
+import { NavbarComponent } from './pages/components/navbar/navbar.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FooterComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     HttpClientModule,
     SweetAlert2Module,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

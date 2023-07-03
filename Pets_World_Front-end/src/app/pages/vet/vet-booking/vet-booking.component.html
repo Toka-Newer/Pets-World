@@ -19,25 +19,25 @@
                   <ul class="list-group">
                     <li
                       class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
-                      style="color: #00000078;">
+                      style="color: #989797;">
                       <span>Pet Name</span> {{ booking?.pet_id?.name }}
                     </li>
                     <li
                       class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
-                      style="color: #00000078;">
+                      style="color: #989797;">
                       <span>Booking Time</span>
                       {{ booking?.appointment_id?.start_time | date: 'h:mm a' }}
                       : {{ booking?.appointment_id?.end_time | date: 'h:mm a' }}
                     </li>
                     <li
                       class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
-                      style="color: #00000078;">
+                      style="color: #989797;">
                       <span>Phone Number</span>
                       {{ booking?.owner_id?.user_id?.phone }}
                     </li>
                     <li
                       class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
-                      style="color: #00000078;">
+                      style="color: #989797;">
                       <span>Email</span>
                       {{ booking?.owner_id?.user_id?.email }}
                     </li>

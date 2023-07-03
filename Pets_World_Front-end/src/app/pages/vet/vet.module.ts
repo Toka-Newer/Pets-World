@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VetRoutingModule } from './vet-routing.module';
-import { HomeComponent } from './home/home.component';
-import { VetDetailsComponent } from './vet-details/vet-details.component';
+import { VetListComponent } from '../user/vets/vet-list/vet-list.component';
+import { VetDetailsComponent } from '../user/vets/vet-details/vet-details.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -18,10 +18,12 @@ import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
 import { VetBookingComponent } from './vet-booking/vet-booking.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 @NgModule({
   declarations: [
-    HomeComponent,
+    VetListComponent,
     VetDetailsComponent,
     VetScheduleComponent,
     VetAppointmentsComponent,
@@ -43,7 +45,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     CardModule,
     MatCardModule,
     MatIconModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatPaginatorModule,
   ],
 })
 export class VetModule { }

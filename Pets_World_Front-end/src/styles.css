@@ -29,7 +29,8 @@ h6 {
   font-weight: 500;
 }
 
-p {
+p,
+input {
   font-family: Roboto, sans-serif !important;
 }
 
@@ -37,8 +38,25 @@ p {
   color: #f19f1f;
 }
 
+.text-green {
+  color: #108896;
+}
+
+.text-p {
+  font-weight: 200;
+  color: #7a7a7a;
+}
+
 .bg-orange {
   background-color: #f19f1f;
+}
+
+.bg-green {
+  background-color: #108896;
+}
+
+.bg-light {
+  background-color: #f5f3ee !important
 }
 
 .btn-orange {
@@ -47,8 +65,8 @@ p {
   box-shadow: inset 9px 0px 0px 0px #F19F1F !important;
   cursor: pointer;
   padding: 0 30px;
-  width: 150px;
-  height: 56px;
+  width: auto;
+  height: 50px;
   display: flex;
   align-items: center;
   margin-top: 10px;
@@ -68,19 +86,55 @@ p {
   box-shadow: inset 0px 0px 0px 0px #108896 !important;
 }
 
-.bg-green {
-  background-color: #108896;
+.btn-orange-solid {
+  font-family: 'BalooThambi', sans-serif !important;
+  background-color: #ef5030 !important;
+  color: #ffffff !important;
+  cursor: pointer;
+  padding: 0 20px;
+  width: auto;
+  height: 40px;
+  margin: 5px;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
 }
 
-.text-green {
-  color: #108896;
+.btn-green-solid {
+  font-family: 'BalooThambi', sans-serif !important;
+  background-color: #108896 !important;
+  color: #ffffff !important;
+  cursor: pointer;
+  padding: 0 20px;
+  width: auto;
+  height: 40px;
+  margin: 5px;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
 }
 
-.text-p {
-  font-weight: 200;
-  color: #7a7a7a;
+.btn-orange-solid:hover {
+  background-color: #108896 !important;
+  transition: all 0.3s ease-in-out;
+  box-shadow: inset 0px 0px 0px 0px #108896 !important;
 }
 
-.bg-light {
-  background-color: #f5f3ee !important
+.btn-green-solid:hover {
+  background-color: #ef5030 !important;
+  transition: all 0.3s ease-in-out;
+  box-shadow: inset 0px 0px 0px 0px #ef5030 !important;
 }
+
+/*  box-shadow: 2px 0px 20px #cecece;
+ border: none; */

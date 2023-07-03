@@ -9,12 +9,17 @@ const {
   getVetLastAppointmentsById,
 } = require("../../../controllers/Vet/VetAppointment/VetAppointmentController");
 const vetAppointmentValidation = require("./../../../core/Validation/VetAppointmentValidation");
+const {
+  checkDate,
+  checkTime,
+} = require("./../../../core/Validation/VetAppointment");
 const checkValidation = require("./../../../core/Validation/checkValidation");
 
 VetAppointmentsRoute.route("/vet/appointments")
   .get(getVetAppointments)
   .patch(
     vetAppointmentValidation.updateVetAppointmentValidator,
+    checkTime,
     updateAppointment
   )
   .delete(deleteAppointment);
@@ -24,7 +29,12 @@ VetAppointmentsRoute.route("/vet/appointments/:id")
     vetAppointmentValidation.getVetAppointmentByVetIdValidator,
     getVetAppointmentsById
   )
-  .post(vetAppointmentValidation.addVetAppointmentValidator, addAppointment);
+  .post(
+    vetAppointmentValidation.addVetAppointmentValidator,
+    checkDate,
+    checkTime,
+    addAppointment
+  );
 
 VetAppointmentsRoute.route("/vet/lastAppointments/:id").get(
   vetAppointmentValidation.getVetAppointmentByVetIdValidator,

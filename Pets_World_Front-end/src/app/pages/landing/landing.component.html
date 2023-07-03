@@ -1,38 +1,5 @@
-<!-- navbar -->
-<nav class="navbar navbar-expand-lg bg-orange">
-  <div class="container">
-    <div>
-      <a class href="#">
-        <img src="../../../assets/images/landing/logo.png" alt="Petz" width="180" height="67">
-      </a>
-    </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto ">
-        <li class="nav-item p-2">
-          <a class="nav-link " aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item p-2">
-          <a class="nav-link " href="#">About Us</a>
-        </li>
-        <li class="nav-item p-2">
-          <a class="nav-link " href="#">Services</a>
-        </li>
-        <li class="nav-item p-2">
-          <a class="nav-link " href="#">Login</a>
-        </li>
-
-      </ul>
-
-      <ul></ul>
-    </div>
-  </div>
-</nav>
 <!-- header -->
-<owl-carousel-o [options]="headerOptions" class="text-white">
+<owl-carousel-o id="header" [options]="headerOptions" class="text-white">
 
   <ng-template carouselSlide>
     <div style="background-image: url('../../../assets/images/landing/slide0.jpg');background-size:cover;height: 90vh;">
@@ -48,7 +15,7 @@
                 Petz a fun HTML5 Pet Template with many elements for your Pet
                 related website </p>
 
-              <a href="#" class="btn-orange" target="_blank">
+              <a href="#service" class="btn-orange">
                 Our Service </a>
             </div>
           </div>
@@ -72,7 +39,7 @@
                 We offer all the best quality products for your best friend.
               </p>
 
-              <a href="#" class="btn-orange" target="_blank">
+              <a href="#service" class="btn-orange">
                 Our Service </a>
             </div>
           </div>
@@ -96,7 +63,7 @@
                 We offer all the best quality products for your best friend
               </p>
 
-              <a href="#" class="btn-orange" target="_blank">
+              <a href="#service" class="btn-orange">
                 Our Service </a>
             </div>
           </div>
@@ -106,7 +73,7 @@
   </ng-template>
 </owl-carousel-o>
 <!-- About Us  -->
-<section class="about h-100 bg-light">
+<section id="about" class="about h-100 bg-light">
   <div class="container">
     <div class=" title row justify-content-center text-center ">
       <div class="col-3  ">
@@ -146,7 +113,7 @@
 </section>
 
 <!-- services -->
-<section class="services pb-3 ">
+<section id="service" class="services pb-3 ">
   <div class="container">
     <div class=" title row justify-content-center text-center ">
       <div class="col-4 ">
@@ -164,7 +131,7 @@
               vestibulum in vulputate a Imperdiet
               interdum donec eget metus auguen unc vel lorem.
             </p>
-            <a href="#" class="btn-orange mx-auto">For Details</a>
+            <a routerLink="/login" class="btn-orange mx-auto">For Details</a>
           </div>
         </div>
 
@@ -179,7 +146,7 @@
               vestibulum in vulputate a Imperdiet
               interdum donec eget metus auguen unc vel lorem.
             </p>
-            <a href="#" class="btn-orange mx-auto">For Details</a>
+            <a routerLink="/login" class="btn-orange mx-auto">For Details</a>
           </div>
         </div>
 
@@ -194,7 +161,7 @@
               vestibulum in vulputate a Imperdiet
               interdum donec eget metus auguen unc vel lorem.
             </p>
-            <a href="#" class="btn-orange mx-auto">For Details</a>
+            <a routerLink="/login" class="btn-orange mx-auto">For Details</a>
           </div>
         </div>
 
@@ -208,7 +175,7 @@
               vestibulum in vulputate a Imperdiet
               interdum donec eget metus auguen unc vel lorem.
             </p>
-            <a href="#" class="btn-orange mx-auto">For Details</a>
+            <a routerLink="/login" class="btn-orange mx-auto">For Details</a>
           </div>
         </div>
 
@@ -216,36 +183,3 @@
     </owl-carousel-o>
   </div>
 </section>
-
-<!-- footer -->
-<footer class="bg-dark text-light py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4">
-        <img src="../../../assets/images/landing/logo.png" alt="Footer Logo">
-
-      </div>
-      <div class="col-lg-4">
-        <h5 class="text-orange fs-5">Contact</h5>
-        <ul class="list-unstyled">
-          <li>Address: 123 Street, City, Country</li>
-          <li>Phone: 123-456-7890</li>
-          <li>Email: petez@example.com</li>
-        </ul>
-      </div>
-      <div class="col-lg-4">
-        <h5 class="text-orange fs-5">Follow Us</h5>
-        <ul class="list-inline">
-          <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-          <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-          <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-      </div>
-    </div>
-    <hr>
-    <div class="text-center">
-
-      <p>&copy; 2023 Your Website. All rights reserved.</p>
-    </div>
-  </div>
-</footer>

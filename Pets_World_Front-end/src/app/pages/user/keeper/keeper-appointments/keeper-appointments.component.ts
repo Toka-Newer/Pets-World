@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import Swal from 'sweetalert2';
 
@@ -14,14 +16,20 @@ export class KeeperAppointmentsComponent {
   appointments: any;
   addAppointment: any;
   editAppointment: any;
-  id = '648d7df968534eb332418a8d';
+  id!: string;
   clicked: boolean = false;
   modelStatus: any = 'Add';
-  constructor(
+  pagedAppointments: any[] = []; // Array to hold the paged booking data
+  pageSize = 10; // Number of items to display per page
+  currentPage = 0; // Current page index
+
+  constructor(private authService: AuthService,
     private _keeperAppointments: KeeperAppointmentService,
     private datePipe: DatePipe,
     private _formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.id = authService.getKeeperId();
+  }
 
   ngOnInit() {
     this.getkeeperAppointments();
@@ -39,7 +47,8 @@ export class KeeperAppointmentsComponent {
   getkeeperAppointments() {
     this._keeperAppointments.getKeeperAppointment(this.id).subscribe(
       (data: any) => {
-        this.appointments=data;
+        this.appointments = data;
+        this.updatePagedAppointments();
       },
       (error: any) => {
         console.log(error);
@@ -80,11 +89,10 @@ export class KeeperAppointmentsComponent {
 
   resetForm() {
     this.modelStatus = 'Add';
-    // this.appointmentFormGroup.reset();
+    this.appointmentFormGroup.reset();
   }
 
-  formatDate(date:any)
-  {
+  formatDate(date: any) {
     const dateString = date; // Replace with your date string
     const datePipe = new DatePipe('en-US');
     const dateObj = new Date(dateString);
@@ -136,6 +144,9 @@ export class KeeperAppointmentsComponent {
               icon: 'success',
               confirmButtonText: 'OK',
             });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
           } else {
             Swal.fire({
               title: 'Error!',
@@ -143,10 +154,8 @@ export class KeeperAppointmentsComponent {
               icon: 'error',
               confirmButtonText: 'OK',
             });
+            this.clicked = false;
           }
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
         },
         (error: any) => {
           Swal.fire({
@@ -179,7 +188,7 @@ export class KeeperAppointmentsComponent {
             });
             setTimeout(() => {
               window.location.reload();
-            }, 1000);
+            }, 1500);
           } else {
             Swal.fire({
               title: 'Error!',
@@ -198,5 +207,15 @@ export class KeeperAppointmentsComponent {
           });
         }
       );
+  }
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.updatePagedAppointments();
+  }
+
+  updatePagedAppointments() {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedAppointments = this.appointments?.slice(startIndex, endIndex);
   }
 }

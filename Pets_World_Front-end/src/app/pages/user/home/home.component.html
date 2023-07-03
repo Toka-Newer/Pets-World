@@ -1,42 +1,53 @@
 <section class="container my-4">
-  <div class="col-md-2 mx-auto justify-content-around d-flex">
-    <button class="btn btn-outline-info" (click)="getDogs()">dogs</button>
-    <button class="btn btn-outline-info" (click)="getCats()">cats</button>
-    <button class="btn btn-outline-info" (click)="getBirds()">birds</button>
+  <div class="mx-auto justify-content-center d-flex pt-2 pb-4">
+    <button class="btn btn-outline-info mx-3" (click)="getDogs()">dogs</button>
+    <button class="btn btn-outline-info mx-3" (click)="getCats()">cats</button>
+    <button class="btn btn-outline-info mx-3" (click)="getBirds()">birds</button>
   </div>
-  <div class="row">
-    <div class="p-2 col-md-4" *ngFor="let pet of pet">
-      <mat-card class="example-card">
+  <div class="row ">
+    <div class="col-md-3" *ngFor="let pet of pet">
+      <!-- <mat-card class="example-card">
         <mat-card-content>
           <div class="d-flex flex-column flex-sm-row w-100">
-            <img
-              class="mb-1"
-              mat-card-lg-image
-              [src]="pet?.url"
-              alt="Angular Logo"
-            />
+            <img class="mb-1" mat-card-lg-image [src]="pet?.url" alt="Angular Logo" />
             <div class="ms-3 w-75">
               <h2 class="text-capitalize mb-2 fs-4">
                 {{ pet?.name }}
               </h2>
               <ul class="list-group">
-                <li
-                  class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
-                  style="color: #00000078"
-                >
+                <li class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                  style="color: #989797">
                   {{ pet?.description }}
                 </li>
-                <li
-                  class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
-                  style="color: #00000078"
-                >
+                <li class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
+                  style="color: #989797">
                   Life span: {{ pet?.life_span }}
                 </li>
               </ul>
             </div>
           </div>
         </mat-card-content>
-      </mat-card>
+      </mat-card> -->
+
+
+
+
+      <div class="card text-center my-3" style="width: 19rem;">
+        <div style="height: 200px; object-fit: cover;">
+          <img [src]="pet?.url" height="100%" width="100%" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body bg-light">
+          <h4 class="pt-2 text-capitalize fs-5">{{ pet?.name }}</h4>
+          <p class="text-p py-1" style="height: 70px;">{{ pet?.description }}
+          </p>
+          <h4 class=" pb-1">
+            Life span: <span class="text-p">{{ pet?.life_span }}</span>
+          </h4>
+          <!-- <a routerLink="/login" class="btn-orange mx-auto">For Details</a> -->
+        </div>
+
+
+      </div>
     </div>
   </div>
 </section>

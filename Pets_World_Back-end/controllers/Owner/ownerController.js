@@ -26,6 +26,8 @@ getOwnerById = async (req, res, next) => {
 
 updateOwnerById = async (req, res, next) => {
   try {
+    console.log(req.body);
+    console.log(req.file);
     const owner = await ownerSchema.findOneAndUpdate(
       { _id: req.body.id },
       {
@@ -72,7 +74,7 @@ updateOwnerById = async (req, res, next) => {
           // password: req.body.password,
           phone: req.body.phone,
           gender: req.body.gender,
-          image: req.body.image,
+          ...(req.file && { image: req.file.path }), // Merge image property if req.file exists
         },
       },
       { new: true }

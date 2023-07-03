@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -35,8 +37,20 @@ export class LoginComponent {
       const password = this.password!.value;
 
       this.authService.login(email, password).subscribe({
-        next: () => {
+        next: (data) => {
+          localStorage.setItem('token', data.token);
           console.log('Successfully logged');
+          this.authService.getTokenData();
+          // localStorage.setItem('role', this.authService.role);
+          if (
+            this.authService.role === 'owner' ||
+            this.authService.role === 'keeper'
+          ) {
+            this.router.navigate(['/user']);
+            // window.location.reload();
+          } else if (this.authService.role === 'vet') {
+            this.router.navigate(['/vet/schedule']);
+          }
         },
         error: (err) => {
           this.loginError = 'Invalid email or password.';

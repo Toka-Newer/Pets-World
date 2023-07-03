@@ -6,56 +6,24 @@
           <div class="row g-0">
             <div class="col-md-4">
               <figure>
-                <img
-                  [src]="vetImage"
-                  class="img-fluid w-100"
-                  style="height: 270px"
-                  alt="..."
-                />
+                <img [src]="vetImage" class="img-fluid w-100" style="height: 270px" alt="..." />
               </figure>
             </div>
             <div class="col-md-8">
               <div class="card-body px-4">
                 <div class="d-flex justify-content-between">
-                  <small class="text-secondary text-uppercase fw-semibold"
-                    >Veterinarian Dr</small
-                  >
+                  <small class="text-secondary text-uppercase fw-semibold">Veterinarian Dr</small>
                   <div class="mb-2">
-                    <i
-                      class="fas fa-star me-1"
-                      [ngClass]="getStarClass(1)"
-                      (mouseover)="hoverStar(1)"
-                      (mouseout)="unhoverStar()"
-                      (click)="rateStar(1)"
-                    ></i>
-                    <i
-                      class="fas fa-star me-1"
-                      [ngClass]="getStarClass(2)"
-                      (mouseover)="hoverStar(2)"
-                      (mouseout)="unhoverStar()"
-                      (click)="rateStar(2)"
-                    ></i>
-                    <i
-                      class="fas fa-star me-1"
-                      [ngClass]="getStarClass(3)"
-                      (mouseover)="hoverStar(3)"
-                      (mouseout)="unhoverStar()"
-                      (click)="rateStar(3)"
-                    ></i>
-                    <i
-                      class="fas fa-star me-1"
-                      [ngClass]="getStarClass(4)"
-                      (mouseover)="hoverStar(4)"
-                      (mouseout)="unhoverStar()"
-                      (click)="rateStar(4)"
-                    ></i>
-                    <i
-                      class="fas fa-star me-1"
-                      [ngClass]="getStarClass(5)"
-                      (mouseover)="hoverStar(5)"
-                      (mouseout)="unhoverStar()"
-                      (click)="rateStar(5)"
-                    ></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStarClass(1)" (mouseover)="hoverStar(1)"
+                      (mouseout)="unhoverStar()" (click)="rateStar(1)"></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStarClass(2)" (mouseover)="hoverStar(2)"
+                      (mouseout)="unhoverStar()" (click)="rateStar(2)"></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStarClass(3)" (mouseover)="hoverStar(3)"
+                      (mouseout)="unhoverStar()" (click)="rateStar(3)"></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStarClass(4)" (mouseover)="hoverStar(4)"
+                      (mouseout)="unhoverStar()" (click)="rateStar(4)"></i>
+                    <i class="fas fa-star me-1" [ngClass]="getStarClass(5)" (mouseover)="hoverStar(5)"
+                      (mouseout)="unhoverStar()" (click)="rateStar(5)"></i>
                   </div>
                 </div>
                 <h1 class="card-title text-capitalize fs-2 mt-1">
@@ -64,29 +32,12 @@
                 </h1>
 
                 <div class="mb-2">
-                  <i
-                    class="fas fa-star me-1"
-                    [ngClass]="getStaticStarClass(1)"
-                  ></i>
-                  <i
-                    class="fas fa-star me-1"
-                    [ngClass]="getStaticStarClass(2)"
-                  ></i>
-                  <i
-                    class="fas fa-star me-1"
-                    [ngClass]="getStaticStarClass(3)"
-                  ></i>
-                  <i
-                    class="fas fa-star me-1"
-                    [ngClass]="getStaticStarClass(4)"
-                  ></i>
-                  <i
-                    class="fas fa-star me-1"
-                    [ngClass]="getStaticStarClass(5)"
-                  ></i>
-                  <small class="text-muted fw-semibold"
-                    >({{ vetData?.numberOfReviews }})</small
-                  >
+                  <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(1)"></i>
+                  <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(2)"></i>
+                  <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(3)"></i>
+                  <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(4)"></i>
+                  <i class="fas fa-star me-1" [ngClass]="getStaticStarClass(5)"></i>
+                  <small class="text-muted fw-semibold">({{ vetData?.numberOfReviews }})</small>
                 </div>
 
                 <div class="card-text">
@@ -97,9 +48,7 @@
                     </li>
                     <li class="list-group-item border-0 px-0">
                       <h6 class="fs-6 mb-1">Phone</h6>
-                      <a [href]="'tel:+20' + vetData?.user_id?.phone"
-                        >+02 {{ vetData?.user_id?.phone }}</a
-                      >
+                      <a [href]="'tel:+20' + vetData?.user_id?.phone">+02 {{ vetData?.user_id?.phone }}</a>
                     </li>
                   </ul>
                 </div>
@@ -151,30 +100,22 @@
               </div>
               <div class="col-md-11">
                 <h3 class="fs-4">Book An Appointment</h3>
-                <form
-                  [formGroup]="bookingFormGroup"
-                  class="pt-3"
-                  *ngIf="vetAppointments?.length != 0; else noAppointment"
-                >
+                <form [formGroup]="bookingFormGroup" class="pt-3"
+                  *ngIf="vetAppointments?.length != 0; else noAppointment">
                   <div class="row">
                     <!-- Pets -->
                     <div class="col-md-6">
                       <mat-form-field class="w-100 pb-3">
                         <mat-label>Pet</mat-label>
                         <mat-select formControlName="pet">
-                          <mat-option
-                            *ngFor="let option of pets"
-                            [value]="option._id"
-                          >
+                          <mat-option *ngFor="let option of pets" [value]="option._id">
                             {{ option.name }}
                           </mat-option>
                         </mat-select>
-                        <mat-error
-                          *ngIf="
+                        <mat-error *ngIf="
                           bookingFormGroup.get('pet')?.invalid &&
                           bookingFormGroup.get('pet')?.touched &&
-                          bookingFormGroup.get('pet')?.errors?.['required']"
-                        >
+                          bookingFormGroup.get('pet')?.errors?.['required']">
                           Pet is required.
                         </mat-error>
                       </mat-form-field>
@@ -184,27 +125,21 @@
                       <mat-form-field class="w-100 pb-3">
                         <mat-label>Appointment</mat-label>
                         <mat-select formControlName="appointment">
-                          <mat-option
-                            class=""
-                            *ngFor="let option of vetAppointments"
-                            [value]="option._id"
-                          >
+                          <mat-option class="" *ngFor="let option of vetAppointments" [value]="option._id">
                             <div class="d-flex justify-content-between">
                               <p>
                                 <span>{{ option.day | date : "EEEE" }}</span> -
                                 <span>{{
-                                  option.start_time | date : "h:mm a"
-                                }}</span>
+                                  option.start_time
+                                  }}</span>
                               </p>
                             </div>
                           </mat-option>
                         </mat-select>
-                        <mat-error
-                          *ngIf="
+                        <mat-error *ngIf="
                           bookingFormGroup.get('appointment')?.invalid &&
                           bookingFormGroup.get('appointment')?.touched &&
-                          bookingFormGroup.get('appointment')?.errors?.['required']"
-                        >
+                          bookingFormGroup.get('appointment')?.errors?.['required']">
                           Appointment is required.
                         </mat-error>
                       </mat-form-field>
@@ -212,21 +147,13 @@
                   </div>
 
                   <div class="text-end">
-                    <button
-                      mat-button
-                      color="primary"
-                      [disabled]="bookingFormGroup.invalid"
-                      (click)="submitForm()"
-                    >
+                    <button mat-button color="primary" [disabled]="bookingFormGroup.invalid" (click)="submitForm()">
                       MAKE AN APPOINTMENT
                     </button>
                   </div>
                 </form>
                 <ng-template #noAppointment>
-                  <div
-                    class="card border-0 position-sticky top-0 px-4"
-                    [ngClass]="{ 'sticky-element': isSticky }"
-                  >
+                  <div class="card border-0 position-sticky top-0 px-4" [ngClass]="{ 'sticky-element': isSticky }">
                     <p class="fs-5 lh-base text-danger">
                       <span class="text-capitalize">
                         You can't book an appointment right now
@@ -242,11 +169,8 @@
     </div>
 
     <div class="col-md-4">
-      <div
-        *ngIf="vetAppointments?.length != 0; else show"
-        class="card border-0 position-sticky top-0 py-5 px-4"
-        [ngClass]="{ 'sticky-element': isSticky }"
-      >
+      <div *ngIf="vetAppointments?.length != 0; else show" class="card border-0 position-sticky top-0 py-5 px-4"
+        [ngClass]="{ 'sticky-element': isSticky }">
         <div class="text-center">
           <h3 class="fs-3 fw-normal">Working Hours</h3>
           <p>
@@ -256,31 +180,22 @@
         </div>
         <div>
           <ul class="list-group list-group-flush">
-            <li
-              *ngFor="let appointment of vetAppointments"
-              class="list-group-item d-flex justify-content-between"
-            >
+            <li *ngFor="let appointment of vetAppointments" class="list-group-item d-flex justify-content-between">
               {{ appointment?.day | date : "EEEE" }}:
-              <span
-                >{{ appointment?.start_time | date : "h:mm a" }} -
-                {{ appointment?.end_time | date : "h:mm a" }}</span
-              >
+              <span>{{ appointment?.start_time }} -
+                {{ appointment?.end_time }}</span>
             </li>
           </ul>
         </div>
       </div>
       <ng-template #show>
-        <div
-          class="card border-0 position-sticky top-0 py-5 px-4"
-          [ngClass]="{ 'sticky-element': isSticky }"
-        >
+        <div class="card border-0 position-sticky top-0 py-5 px-4" [ngClass]="{ 'sticky-element': isSticky }">
           <p class="text-center fs-4 lh-base text-danger">
             <span class="text-capitalize">
               Dr.
               {{
-                vetData?.user_id?.firstName + " " + vetData?.user_id?.lastName
-              }}</span
-            >
+              vetData?.user_id?.firstName + " " + vetData?.user_id?.lastName
+              }}</span>
             isn't avaliable at this time.
           </p>
         </div>

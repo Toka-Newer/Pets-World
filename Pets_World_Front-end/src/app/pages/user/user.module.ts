@@ -15,7 +15,7 @@ import { EditOwnerComponent } from './edit-owner/edit-owner.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { MatIconModule } from '@angular/material/icon';
-import { OwnerPetsComponent } from './owner-pets/owner-pets.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 @NgModule({
   declarations: [HomeComponent, UserScheduleComponent, EditOwnerComponent, OwnerPetsComponent],
   imports: [
@@ -33,7 +33,9 @@ import { OwnerPetsComponent } from './owner-pets/owner-pets.component';
     MatCheckboxModule,
     ButtonModule,
     MatIconModule,
+    MatPaginatorModule,
+
   ],
-  
+
 })
 export class UserModule {}
