@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OwnerPetsComponent } from 'src/app/pages/user/owner-pets/owner-pets.component';
 import { AuthService } from '../../auth.service';
+import { API_URL } from '../../environment/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PetService {
-  private apiUrl = 'http://localhost:8080';
-  // token!: string;
-  token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoib3duZXIiLCJpZCI6IjY0OTU1MDg0ZDY1NTQ4Y2E2YmQ2NmViMyIsImlhdCI6MTY4NzUwNzM1MX0.EaRXqDtddZG0MPNgnHvacI8jaBMl2NQsWN3KFzL73Uc';
+  private apiUrl = API_URL;
+  token!: string;
 
 
   constructor(private http: HttpClient, private authService: AuthService) {
@@ -19,18 +19,28 @@ export class PetService {
   }
 
   getAllPetsByOwnerId(ownerId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/owners/pets/${ownerId}`);
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${this.token}`);
+    return this.http.get<any[]>(`${this.apiUrl}/owners/pets/${ownerId}`, { headers });
   }
 
   createPet(ownerId: string, pet: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/owners/${ownerId}/pets`, pet);
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${this.token}`);
+    return this.http.post<any>(`${this.apiUrl}/owners/${ownerId}/pets`, JSON.stringify(pet), { headers });
   }
 
   deletePet(petId: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/pets/${petId}`);
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${this.token}`);
+    return this.http.delete<any>(`${this.apiUrl}/pets/${petId}`, { headers });
   }
 
   updatePet(petId: string, pet: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/pets/${petId}`, pet);
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${this.token}`);
+    return this.http.put<any>(`${this.apiUrl}/pets/${petId}`, JSON.stringify(pet), { headers });
   }
 }
