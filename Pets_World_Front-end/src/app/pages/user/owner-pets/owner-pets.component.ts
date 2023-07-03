@@ -22,11 +22,12 @@ constructor(
   //CREATE FUNCTION TO GET DATA FROM SERVICE
   ngOnInit(): void {
     const ownerId=this.route.snapshot.paramMap.get('ownerId');
-    if(ownerId){
-      this.petService.getAllPetsByOwnerId(ownerId).subscribe((pets) => {
+
+      this.petService.getAllPetsByOwnerId('64964ee2cd34fe39f9fdf30c').subscribe((pets) => {
         this.pets = pets;
+        console
       });
-    }
+
 
 
 
