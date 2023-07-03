@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
   thirdFormGroup!: FormGroup<{}>;
   genderOptions: string[] = ['male', 'female'];
   roleOptions: string[] = ['owner', 'vet'];
-  petTypeOptions: string[] = ['dog', 'cat', 'bird', 'turtle'];
+  petTypeOptions: string[] = ['dog', 'cat', 'bird'];
   errorMessages: { [key: string]: string } = {};
   file_store: File[] = [];
   constructor(
