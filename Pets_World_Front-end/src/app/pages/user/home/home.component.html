@@ -6,33 +6,7 @@
   </div>
   <div class="row ">
     <div class="col-md-3" *ngFor="let pet of pet">
-      <!-- <mat-card class="example-card">
-        <mat-card-content>
-          <div class="d-flex flex-column flex-sm-row w-100">
-            <img class="mb-1" mat-card-lg-image [src]="pet?.url" alt="Angular Logo" />
-            <div class="ms-3 w-75">
-              <h2 class="text-capitalize mb-2 fs-4">
-                {{ pet?.name }}
-              </h2>
-              <ul class="list-group">
-                <li class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
-                  style="color: #989797">
-                  {{ pet?.description }}
-                </li>
-                <li class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
-                  style="color: #989797">
-                  Life span: {{ pet?.life_span }}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card> -->
-
-
-
-
-      <div class="card text-center my-3" style="width: 19rem;">
+      <div class="card text-center my-4 " style="width: 19rem;">
         <div style="height: 200px; object-fit: cover;">
           <img [src]="pet?.url" height="100%" width="100%" class="card-img-top" alt="...">
         </div>
@@ -40,8 +14,8 @@
           <h4 class="pt-2 text-capitalize fs-5">{{ pet?.name }}</h4>
           <p class="text-p py-1" style="height: 70px;">{{ pet?.description }}
           </p>
-          <h4 class=" pb-1">
-            Life span: <span class="text-p">{{ pet?.life_span }}</span>
+          <h4 class=" pb-1 text-p">
+            Life span: <span class="text-green">{{ pet?.life_span }}</span>
           </h4>
           <!-- <a routerLink="/login" class="btn-green-solid mx-auto">For Details</a> -->
         </div>

@@ -35,8 +35,9 @@ h4 {
 }
 
 .about {
-  padding-top: 70px;
+  padding: 80px 0px;
   overflow: hidden;
+  background-color: #f5f3ee !important;
 }
 
 .title::before {
