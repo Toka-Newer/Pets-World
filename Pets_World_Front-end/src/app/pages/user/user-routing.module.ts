@@ -16,6 +16,7 @@ const routes: Routes = [
     path: 'edit',
     component: EditOwnerComponent,
   },
+  
 ];
 
 @NgModule({

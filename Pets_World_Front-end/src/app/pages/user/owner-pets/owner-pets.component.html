@@ -1,0 +1,8 @@
+<h2>Pets</h2>
+<ul>
+  <li *ngFor="let pet of pets">
+    {{ pet.name }} - {{ pet.type }} ({{ pet.gender }})
+    <button (click)="deletePet(pet._id)">Delete</button>
+    <a [routerLink]="['/edit-pet', pet._id]">Edit</a>
+  </li>
+</ul>
