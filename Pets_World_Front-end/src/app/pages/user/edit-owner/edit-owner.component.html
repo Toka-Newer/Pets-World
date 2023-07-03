@@ -1,4 +1,41 @@
-<form (ngSubmit)="onSubmit()" class="w-50 mx-auto">
+<form (ngSubmit)="onSubmit()" class="card w-50 mx-auto p-5 my-5">
+  <!-- User fields -->
+  <div class="row">
+    <mat-form-field class="col-6 my-1">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="First Name" [(ngModel)]="owner.user_id.firstName" name="firstName">
+    </mat-form-field>
+    <mat-form-field class="col-6 my-1">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Last Name" [(ngModel)]="owner.user_id.lastName" name="lastName">
+    </mat-form-field>
+    <mat-form-field class="col-12 my-1">
+      <mat-label>Email</mat-label>
+      <input matInput disabled [(ngModel)]="owner.user_id.email" name="email">
+    </mat-form-field>
+    <mat-form-field class="col-6 my-1">
+      <mat-label>Phone</mat-label>
+      <input matInput placeholder="Phone" [(ngModel)]="owner.user_id.phone" name="phone">
+    </mat-form-field>
+    <mat-form-field class="col-6 my-1">
+      <mat-label>Gender</mat-label>
+      <mat-select [(ngModel)]="owner.user_id.gender" name="gender">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-10 my-1">
+      <mat-label>Image</mat-label>
+      <button mat-icon-button matSuffix (click)="onUserImageClick($event)">
+        <mat-icon>folder_open</mat-icon>
+      </button>
+      <input type="text" readonly matInput name="image" />
+      <input type="file" hidden #hiddenInput (change)="onUserImageChange($event)" accept="image/*" />
+      <img *ngIf="ownerImage" [src]="ownerImage" alt="owner Image" class="owner-image" width="200px" height="200px" />
+    </mat-form-field>
+
+  </div>
+
   <!-- Owner fields -->
   <div class="row">
     <mat-checkbox class="col-10 my-1" [(ngModel)]="owner.isKeeper" name="isKeeper">Is Keeper</mat-checkbox>
@@ -13,36 +50,6 @@
     </mat-form-field>
   </div>
 
-  <!-- User fields -->
-  <div class="row">
-    <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="First Name" [(ngModel)]="owner.user_id.firstName" name="firstName">
-    </mat-form-field>
-    <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="Last Name" [(ngModel)]="owner.user_id.lastName" name="lastName">
-    </mat-form-field>
-    <mat-form-field class="col-10 my-1">
-      <input matInput placeholder="Phone" [(ngModel)]="owner.user_id.phone" name="phone">
-    </mat-form-field>
-    <mat-form-field class="col-10 my-1">
-      <mat-label>Gender</mat-label>
-      <mat-select [(ngModel)]="owner.user_id.gender" name="gender">
-        <mat-option value="male">Male</mat-option>
-        <mat-option value="female">Female</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="w-100">
-      <mat-label>Image</mat-label>
-      <button mat-icon-button matSuffix (click)="onUserImageClick($event)">
-        <mat-icon>folder_open</mat-icon>
-      </button>
-      <input type="text" readonly matInput name="image" />
-      <input type="file" hidden #hiddenInput (change)="onUserImageChange($event)" accept="image/*" />
-      <img *ngIf="ownerImage" [src]="ownerImage" alt="owner Image" class="owner-image" width="200px" height="200px" />
-    </mat-form-field>
-
-  </div>
-
   <!-- Submit button -->
-  <button mat-raised-button color="primary" type="submit">Update</button>
+  <button mat-raised-button class="btn-green-solid" type="submit">Update</button>
 </form>
