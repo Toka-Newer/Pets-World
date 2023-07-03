@@ -17,7 +17,7 @@
         <h2 class="fs-3">Vet Schedule</h2>
         <ng-container *ngFor="let booking of ownerBookingData; let i = index">
           <div class="mb-3"
-            [ngClass]="{'col-md-6': ownerBookingData.length === 0, 'col-md-12': ownerBookingData.length > 0}">
+            [ngClass]="{'col-md-6': ownerBookingKeeperDay.length === 0, 'col-md-12': ownerBookingKeeperDay.length > 0}">
             <mat-card class="example-card">
               <mat-card-content>
                 <div class="d-flex flex-column flex-sm-row w-100">
