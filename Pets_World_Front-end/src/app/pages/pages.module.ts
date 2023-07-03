@@ -10,4 +10,4 @@ import { AuthGuard } from '../core/guards/auth/auth.guard';
   providers: [AuthGuard],
   imports: [CommonModule, PagesRoutingModule, CarouselModule],
 })
-export class PagesModule { }
+export class PagesModule {}

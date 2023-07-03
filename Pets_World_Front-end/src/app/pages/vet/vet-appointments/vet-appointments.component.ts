@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-vet-appointments',
@@ -15,14 +16,19 @@ export class VetAppointmentsComponent {
   appointments: any;
   addAppointment: any;
   editAppointment: any;
-  id = "649c9deeae3f8709e1837942";
+  id!: string;
   clicked: boolean = false;
   modelStatus: any = "Add";
   pagedAppointments: any[] = []; // Array to hold the paged booking data
   pageSize = 10; // Number of items to display per page
   currentPage = 0; // Current page index
 
-  constructor(private _VetAppointments: VetAppointmentService, private datePipe: DatePipe, private _formBuilder: FormBuilder) { }
+  constructor(private authService: AuthService,
+    private _VetAppointments: VetAppointmentService,
+    private datePipe: DatePipe,
+    private _formBuilder: FormBuilder) {
+    this.id = authService.getVetId();
+  }
 
   ngOnInit() {
     this.getVetAppointments();

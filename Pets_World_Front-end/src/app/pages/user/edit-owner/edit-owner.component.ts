@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { API_URL } from 'src/app/core/services/environment/environment';
 import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owner.service';
 
@@ -9,11 +10,14 @@ import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owne
 })
 export class EditOwnerComponent implements OnInit {
   owner: any = {}; // Object to store owner data
-  ownerId = '64a1690fc149169c3c2acd26'; // Replace with the actual owner ID
+  // ownerId = '648f9646bd39fe8c0527ee4f'; // Replace with the actual owner ID
+  ownerId!: any; // Replace with the actual owner ID
   ownerImage: any;
   keeper: any = {};
 
-  constructor(private ownerService: EditOwnerService) {}
+  constructor(private ownerService: EditOwnerService, private authService: AuthService) {
+    this.ownerId = authService.getOwnerId();
+  }
 
   ngOnInit(): void {
     this.getOwnerData(this.ownerId);
@@ -60,9 +64,8 @@ export class EditOwnerComponent implements OnInit {
   }
 
   onSubmit() {
-    const ownerId = '64a0eab27a580e6a44539033'; // Replace with the actual owner ID
     const formData = new FormData();
-    formData.append('id', ownerId);
+    formData.append('id', this.ownerId);
     formData.append('isKeeper', this.owner.isKeeper);
     formData.append('firstName', this.owner.user_id.firstName);
     formData.append('lastName', this.owner.user_id.lastName);
@@ -72,30 +75,13 @@ export class EditOwnerComponent implements OnInit {
     formData.append('cost', this.keeper.cost);
     formData.append('description', this.keeper.description);
     formData.append('image', this.owner.user_id.image);
-    // const ownerData: { [key: string]: any } = {
-    //   id: ownerId,
-    //   isKeeper: this.owner.isKeeper,
-    //   firstName: this.owner.user_id.firstName,
-    //   lastName: this.owner.user_id.lastName,
-    //   phone: this.owner.user_id.phone,
-    //   gender: this.owner.user_id.gender,
-    //   description: this.keeper.description,
-    //   cost: this.keeper.cost,
-    //   experience: this.keeper.experience,
-    // }
-
-    // const formData = new FormData();
-
-    // for (const key in ownerData) {
-    //   if (ownerData.hasOwnProperty(key)) {
-    //     formData.append(key, ownerData[key]);
-    //   }
-    // }
-    // formData.append('image', this.owner.user_id.image);
 
     this.ownerService.updateOwnerById(formData).subscribe(
       (res) => {
         // Handle response from the backend
+        if (this.owner.isKeeper) {
+          //////////////////////////////////////////////////////////////////////////////////////////////
+        }
         console.log(res);
       },
       (error) => {

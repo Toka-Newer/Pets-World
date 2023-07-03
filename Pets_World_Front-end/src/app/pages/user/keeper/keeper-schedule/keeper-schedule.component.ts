@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { API_URL } from 'src/app/core/services/environment/environment';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import { KeeperBookingService } from 'src/app/core/services/user/keeper/keeperBooking/keeper-booking.service';
@@ -20,14 +21,18 @@ export class KeeperScheduleComponent {
   pagedKeeperBookingData: any[] = []; // Array to hold the paged booking data
   pageSize = 10; // Number of items to display per page
   currentPage = 0; // Current page index
+  keeper_id!: string;
 
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private authService: AuthService,
+    private _formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private keeperAppointmentService: KeeperAppointmentService,
-    private keeperBookingService: KeeperBookingService) { }
+    private keeperBookingService: KeeperBookingService) {
+    this.keeper_id = authService.getKeeperId();
+  }
 
   ngOnInit(): void {
-    this.getKeeperAppointments("649794f8999ea0fe2cd3d9ef");
+    this.getKeeperAppointments(this.keeper_id);
     this.form = this._formBuilder.group({
       appointment: [this.appointment?._id]
     });
@@ -63,7 +68,7 @@ export class KeeperScheduleComponent {
 
   getKeeperBookingData() {
     const filter = {
-      keeper_id: "649794f8999ea0fe2cd3d9ef",
+      keeper_id: this.keeper_id,
       appointment_id: this.form?.get('appointment')?.value
     }
     console.log(filter)

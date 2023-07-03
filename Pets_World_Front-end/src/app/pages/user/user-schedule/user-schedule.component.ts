@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { API_URL } from 'src/app/core/services/environment/environment';
 import { KeeperBookingService } from 'src/app/core/services/user/keeper/keeperBooking/keeper-booking.service';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
@@ -17,21 +18,25 @@ export class UserScheduleComponent {
   ownerBookingData: any;
   ownerBookingKeeper: any;
   ownerBookingKeeperDay: any;
+  owner_id!: string;
 
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private authService: AuthService,
+    private _formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private vetBookingService: VetBookingService,
-    private keeperBookingService: KeeperBookingService) { }
+    private keeperBookingService: KeeperBookingService) {
+    this.owner_id = authService.getOwnerId();
+  }
 
   ngOnInit(): void {
-    this.getVetBookingData("648f9646bd39fe8c0527ee4f");
+    this.getVetBookingData(this.owner_id);
     this.form = this._formBuilder.group({
       day: [this.currentDate],
     });
     this.form.get('day')?.valueChanges.subscribe(value => {
       // Perform actions when the value changes
       this.currentDate = value
-      this.getVetBookingData("648f9646bd39fe8c0527ee4f");
+      this.getVetBookingData(this.owner_id);
       this.getBookingKeeper(value);
     });
 
@@ -58,7 +63,7 @@ export class UserScheduleComponent {
 
   getKeeperBookingData() {
     const filter = {
-      owner_id: "648f9646bd39fe8c0527ee4f",
+      owner_id: this.owner_id,
     }
     this.keeperBookingService.getKeeperSchedule(filter).subscribe(
       (data: any) => {

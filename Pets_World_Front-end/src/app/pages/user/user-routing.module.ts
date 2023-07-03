@@ -4,10 +4,10 @@ import { HomeComponent } from './home/home.component';
 import { UserScheduleComponent } from './user-schedule/user-schedule.component';
 import { EditOwnerComponent } from './edit-owner/edit-owner.component';
 import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
-import {VetListComponent} from "./vets/vet-list/vet-list.component";
-import {KeeperDetailsComponent} from "./keepers/keeper-details/keeper-details.component";
-import {KeeperListComponent} from "./keepers/keeper-list/keeper-list.component";
-import {VetDetailsComponent} from "./vets/vet-details/vet-details.component";
+import { VetListComponent } from "./vets/vet-list/vet-list.component";
+import { KeeperDetailsComponent } from "./keepers/keeper-details/keeper-details.component";
+import { KeeperListComponent } from "./keepers/keeper-list/keeper-list.component";
+import { VetDetailsComponent } from "./vets/vet-details/vet-details.component";
 
 const routes: Routes = [
   {
@@ -40,7 +40,7 @@ const routes: Routes = [
   },
   {
     path: 'keepers',
-  component: KeeperListComponent,
+    component: KeeperListComponent,
   },
   {
     path: 'keepers/details/:id',
