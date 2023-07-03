@@ -8,6 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface UserData {
   firstName: string;
@@ -51,9 +52,10 @@ export class RegisterComponent implements OnInit {
   errorMessages: { [key: string]: string } = {};
   file_store: File[] = [];
   constructor(
+    private router: Router,
     private _formBuilder: FormBuilder,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -169,6 +171,7 @@ export class RegisterComponent implements OnInit {
       formData.append('images', userdata.images[1]);
       this.userService.register(formData).subscribe({
         next: (res) => {
+          this.router.navigate(['/login']);
           console.log(res);
         },
         error: (err) => {

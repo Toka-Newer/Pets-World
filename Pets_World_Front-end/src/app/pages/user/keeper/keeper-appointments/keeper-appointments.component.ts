@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import Swal from 'sweetalert2';
 
@@ -15,18 +16,20 @@ export class KeeperAppointmentsComponent {
   appointments: any;
   addAppointment: any;
   editAppointment: any;
-  id = '648d7df968534eb332418a8d';
+  id!: string;
   clicked: boolean = false;
   modelStatus: any = 'Add';
   pagedAppointments: any[] = []; // Array to hold the paged booking data
   pageSize = 1; // Number of items to display per page
   currentPage = 0; // Current page index
 
-  constructor(
+  constructor(private authService: AuthService,
     private _keeperAppointments: KeeperAppointmentService,
     private datePipe: DatePipe,
     private _formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.id = authService.getKeeperId();
+  }
 
   ngOnInit() {
     this.getkeeperAppointments();

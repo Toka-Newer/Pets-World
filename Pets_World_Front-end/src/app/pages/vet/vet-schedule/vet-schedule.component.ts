@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { API_URL } from 'src/app/core/services/environment/environment';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
 import Swal from 'sweetalert2';
@@ -12,11 +13,15 @@ import Swal from 'sweetalert2';
 export class VetScheduleComponent {
   currentDate = new Date();
   vetBookingData: any;
+  vetId!: string;
 
-  constructor(private vetBookingService: VetBookingService) {}
+  constructor(private authService: AuthService,
+    private vetBookingService: VetBookingService) {
+    this.vetId = authService.getVetId();
+  }
 
   ngOnInit(): void {
-    this.getVetBookingData('64a0edae7a580e6a4453903f');
+    this.getVetBookingData(this.vetId);
   }
 
   getVetBookingData(id: string) {
@@ -44,12 +49,12 @@ export class VetScheduleComponent {
 
   previousDate(): void {
     this.currentDate.setDate(this.currentDate.getDate() - 1);
-    this.getVetBookingData('64a0edae7a580e6a4453903f');
+    this.getVetBookingData(this.vetId);
   }
 
   nextDate(): void {
     this.currentDate.setDate(this.currentDate.getDate() + 1);
-    this.getVetBookingData('64a0edae7a580e6a4453903f');
+    this.getVetBookingData(this.vetId);
   }
 
   // deleteBooking(id: any) {

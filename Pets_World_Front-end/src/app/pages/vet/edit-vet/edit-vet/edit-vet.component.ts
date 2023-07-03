@@ -10,17 +10,17 @@ import { EditVetService } from 'src/app/core/services/vet/editVet/edit-vet.servi
 })
 export class EditVetComponent implements OnInit {
   vet: any = {}; // Object to store vet data
-  vetId: any; // Replace with the actual vet ID
+  vetId!: any; // Replace with the actual vet ID
   vetImage: any;
 
   constructor(
     private vetService: EditVetService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.vetId = authService.getVetId();
+  }
 
   ngOnInit(): void {
-    this.authService.getTokenData();
-    this.vetId = this.authService.vet_id;
     this.getVetData(this.vetId);
   }
 
@@ -76,7 +76,7 @@ export class EditVetComponent implements OnInit {
     this.vetService.updateVetById(formData).subscribe(
       (res) => {
         // Handle response from the backend
-        console.log(res);
+        window.location.reload();
       },
       (error) => {
         // Handle error

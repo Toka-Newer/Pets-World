@@ -64,9 +64,8 @@ export class EditOwnerComponent implements OnInit {
   }
 
   onSubmit() {
-    const ownerId = '648f9646bd39fe8c0527ee4f'; // Replace with the actual owner ID
     const formData = new FormData();
-    formData.append('id', ownerId);
+    formData.append('id', this.ownerId);
     formData.append('isKeeper', this.owner.isKeeper);
     formData.append('firstName', this.owner.user_id.firstName);
     formData.append('lastName', this.owner.user_id.lastName);
@@ -76,30 +75,13 @@ export class EditOwnerComponent implements OnInit {
     formData.append('cost', this.keeper.cost);
     formData.append('description', this.keeper.description);
     formData.append('image', this.owner.user_id.image);
-    // const ownerData: { [key: string]: any } = {
-    //   id: ownerId,
-    //   isKeeper: this.owner.isKeeper,
-    //   firstName: this.owner.user_id.firstName,
-    //   lastName: this.owner.user_id.lastName,
-    //   phone: this.owner.user_id.phone,
-    //   gender: this.owner.user_id.gender,
-    //   description: this.keeper.description,
-    //   cost: this.keeper.cost,
-    //   experience: this.keeper.experience,
-    // }
-
-    // const formData = new FormData();
-
-    // for (const key in ownerData) {
-    //   if (ownerData.hasOwnProperty(key)) {
-    //     formData.append(key, ownerData[key]);
-    //   }
-    // }
-    // formData.append('image', this.owner.user_id.image);
 
     this.ownerService.updateOwnerById(formData).subscribe(
       (res) => {
         // Handle response from the backend
+        if (this.owner.isKeeper) {
+          //////////////////////////////////////////////////////////////////////////////////////////////
+        }
         console.log(res);
       },
       (error) => {

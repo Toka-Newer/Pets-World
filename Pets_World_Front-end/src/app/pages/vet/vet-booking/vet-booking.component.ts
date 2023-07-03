@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
 import { API_URL } from 'src/app/core/services/environment/environment';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-vet-booking',
@@ -10,11 +11,15 @@ import { API_URL } from 'src/app/core/services/environment/environment';
 export class VetBookingComponent {
   currentDate = new Date();
   vetBookingData: any;
+  vetId!: string;
 
-  constructor(private vetBookingService: VetBookingService) { }
+  constructor(private authService: AuthService,
+    private vetBookingService: VetBookingService) {
+    this.vetId = authService.getVetId();
+  }
 
   ngOnInit(): void {
-    this.getVetBookingData("648dd6c55a2fb5c9b45df45b");
+    this.getVetBookingData(this.vetId);
   }
 
   getVetBookingData(id: string) {
@@ -41,12 +46,12 @@ export class VetBookingComponent {
 
   previousDate(): void {
     this.currentDate.setDate(this.currentDate.getDate() - 1);
-    this.getVetBookingData("648dd6c55a2fb5c9b45df45b");
+    this.getVetBookingData(this.vetId);
   }
 
   nextDate(): void {
     this.currentDate.setDate(this.currentDate.getDate() + 1);
-    this.getVetBookingData("648dd6c55a2fb5c9b45df45b");
+    this.getVetBookingData(this.vetId);
 
   }
 
