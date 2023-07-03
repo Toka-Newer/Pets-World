@@ -24,6 +24,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['vet'] },
   },
+
+
 ];
 
 @NgModule({
