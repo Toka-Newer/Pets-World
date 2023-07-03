@@ -12,18 +12,22 @@
       </form>
     </div>
     <div class="card-wrapper">
-      <div class="row">
-        <ng-container *ngFor="let booking of vetBookingData; let i = index">
+      <div class="row" *ngIf="vetBookingData?.length > 0; else noBooking">
+        <ng-container *ngFor="let booking of pagedVetBookingData; let i = index">
           <div class="col-md-6 mb-3">
             <mat-card class="example-card">
               <mat-card-content>
                 <div class="d-flex flex-column flex-sm-row w-100">
                   <img class="mb-1" mat-card-lg-image [src]="booking?.userImage" alt="Angular Logo" />
                   <div class="ms-3 w-75">
-                    <h2 class="text-capitalize mb-2 fs-4">
-                      {{ booking?.owner_id?.user_id?.firstName }}
-                      {{ booking?.owner_id?.user_id?.lastName }}
-                    </h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h2 class="text-capitalize mb-2 fs-4">
+                        {{ booking?.owner_id?.user_id?.firstName }} {{ booking?.owner_id?.user_id?.lastName }}
+                      </h2>
+                      <button class="btn" (click)="deleteBooking(booking, i)">
+                        <i class="fa-solid fa-trash text-danger fs-6"></i>
+                      </button>
+                    </div>
                     <ul class="list-group">
                       <li
                         class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
@@ -34,13 +38,9 @@
                         class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
                         style="color: #989797">
                         <span>Booking Time</span>
-                        {{
-                        booking?.appointment_id?.start_time | date : "h:mm a"
-                        }}
+                        {{ booking?.appointment_id?.start_time }}
                         :
-                        {{
-                        booking?.appointment_id?.end_time | date : "h:mm a"
-                        }}
+                        {{ booking?.appointment_id?.end_time }}
                       </li>
                       <li
                         class="list-group-item border-0 px-0 fs-6 py-1 fw-normal d-flex flex-wrap justify-content-between"
@@ -62,6 +62,17 @@
           </div>
         </ng-container>
       </div>
+      <mat-paginator [length]="vetBookingData?.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+      </mat-paginator>
+      <ng-template #noBooking>
+        <div class="card border-0 p-4">
+          <p class="fs-5 lh-base text-danger">
+            <span class="text-capitalize">
+              There is No Booking
+            </span>
+          </p>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

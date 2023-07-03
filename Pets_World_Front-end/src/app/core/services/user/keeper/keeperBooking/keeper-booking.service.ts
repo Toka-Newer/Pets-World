@@ -31,4 +31,10 @@ export class KeeperBookingService {
     const params = new HttpParams({ fromObject: filter });
     return this.http.get(this.base_url, { headers, params });
   }
+
+  deleteVetBooking(id: any, data: any) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
+    const params = new HttpParams({ fromObject: data });
+    return this.http.delete(this.base_url + `/${id}`, { headers, params });
+  }
 }

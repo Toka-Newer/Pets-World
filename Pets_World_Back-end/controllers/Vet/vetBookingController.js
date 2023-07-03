@@ -55,6 +55,7 @@ addVetBooking = async (req, res, next) => {
     const check = await VetBookingSchema.findOne({
       appointment_id: req.body.appointment_id,
       owner_id: req.body.owner_id,
+      pet_id: req.body.pet_id,
     });
 
     if (check) {
@@ -139,7 +140,7 @@ deleteVetBooking = async (req, res, next) => {
     }
 
     await VetAppointmentsSchema.findOneAndUpdate(
-      { _id: req.body.appointment_id },
+      { _id: req.query.appointment_id },
       {
         $inc: {
           number_of_clients: 1,

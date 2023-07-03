@@ -32,30 +32,6 @@ getKeeperBooking = async (req, res, next) => {
   }
 };
 
-// getOwnerBooking = async (req, res, next) => {
-//   const keeperBooking = await KeeperBookingSchema.find({
-//     owner_id: req.params.id,
-//   })
-//     .populate({
-//       path: "appointment_id",
-//       match: {
-//         start_time: { $lte: new Date(req.query.day) },
-//         end_time: { $gte: new Date(req.query.day) },
-//       },
-//     })
-//     .populate({
-//       path: "owner_id",
-//       populate: {
-//         path: "user_id",
-//       },
-//     })
-//     .populate("pet_id");
-
-//   const ownerBooking = keeperBooking.filter(booking => booking.appointment_id !== null)
-//   return res.status(200).json(ownerBooking);
-
-// }
-
 getKeeperBookingById = async (req, res, next) => {
   try {
     const keeperBooking = await KeeperBookingSchema.findOne({
@@ -167,9 +143,8 @@ deleteKeeperBooking = async (req, res, next) => {
     if (!deletedBooking) {
       return res.status(404).json({ message: "Booking not found." });
     }
-
-    await KeeperAppointmentSchema.findOneAndUpdate(
-      { _id: req.body.appointment_id },
+    const appointment = await KeeperAppointmentSchema.findOneAndUpdate(
+      { _id: req.query.appointment_id },
       {
         $inc: {
           number_of_pets: 1,
@@ -177,7 +152,6 @@ deleteKeeperBooking = async (req, res, next) => {
       },
       { new: true }
     );
-
     return res.status(200).json({ message: "Booking deleted successfully." });
   } catch (error) {
     next(error);

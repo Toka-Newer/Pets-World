@@ -26,7 +26,7 @@
                       <h2 class="text-capitalize mb-2 fs-4">
                         {{ booking?.owner_id?.user_id?.firstName }} {{ booking?.owner_id?.user_id?.lastName }}
                       </h2>
-                      <button class="btn" (click)="deleteBooking(booking._id)">
+                      <button class="btn" (click)="deleteBooking(booking, i)">
                         <i class="fa-solid fa-trash text-danger fs-6"></i>
                       </button>
                     </div>

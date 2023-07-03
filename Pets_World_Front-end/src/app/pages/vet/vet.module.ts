@@ -15,11 +15,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
-import { VetBookingComponent } from './vet-booking/vet-booking.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { VetBookingComponent } from './vet-booking/vet-booking.component';
 
 @NgModule({
   declarations: [

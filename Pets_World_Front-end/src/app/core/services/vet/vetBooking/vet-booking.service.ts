@@ -28,8 +28,9 @@ export class VetBookingService {
     return this.http.post(this.base_url, JSON.stringify(data), { headers });
   }
 
-  deleteVetBooking(id: any) {
+  deleteVetBooking(id: any, data: any) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
-    return this.http.delete(this.base_url + `/${id}`, { headers });
+    const params = new HttpParams({ fromObject: data });
+    return this.http.delete(this.base_url + `/${id}`, { headers, params });
   }
 }

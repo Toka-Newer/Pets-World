@@ -23,6 +23,9 @@ getAllKeeprs = async (req, res, next) => {
       owner_id: { $ne: req.query.id },
     }).populate({
       path: "owner_id",
+      populate: {
+        path: "user_id",
+      },
     });
     res.status(200).json(keeper);
   } catch (err) {

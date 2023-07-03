@@ -99,7 +99,7 @@ export class KeeperScheduleComponent {
     this.pagedKeeperBookingData = this.keeperBookingData?.slice(startIndex, endIndex);
   }
 
-  deleteBooking(id: any) {
+  deleteBooking(booking: any, index: number) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -110,12 +110,17 @@ export class KeeperScheduleComponent {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        // this._VetBooking.deleteVetBooking(id).subscribe((data: any) => {
-        //   this.vetSchedule = this.vetSchedule.filter((element: any) => element._id != id);
-        //   console.log(data)
-        // }, (error: any) => {
-        //   console.log(error)
-        // })
+        this.keeperBookingService.deleteVetBooking(booking._id, { appointment_id: booking.appointment_id._id }).subscribe(
+          (data: any) => {
+            console.log(data)
+            this.pagedKeeperBookingData.splice(index, 1);
+            this.keeperBookingData = this.keeperBookingData.filter((item: any) => item._id !== booking._id);
+            this.updatePagedKeeperBookingData();
+          },
+          (error: any) => {
+            console.error(error);
+          }
+        );
         Swal.fire(
           'Deleted!',
           'Your file has been deleted.',
