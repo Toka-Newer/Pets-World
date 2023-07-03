@@ -167,8 +167,6 @@ export class RegisterComponent implements OnInit {
 
       formData.append('images', userdata.images[0]);
       formData.append('images', userdata.images[1]);
-      // console.log('=====>' + userdata.images[0]);
-      // console.log('=====>' + userdata.images[0]);
       this.userService.register(formData).subscribe({
         next: (res) => {
           console.log(res);
