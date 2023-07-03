@@ -1,4 +1,5 @@
 <form (ngSubmit)="onSubmit()" class="card w-50 mx-auto p-5 my-5">
+  <h1 class="text-center pb-3">Edit Your Profile</h1>
   <!-- User fields -->
   <div class="row">
     <mat-form-field class="col-6 my-1">
@@ -24,9 +25,9 @@
         <mat-option value="female">Female</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="col-10 my-1">
+    <mat-form-field class="col-12 my-1">
       <mat-label>Image</mat-label>
-      <button mat-icon-button matSuffix (click)="onUserImageClick($event)">
+      <button mat-icon-button matSuffix class="icon" (click)="onUserImageClick($event)">
         <mat-icon>folder_open</mat-icon>
       </button>
       <input type="text" readonly matInput name="image" />
@@ -38,18 +39,22 @@
 
   <!-- Owner fields -->
   <div class="row">
-    <mat-checkbox class="col-10 my-1" [(ngModel)]="owner.isKeeper" name="isKeeper">Is Keeper</mat-checkbox>
-    <mat-form-field class="col-10 my-1" *ngIf="owner.isKeeper">
-      <input matInput placeholder="Experience" [(ngModel)]="keeper.experience" name="experience">
+    <mat-checkbox class="col-12 my-1" [(ngModel)]="owner.isKeeper" name="isKeeper">
+      <strong class="font">Is Keeper</strong>
+    </mat-checkbox>
+    <mat-form-field class="col-6 my-1" *ngIf="owner.isKeeper">
+      <input matInput type="number" placeholder="Experience" [(ngModel)]="keeper.experience" name="experience">
     </mat-form-field>
-    <mat-form-field class="col-10 my-1" *ngIf="owner.isKeeper">
-      <input matInput placeholder="Cost" [(ngModel)]="keeper.cost" name="cost">
+    <mat-form-field class="col-6 my-1" *ngIf="owner.isKeeper">
+      <input matInput type="number" placeholder="Cost" [(ngModel)]="keeper.cost" name="cost">
     </mat-form-field>
-    <mat-form-field class="col-10 my-1" *ngIf="owner.isKeeper">
+    <mat-form-field class="col-12 my-1" *ngIf="owner.isKeeper">
       <textarea matInput placeholder="Description" [(ngModel)]="keeper.description" name="description"></textarea>
     </mat-form-field>
   </div>
 
   <!-- Submit button -->
-  <button mat-raised-button class="btn-green-solid" type="submit">Update</button>
+  <div class="d-flex justify-content-end">
+    <button mat-raised-button class="btn-green-solid " style="width: 150px;" type="submit">Update</button>
+  </div>
 </form>
