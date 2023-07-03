@@ -48,5 +48,6 @@ export class AuthService {
     localStorage.removeItem('token');
     this.role = '';
     this.user_id = '';
+    this.roleSubject.next(this.role)
   }
 }

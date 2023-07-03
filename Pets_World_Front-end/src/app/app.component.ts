@@ -19,6 +19,7 @@ export class AppComponent {
   ngOnInit() {
     this.authService.getTokenData();
     this.roleObservable.subscribe(role => {
+      console.log("role" + role)
       this.role = role;
     })
   }
