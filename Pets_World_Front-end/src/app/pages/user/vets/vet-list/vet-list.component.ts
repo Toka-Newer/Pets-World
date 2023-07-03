@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { VetService } from 'src/app/core/services/vet/vetService/vet.service';
 import { Title } from '@angular/platform-browser';
 import {Router} from "@angular/router";
-import {Vet} from "../models/Vet";
+import {Vet} from "../../../vet/models/Vet";
+import {PageEvent} from "@angular/material/paginator";
+
 @Component({
   selector: 'app-home',
   templateUrl: './vet-list.component.html',
@@ -11,7 +13,10 @@ import {Vet} from "../models/Vet";
 
 export class VetListComponent implements OnInit {
 
-  vetsArray: any = [];
+  vets: Vet[] = [];
+  pagedVets: Vet[] = [];
+  pageSize: number = 10;
+  currentPage: number = 0;
 
   constructor(public vetAPis: VetService,
               private router: Router,
@@ -23,13 +28,23 @@ export class VetListComponent implements OnInit {
 
   getAllData(): void {
     this.vetAPis.getAllVets().subscribe((data: any)=>{
-      this.vetsArray = data;
-      console.log(data)
+      this.vets = data;
+      this.updatePagedVets();
     })
   }
 
   viewVet(vet: Vet) {
-    console.log(vet)
-    this.router.navigate(['vet', 'details', vet._id]);
+    this.router.navigate(['user', 'vets', 'details', vet._id]);
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.updatePagedVets();
+  }
+
+  updatePagedVets() {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedVets = this.vets?.slice(startIndex, endIndex);
   }
 }

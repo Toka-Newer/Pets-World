@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VetRoutingModule } from './vet-routing.module';
-import { VetListComponent } from './vet-list/vet-list.component';
-import { VetDetailsComponent } from './vet-details/vet-details.component';
+import { VetListComponent } from '../user/vets/vet-list/vet-list.component';
+import { VetDetailsComponent } from '../user/vets/vet-details/vet-details.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';

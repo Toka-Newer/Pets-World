@@ -38,9 +38,6 @@
         <li class="nav-item p-2">
           <a class="nav-link " routerLink="/vet/edit">Profile</a>
         </li>
-        <!-- <li class="nav-item p-2">
-          <a class="nav-link " href="#">Services</a>
-        </li> -->
         <li class="nav-item p-2">
           <button class="nav-link " routerLink="" (click)="logout()">Logout</button>
         </li>
@@ -50,18 +47,17 @@
       <!-- user navbar -->
       <ul class="navbar-nav mx-auto " *ngIf="role=='owner'">
         <li class="nav-item p-2">
-          <a class="nav-link " aria-current="page" href="#">Home</a>
+          <a class="nav-link " aria-current="page" routerLink="/user">Home</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/user/vets">Vets</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/user/keepers">Keepers</a>
         </li>
         <li class="nav-item p-2">
           <a class="nav-link " href="#">owner</a>
         </li>
-        <!-- <li class="nav-item p-2">
-                <a class="nav-link " href="#">Services</a>
-              </li>
-              <li class="nav-item p-2">
-                <a class="nav-link " routerLink="/login">Login</a>
-              </li> -->
-
         <li class="nav-item p-2">
           <button class="nav-link " routerLink="" (click)="logout()">Logout</button>
         </li>
@@ -85,13 +81,6 @@
         <li class="nav-item p-2">
           <a class="nav-link " routerLink="/user/edit">Profile</a>
         </li>
-        <!-- <li class="nav-item p-2">
-                <a class="nav-link " href="#">Services</a>
-              </li>
-              <li class="nav-item p-2">
-                <a class="nav-link " routerLink="/login">Login</a>
-              </li> -->
-
         <li class="nav-item p-2">
           <button class="nav-link " (click)="logout()">Logout</button>
         </li>

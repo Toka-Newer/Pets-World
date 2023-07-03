@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { VetDetailsComponent } from './vet-details/vet-details.component';
-import { VetListComponent } from './vet-list/vet-list.component';
+import { VetDetailsComponent } from '../user/vets/vet-details/vet-details.component';
+import { VetListComponent } from '../user/vets/vet-list/vet-list.component';
 import { VetScheduleComponent } from './vet-schedule/vet-schedule.component';
 import { VetAppointmentsComponent } from './vet-appointments/vet-appointments.component';
 import { EditVetComponent } from './edit-vet/edit-vet/edit-vet.component';
@@ -9,14 +9,14 @@ import { VetBookingComponent } from './vet-booking/vet-booking.component';
 import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: VetListComponent,
-  },
-  {
-    path: 'details/:id',
-    component: VetDetailsComponent,pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   component: VetListComponent,
+  // },
+  // {
+  //   path: 'details/:id',
+  //   component: VetDetailsComponent,pathMatch: 'full'
+  // },
   {
     path: 'schedule',
     component: VetScheduleComponent,

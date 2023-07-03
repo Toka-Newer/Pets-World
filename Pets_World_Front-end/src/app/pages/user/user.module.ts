@@ -15,6 +15,7 @@ import { EditOwnerComponent } from './edit-owner/edit-owner.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { MatIconModule } from '@angular/material/icon';
+import {MatPaginatorModule} from "@angular/material/paginator";
 @NgModule({
   declarations: [HomeComponent, UserScheduleComponent, EditOwnerComponent],
   imports: [
@@ -32,6 +33,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCheckboxModule,
     ButtonModule,
     MatIconModule,
+    MatPaginatorModule,
+
   ],
 })
 export class UserModule {}

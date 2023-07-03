@@ -1,15 +1,30 @@
-import { PetsService } from './../../../core/services/pet/pets.service';
-import { VetAppointmentService } from './../../../core/services/vet/vetAppointment/vet-appointment.service';
-import { VetService } from './../../../core/services/vet/vetService/vet.service';
+import { PetsService } from '../../../../core/services/pet/pets.service';
+import { VetAppointmentService } from '../../../../core/services/vet/vetAppointment/vet-appointment.service';
+import { VetService } from '../../../../core/services/vet/vetService/vet.service';
 import { Component, HostListener } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-booking.service';
-import { API_URL } from '../../../core/services/environment/environment';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { API_URL } from '../../../../core/services/environment/environment';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import {ActivatedRoute} from "@angular/router";
-import {Appointment} from "../models/Appointment";
-import {AddAppointment} from "../models/AddAppointment";
+
+interface Appointment {
+  _id: String;
+  vet_id: String;
+  day: String;
+  start_time: String;
+  end_time: String;
+  number_of_clients: Number;
+}
+
+interface AddAppointment {
+  appointment_id: String;
+  vet_id: String;
+  owner_id: String;
+  pet_id: String;
+  day: String;
+}
 
 @Component({
   selector: 'app-vet-details',
@@ -17,11 +32,11 @@ import {AddAppointment} from "../models/AddAppointment";
   styleUrls: ['./vet-details.component.css'],
 })
 export class VetDetailsComponent {
-  vetId: string ='';
   isSticky = false;
   rating: number | null = null;
   hoveredStar: number | null = null;
 
+  vetId: string = '';
   vetData: any;
   vetImage: any;
   vetRating: number | null = null;
@@ -49,20 +64,20 @@ export class VetDetailsComponent {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.vetId = params["id"];
-      this.getVetData();
-      // this.getPetsByOwnerId();
-      // this.getVetAppointments();
-      // this.getVetBookingData();
-    });
+    this.getVetData(this.vetId);
+    this.getVetAppointments(this.vetId);
+    this.getPetsByOwnerId("649c9deeae3f8709e1837942");
+    // this.getVetBookingData("648f98130dcac62b73ca2f62");
 
-    // this.bookingFormGroup = this._formBuilder.group({
-    //   pet: ['', Validators.required],
-    //   appointment: ['', Validators.required],
-    // });
+    this.bookingFormGroup = this._formBuilder.group({
+      pet: ['', Validators.required],
+      appointment: ['', Validators.required],
+    });
+    });
   }
 
-  getVetData() {
-    this.vetService.getVetById(this.vetId).subscribe(
+  getVetData(id: string) {
+    this.vetService.getVetById(id).subscribe(
       (data: any) => {
         this.vetData = data;
         this.vetImage = `${API_URL}/${this.vetData.user_id.image}`;
@@ -75,8 +90,8 @@ export class VetDetailsComponent {
     );
   }
 
-  getVetAppointments() {
-    this.vetAppointmentService.getVetAppointment(this.vetId).subscribe(
+  getVetAppointments(id: string) {
+    this.vetAppointmentService.getVetAppointment(id).subscribe(
       (data: any) => {
         this.vetAppointments = data
           .map((appointment: any) => {
@@ -93,8 +108,8 @@ export class VetDetailsComponent {
     );
   }
 
-  getPetsByOwnerId() {
-    this.petsService.getPetsByOwnerId(this.vetId).subscribe(
+  getPetsByOwnerId(id: string) {
+    this.petsService.getPetsByOwnerId(id).subscribe(
       (data: any) => {
         this.pets = data;
         console.log(data);

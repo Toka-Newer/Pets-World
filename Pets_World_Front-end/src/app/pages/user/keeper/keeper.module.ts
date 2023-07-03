@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { KeeperRoutingModule } from './keeper-routing.module';
-import { HomeComponent } from './home/home.component';
-import { KeeperDetailsComponent } from './keeper-details/keeper-details.component';
+import { KeeperListComponent } from '../keepers/keeper-list/keeper-list.component';
+import { KeeperDetailsComponent } from '../keepers/keeper-details/keeper-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,7 +19,7 @@ import { KeeperAppointmentsComponent } from './keeper-appointments/keeper-appoin
 
 @NgModule({
   declarations: [
-    HomeComponent,
+    KeeperListComponent,
     KeeperDetailsComponent,
     KeeperScheduleComponent,
     KeeperAppointmentsComponent
