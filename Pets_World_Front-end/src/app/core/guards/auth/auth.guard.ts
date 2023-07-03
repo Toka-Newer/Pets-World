@@ -10,9 +10,8 @@ export class AuthGuard implements CanActivate {
     const token = localStorage.getItem('token');
 
     if (token) {
-      this.authService.getTokenData();
       // Check if the user's role is allowed for the current route
-      if (route.data['roles'].includes(this.authService.role)) {
+      if (route.data['roles'].includes(this.authService.getRole())) {
         return true; // User is authorized to access the route
       } else {
         // Redirect to unauthorized page or a different route

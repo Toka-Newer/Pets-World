@@ -9,11 +9,7 @@ import { EditOwnerService } from 'src/app/core/services/user/editOwner/edit-owne
 })
 export class EditOwnerComponent implements OnInit {
   owner: any = {}; // Object to store owner data
-<<<<<<< HEAD
   ownerId = '648f9646bd39fe8c0527ee4f'; // Replace with the actual owner ID
-=======
-  ownerId = '64a0eab27a580e6a44539033'; // Replace with the actual owner ID
->>>>>>> 78acf459b5b53cad0d61f151bfb2e54256df82dd
   ownerImage: any;
   keeper: any = {};
 
@@ -29,10 +25,6 @@ export class EditOwnerComponent implements OnInit {
         console.log(data);
         this.owner = data.owner;
         this.keeper = data.keeper;
-<<<<<<< HEAD
-        console.log(this.keeper)
-=======
->>>>>>> 78acf459b5b53cad0d61f151bfb2e54256df82dd
         this.ownerImage = `${API_URL}/${this.owner.user_id.image}`;
       },
       (error: any) => {
@@ -66,11 +58,7 @@ export class EditOwnerComponent implements OnInit {
   }
 
   onSubmit() {
-<<<<<<< HEAD
     const ownerId = '648f9646bd39fe8c0527ee4f'; // Replace with the actual owner ID
-=======
-    const ownerId = '64a0eab27a580e6a44539033'; // Replace with the actual owner ID
->>>>>>> 78acf459b5b53cad0d61f151bfb2e54256df82dd
     const formData = new FormData();
     formData.append('id', ownerId);
     formData.append('isKeeper', this.owner.isKeeper);

@@ -11,6 +11,9 @@ export class AuthService {
   isLogin: boolean = false;
   role!: string;
   user_id!: string;
+  owner_id!: string;
+  keeper_id!: string;
+  vet_id!: string;
   token!: string;
   constructor(private http: HttpClient) { }
 
@@ -34,8 +37,35 @@ export class AuthService {
     if (this.token) {
       const decoded: any = jwtDecode(this.token);
       this.role = decoded?.role;
-      this.user_id = decoded?.id
+      this.user_id = decoded?.id;
+      this.owner_id = decoded?.owner_id;
+      this.keeper_id = decoded?.keeper_id;
+      this.vet_id = decoded?.vet_id;
     }
+  }
+
+  getToken() {
+    return this.token;
+  }
+
+  getRole() {
+    return this.role;
+  }
+
+  getUserId() {
+    return this.user_id;
+  }
+
+  getOwnerId() {
+    return this.owner_id;
+  }
+
+  getKeeperId() {
+    return this.keeper_id;
+  }
+
+  getVetId() {
+    return this.vet_id;
   }
 
   logout() {
