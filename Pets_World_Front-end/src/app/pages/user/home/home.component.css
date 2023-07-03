@@ -32,8 +32,8 @@
 .card {
   box-shadow: 2px 0px 15px #cecece;
   border: none;
-  border-style: solid;
+  /* border-style: solid;
   border-width: 0px 0px 15px 0px;
   border-color: #108896;
-  border-radius: 0px 0px 6px 6px;
+  border-radius: 0px 0px 6px 6px; */
 }
