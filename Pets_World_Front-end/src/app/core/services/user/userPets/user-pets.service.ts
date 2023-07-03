@@ -24,23 +24,23 @@ export class PetService {
     return this.http.get<any[]>(`${this.apiUrl}/owners/pets/${ownerId}`, { headers });
   }
 
-  createPet(ownerId: string, pet: any): Observable<any> {
+  createPet( pet: any,ownerId: string): Observable<any> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`);
-    return this.http.post<any>(`${this.apiUrl}/owners/${ownerId}/pets`, JSON.stringify(pet), { headers });
+    return this.http.post<any>(`${this.apiUrl}/owners/pets/${ownerId}`, pet, { headers });
   }
 
-  deletePet(petId: string): Observable<any> {
+  deletePet(petId: string,ownerId:string): Observable<any> {
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${this.token}`);
-    return this.http.delete<any>(`${this.apiUrl}/pets/${petId}`, { headers });
+    return this.http.delete<any>(`${this.apiUrl}/owners/pets/${ownerId}/${petId}`, { headers });
   }
 
-  updatePet(petId: string, pet: any): Observable<any> {
+  updatePet( pet: any, petId: string,ownerId:string): Observable<any> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`);
-    return this.http.put<any>(`${this.apiUrl}/pets/${petId}`, JSON.stringify(pet), { headers });
+    return this.http.patch<any>(`${this.apiUrl}/owners/pets/${ownerId}/${petId}`,pet, { headers });
   }
 }

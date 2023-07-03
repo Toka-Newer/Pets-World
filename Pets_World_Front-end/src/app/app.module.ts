@@ -9,6 +9,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './pages/components/footer/footer.component';
 import { NavbarComponent } from './pages/components/navbar/navbar.component';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [AppComponent, FooterComponent, NavbarComponent],
   imports: [
@@ -18,6 +19,7 @@ import { NavbarComponent } from './pages/components/navbar/navbar.component';
     HttpClientModule,
     SweetAlert2Module,
     BrowserAnimationsModule,
+    MatTableModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

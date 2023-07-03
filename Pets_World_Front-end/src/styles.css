@@ -138,3 +138,6 @@ input {
 
 /*  box-shadow: 2px 0px 20px #cecece;
  border: none; */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
