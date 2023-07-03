@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-lg bg-orange">
+  <div class="container">
+    <div>
+      <a class href="#">
+        <img src="../../../assets/images/landing/logo.png" alt="Petz" width="180" height="67">
+      </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto " *ngIf="role==undefined">
+        <li class="nav-item p-2">
+          <a class="nav-link " aria-current="page" href="#header">Home</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " href="#about">About Us</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " href="#service">Services</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/login">Login</a>
+        </li>
+
+      </ul>
+
+      <!-- vet navbar -->
+      <ul class="navbar-nav mx-auto " *ngIf="role=='vet'">
+        <li class="nav-item p-2">
+          <a class="nav-link " aria-current="page" routerLink="/vet/schedule">Home</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/vet/appointments">Appointments</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/vet/edit">Profile</a>
+        </li>
+        <!-- <li class="nav-item p-2">
+          <a class="nav-link " href="#">Services</a>
+        </li> -->
+        <li class="nav-item p-2">
+          <button class="nav-link " routerLink="" (click)="logout()">Logout</button>
+        </li>
+
+      </ul>
+
+      <!-- user navbar -->
+      <ul class="navbar-nav mx-auto " *ngIf="role=='owner'">
+        <li class="nav-item p-2">
+          <a class="nav-link " aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " href="#">owner</a>
+        </li>
+        <!-- <li class="nav-item p-2">
+                <a class="nav-link " href="#">Services</a>
+              </li>
+              <li class="nav-item p-2">
+                <a class="nav-link " routerLink="/login">Login</a>
+              </li> -->
+
+        <li class="nav-item p-2">
+          <button class="nav-link " routerLink="" (click)="logout()">Logout</button>
+        </li>
+
+      </ul>
+
+      <!-- keeper navbar -->
+      <ul class="navbar-nav mx-auto " *ngIf="role=='keeper'">
+        <li class="nav-item p-2">
+          <a class="nav-link " aria-current="page" routerLink="/user">Home</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/user/keeper/schedule">Keeper Schedule</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/user/keeper/appointments">Keeper Appointments</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/user/keeper">Keepers</a>
+        </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/user/edit">Profile</a>
+        </li>
+        <!-- <li class="nav-item p-2">
+                <a class="nav-link " href="#">Services</a>
+              </li>
+              <li class="nav-item p-2">
+                <a class="nav-link " routerLink="/login">Login</a>
+              </li> -->
+
+        <li class="nav-item p-2">
+          <button class="nav-link " (click)="logout()">Logout</button>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

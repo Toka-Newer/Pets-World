@@ -29,7 +29,8 @@ h6 {
   font-weight: 500;
 }
 
-p {
+p,
+input {
   font-family: Roboto, sans-serif !important;
 }
 
@@ -47,7 +48,7 @@ p {
   box-shadow: inset 9px 0px 0px 0px #F19F1F !important;
   cursor: pointer;
   padding: 0 30px;
-  width: 150px;
+  width: auto;
   height: 56px;
   display: flex;
   align-items: center;

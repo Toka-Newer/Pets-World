@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { API_URL } from './environment/environment';
 import jwtDecode from 'jwt-decode';
 
@@ -9,6 +9,7 @@ import jwtDecode from 'jwt-decode';
 })
 export class AuthService {
   isLogin: boolean = false;
+  roleSubject = new Subject<string>();
   role!: string;
   user_id!: string;
   owner_id!: string;
@@ -35,6 +36,7 @@ export class AuthService {
     if (this.token) {
       const decoded: any = jwtDecode(this.token);
       this.role = decoded?.role;
+      this.roleSubject.next(this.role);
       this.user_id = decoded?.id;
       this.owner_id = decoded?.owner_id;
       this.keeper_id = decoded?.keeper_id;
@@ -70,5 +72,6 @@ export class AuthService {
     localStorage.removeItem('token');
     this.role = '';
     this.user_id = '';
+    this.roleSubject.next(this.role);
   }
 }
