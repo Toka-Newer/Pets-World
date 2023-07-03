@@ -1,7 +1,12 @@
-<h2>Pets</h2>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Create Pet
-</button>
+
+<button
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    (click)="resetForm()"
+  >
+    Add
+  </button>
 <div class="pet-grid">
 
   <div *ngFor="let pet of pets" class="pet-card">

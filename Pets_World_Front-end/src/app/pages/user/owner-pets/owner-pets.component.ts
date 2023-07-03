@@ -180,7 +180,10 @@ submitAdd() {
     }
 
 
-
+    resetForm() {
+      this.modelStatus = "Add"
+      this.petFormGroup.reset();
+    }
 
 
 
