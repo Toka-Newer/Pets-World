@@ -8,7 +8,6 @@ import { AuthService } from '../../auth.service';
 })
 export class VetBookingService {
   base_url: string = `${API_URL}/vet/booking`;
-  // token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoib3duZXIiLCJpZCI6IjY0OTA4NGYwMTk1NTkyNDQ0NThhMDljZiIsImlhdCI6MTY4NzE5MjgyOH0.6wIXTzPXpGpJUqy4zs5vOZFf4Q58JtYJXXpd7BECgSc';
   token!: string;
 
   constructor(private http: HttpClient, private authService: AuthService) {
@@ -28,8 +27,9 @@ export class VetBookingService {
     return this.http.post(this.base_url, JSON.stringify(data), { headers });
   }
 
-  deleteVetBooking(id: any) {
+  deleteVetBooking(id: any, data: any) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', `Bearer ${this.token}`);
-    return this.http.delete(this.base_url + `/${id}`, { headers });
+    const params = new HttpParams({ fromObject: data });
+    return this.http.delete(this.base_url + `/${id}`, { headers, params });
   }
 }

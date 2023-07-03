@@ -8,6 +8,7 @@ import { VetListComponent } from "./vets/vet-list/vet-list.component";
 import { KeeperDetailsComponent } from "./keepers/keeper-details/keeper-details.component";
 import { KeeperListComponent } from "./keepers/keeper-list/keeper-list.component";
 import { VetDetailsComponent } from "./vets/vet-details/vet-details.component";
+import { OwnerPetsComponent } from "./owner-pets/owner-pets.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
     path: 'keepers/details/:id',
     component: KeeperDetailsComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'pets',
+    component: OwnerPetsComponent,
   },
 ];
 

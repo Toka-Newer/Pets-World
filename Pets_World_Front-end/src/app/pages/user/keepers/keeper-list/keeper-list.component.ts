@@ -34,6 +34,7 @@ export class KeeperListComponent implements OnInit {
     this.keeperApis.geAlltKeepers({ id: this.ownerId }).subscribe((data) => {
       this.keepers = data as Keeper[];
       this.updatePagedVets();
+      console.log(data)
     });
   }
 
