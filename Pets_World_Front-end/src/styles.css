@@ -138,3 +138,12 @@ input {
 
 /*  box-shadow: 2px 0px 20px #cecece;
  border: none; */
+
+
+.cdk-overlay-container {
+  z-index: 1200 !important;
+}
+
+.timepicker-overlay {
+  z-index: 1200 !important;
+}
