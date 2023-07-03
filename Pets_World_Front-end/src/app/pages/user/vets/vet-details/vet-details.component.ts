@@ -7,7 +7,8 @@ import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-book
 import { API_URL } from '../../../../core/services/environment/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { AuthService } from 'src/app/core/services/auth.service';
 
 interface Appointment {
   _id: String;
@@ -35,7 +36,7 @@ export class VetDetailsComponent {
   isSticky = false;
   rating: number | null = null;
   hoveredStar: number | null = null;
-
+  owner_Id!: string;
   vetId: string = '';
   vetData: any;
   vetImage: any;
@@ -51,7 +52,7 @@ export class VetDetailsComponent {
     pet_id: '',
     day: '',
   };
-  constructor(
+  constructor(private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private vetService: VetService,
@@ -59,20 +60,21 @@ export class VetDetailsComponent {
     private datePipe: DatePipe,
     private petsService: PetsService,
     private vetBookingService: VetBookingService
-  ) {}
+  ) {
+    this.owner_Id = authService.getOwnerId();
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.vetId = params["id"];
-    this.getVetData(this.vetId);
-    this.getVetAppointments(this.vetId);
-    this.getPetsByOwnerId("649c9deeae3f8709e1837942");
-    // this.getVetBookingData("648f98130dcac62b73ca2f62");
+      this.getVetData(this.vetId);
+      this.getVetAppointments(this.vetId);
+      this.getPetsByOwnerId(this.owner_Id);
 
-    this.bookingFormGroup = this._formBuilder.group({
-      pet: ['', Validators.required],
-      appointment: ['', Validators.required],
-    });
+      this.bookingFormGroup = this._formBuilder.group({
+        pet: ['', Validators.required],
+        appointment: ['', Validators.required],
+      });
     });
   }
 
@@ -120,17 +122,6 @@ export class VetDetailsComponent {
     );
   }
 
-  // getVetBookingData(id: string) {
-  //   this.vetBookingService.getBookingByVetId(id).subscribe(
-  //     (data: any) => {
-  //       this.vetBookingData = data;
-  //     },
-  //     (error: any) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
-
   submitForm() {
     if (this.bookingFormGroup.valid) {
       const dayFilter = this.vetAppointments.find(
@@ -141,8 +132,8 @@ export class VetDetailsComponent {
       if (dayFilter) {
         this.addAppointment = {
           appointment_id: this.bookingFormGroup.value.appointment,
-          vet_id: '648dd6c55a2fb5c9b45df45b',
-          owner_id: '648f9646bd39fe8c0527ee4f',
+          vet_id: this.vetId,
+          owner_id: this.owner_Id,
           pet_id: this.bookingFormGroup.value.pet,
           day: dayFilter,
         };
@@ -211,10 +202,10 @@ export class VetDetailsComponent {
       this.rating = index; // Set the rating to the selected star index
     }
     const data = {
-      owner_id: '648f9646bd39fe8c0527ee4f',
+      owner_id: this.owner_Id,
       rate: index,
     };
-    this.vetService.updateVetRating('648dd6c55a2fb5c9b45df45b', data).subscribe(
+    this.vetService.updateVetRating(this.vetId, data).subscribe(
       (data: any) => {
         console.log(data);
       },

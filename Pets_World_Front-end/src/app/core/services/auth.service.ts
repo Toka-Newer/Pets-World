@@ -12,11 +12,11 @@ export class AuthService {
   roleSubject = new Subject<string>();
   role!: string;
   user_id!: string;
+  owner_id!: string;
+  keeper_id!: string;
+  vet_id!: string;
   token!: string;
-  keeper_id: any;
-  owner_id: any;
-  vet_id: any;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
     const loginUrl = `${API_URL}/login`;
@@ -42,6 +42,30 @@ export class AuthService {
       this.keeper_id = decoded?.keeper_id;
       this.vet_id = decoded?.vet_id;
     }
+  }
+
+  getToken() {
+    return this.token;
+  }
+
+  getRole() {
+    return this.role;
+  }
+
+  getUserId() {
+    return this.user_id;
+  }
+
+  getOwnerId() {
+    return this.owner_id;
+  }
+
+  getKeeperId() {
+    return this.keeper_id;
+  }
+
+  getVetId() {
+    return this.vet_id;
   }
 
   logout() {

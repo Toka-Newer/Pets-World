@@ -9,10 +9,10 @@ import { AuthService } from '../../auth.service';
 export class VetService {
   base_url: string = `${API_URL}/vets`;
   // token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoib3duZXIiLCJpZCI6IjY0OGUxYmE2YWRiZjQzNDkxYjE3MmUzOCIsImlhdCI6MTY4NzA0MDAwOH0.h0Upf4d0wX3PRsiiF4DFzVaNYNEFg0M8GCD84mOjFi4';
-  token: string = this.authService.token;
+  token!: string;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.authService.getTokenData();
+    this.token = this.authService.getToken();
   }
 
   getVetById(id: string) {

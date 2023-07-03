@@ -5,9 +5,10 @@ import { API_URL } from '../../../../core/services/environment/environment'
 import { KeeperService } from 'src/app/core/services/user/keeper/keeperService/keeper.service';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import { KeeperBookingService } from 'src/app/core/services/user/keeper/keeperBooking/keeper-booking.service';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import {ActivatedRoute} from "@angular/router";
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ActivatedRoute } from "@angular/router";
 
 interface Appointment {
   _id: String,
@@ -35,7 +36,7 @@ export class KeeperDetailsComponent {
   isSticky = false;
   rating: number | null = null;
   hoveredStar: number | null = null;
-
+  owner_Id!: string;
   keeperData: any;
   keeperImage: any;
   keeperRating: number | null = null;
@@ -52,21 +53,23 @@ export class KeeperDetailsComponent {
     // day: ''
   };
 
-  constructor(
+  constructor(private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private keeperService: KeeperService,
     private keeperAppointmentService: KeeperAppointmentService,
     private datePipe: DatePipe,
     private petsService: PetsService,
-    private keeperBookingService: KeeperBookingService) { }
+    private keeperBookingService: KeeperBookingService) {
+    this.owner_Id = authService.getOwnerId();
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.keepId = params["id"];
       this.getkeeperData(this.keepId);
       this.getKeeperAppointments(this.keepId);
-      this.getPetsByOwnerId("648f9646bd39fe8c0527ee4f");
+      this.getPetsByOwnerId(this.owner_Id);
       // this.getKeeperBookingData("648f98130dcac62b73ca2f62");
 
       this.bookingFormGroup = this._formBuilder.group({
@@ -110,16 +113,6 @@ export class KeeperDetailsComponent {
     );
   }
 
-  // getAppointmentDays(appointment: any) {
-  //   const startDate = new Date(appointment.start_time);
-  //   const endDate = new Date(appointment.end_time);
-
-  //   for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
-  //     this.days.push(new Date(date));
-  //   }
-
-  // }
-
   getPetsByOwnerId(id: string) {
     this.petsService.getPetsByOwnerId(id).subscribe(
       (data: any) => {
@@ -132,24 +125,13 @@ export class KeeperDetailsComponent {
     );
   }
 
-  // getKeeperBookingData(id: string) {
-  //   this.keeperBookingService.getBookingByVetId(id).subscribe(
-  //     (data: any) => {
-  //       this.keeperBookingData = data;
-  //     },
-  //     (error: any) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
-
   submitForm() {
     if (this.bookingFormGroup.valid) {
       console.log(this.keeperAppointments)
       this.addAppointment = {
         appointment_id: this.bookingFormGroup.value.appointment,
-        keeper_id: "649794f8999ea0fe2cd3d9ef",
-        owner_id: "648f9646bd39fe8c0527ee4f",
+        keeper_id: this.keepId,
+        owner_id: this.owner_Id,
         pet_id: this.bookingFormGroup.value.pet,
         // day: this.bookingFormGroup.value.appointment
       }
@@ -217,10 +199,10 @@ export class KeeperDetailsComponent {
       this.rating = index; // Set the rating to the selected star index
     }
     const data = {
-      owner_id: "648f9646bd39fe8c0527ee4f",
+      owner_id: this.owner_Id,
       rate: index
     }
-    this.keeperService.updateKeeperRating("649794f8999ea0fe2cd3d9ef", data).subscribe(
+    this.keeperService.updateKeeperRating(this.keepId, data).subscribe(
       (data: any) => {
         console.log(data)
       },
