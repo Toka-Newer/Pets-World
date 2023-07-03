@@ -19,4 +19,21 @@
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #108896;
   --bs-gradient: none;
+  width: 150px;
+  height: 45px;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 400;
+  transition: all 0.3s ease-in-out;
+}
+
+.card {
+  box-shadow: 2px 0px 15px #cecece;
+  border: none;
+  border-style: solid;
+  border-width: 0px 0px 15px 0px;
+  border-color: #108896;
+  border-radius: 0px 0px 6px 6px;
 }
