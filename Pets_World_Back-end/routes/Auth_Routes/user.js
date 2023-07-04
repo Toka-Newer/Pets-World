@@ -12,5 +12,12 @@ userRoute
         checkValidation,
         userController.updateUserPassword
     );
+userRoute
+    .route("/user/:id")
+    .get(
+        userValidation.getUserByIdValidator,
+        checkValidation,
+        userController.getUserById
+    );
 
 module.exports = userRoute;

@@ -14,9 +14,9 @@ getKeeperAppointments = async (req, res, next) => {
 getKeeperAppointmentsById = async (req, res, next) => {
   try {
     const KeeperAppointment = await KeeperAppointmentSchema.find({
-      day: {
-        $gte: new Date()
-      },
+      // day: {
+      //   $gte: new Date()
+      // },
       keeper_id: req.params.id,
     }).sort({ createdAt: -1 });
     return res.status(200).json(KeeperAppointment);

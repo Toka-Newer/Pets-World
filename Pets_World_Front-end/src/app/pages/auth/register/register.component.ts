@@ -152,10 +152,6 @@ export class RegisterComponent implements OnInit {
           console.log('Please fill in all vet information.');
           return;
         }
-        // userdata.cost = costControl?.value || '';
-        // userdata.experience = experienceControl?.value;
-        // userdata.description = this.secondFormGroup.get('description')?.value;
-        // userdata.address = this.secondFormGroup.get('address')?.value;
         formData.append('cost', '' + costControl?.value);
         formData.append('experience', '' + experienceControl?.value);
         formData.append('address', '' + addressControl?.value);

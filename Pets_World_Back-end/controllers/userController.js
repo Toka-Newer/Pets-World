@@ -7,7 +7,7 @@ const VetSchema = mongoose.model("Vet");
 
 updateUserPassword = async (req, res, next) => {
   try {
-    const user = await userSchema.findOne({ _id: req.params.id });
+    const user = await userSchema.findOne({ _id: req.params.id }); // user_id
 
     if (user) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
@@ -127,7 +127,23 @@ addUser = async (req, res, next) => {
   }
 };
 
+getUserById = async (req, res, next) => {
+  try {
+    const user = await userSchema
+      .findOne({
+        _id: req.params.id,
+      })
+    if (user) {
+      return res.status(200).json(user);
+    }
+    return res.status(404).json({ message: 'No such user' });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   addUser,
-  updateUserPassword
+  updateUserPassword,
+  getUserById
 };

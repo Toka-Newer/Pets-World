@@ -15,11 +15,11 @@ import { EditOwnerComponent } from './edit-owner/edit-owner.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { MatIconModule } from '@angular/material/icon';
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {OwnerPetsComponent} from "./owner-pets/owner-pets.component";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { OwnerPetsComponent } from "./owner-pets/owner-pets.component";
 
 @NgModule({
-  declarations: [HomeComponent, UserScheduleComponent, EditOwnerComponent , OwnerPetsComponent],
+  declarations: [HomeComponent, UserScheduleComponent, EditOwnerComponent, OwnerPetsComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -40,4 +40,4 @@ import {OwnerPetsComponent} from "./owner-pets/owner-pets.component";
   ],
 
 })
-export class UserModule {}
+export class UserModule { }
