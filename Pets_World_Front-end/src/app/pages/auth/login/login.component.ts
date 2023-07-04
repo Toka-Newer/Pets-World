@@ -37,8 +37,9 @@ export class LoginComponent {
       const password = this.password!.value;
 
       this.authService.login(email, password).subscribe({
-        next: (data) => {
-          localStorage.setItem('token', data.token);
+        next: async (data) => {
+          // localStorage.setItem('token', data.token);
+          await this.saveTokenToLocalStorage(data.token);
           console.log('Successfully logged');
           this.authService.getTokenData();
           // localStorage.setItem('role', this.authService.role);
@@ -60,5 +61,16 @@ export class LoginComponent {
       // Mark form fields as touched to display validation errors
       this.loginForm.markAllAsTouched();
     }
+  }
+
+  saveTokenToLocalStorage(token: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        localStorage.setItem('token', token);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }

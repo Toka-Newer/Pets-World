@@ -27,6 +27,7 @@ export class NavbarComponent {
     this.getUserData();
   }
 
+
   getUserData() {
     this.userService.getUserById().subscribe(
       (data: any) => {

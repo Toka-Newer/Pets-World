@@ -86,9 +86,12 @@
         <li class="nav-item p-2">
           <a class="nav-link " routerLink="/user/keepers">Keepers</a>
         </li>
+        <li class="nav-item p-2">
+          <a class="nav-link " routerLink="/user/pets">My Pets</a>
+        </li>
       </ul>
     </div>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" *ngIf="role!=undefined">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"

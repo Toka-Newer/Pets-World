@@ -103,7 +103,7 @@ export class VetAppointmentsComponent {
 
   resetForm() {
     this.modelStatus = 'Add';
-    // this.appointmentFormGroup.reset();
+    this.appointmentFormGroup.reset();
   }
 
   fillForm(appointment: any) {
