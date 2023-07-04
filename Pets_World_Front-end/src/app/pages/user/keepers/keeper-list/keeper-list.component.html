@@ -23,6 +23,8 @@
       </div>
     </div>
   </div>
-  <mat-paginator [length]="keepers.length" [pageSize]="pageSize" (page)="onPageChange($event)">
-  </mat-paginator>
+  <div class="my-3">
+    <mat-paginator [length]="keepers.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
 </section>

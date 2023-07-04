@@ -62,8 +62,10 @@
           </div>
         </ng-container>
       </div>
-      <mat-paginator [length]="vetBookingData?.length" [pageSize]="pageSize" (page)="onPageChange($event)">
-      </mat-paginator>
+      <div class="my-3">
+        <mat-paginator [length]="vetBookingData?.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+        </mat-paginator>
+      </div>
       <ng-template #noBooking>
         <div class="card border-0 p-4">
           <p class="fs-5 lh-base text-danger">

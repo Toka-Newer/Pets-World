@@ -31,8 +31,10 @@
       </div>
     </div>
   </div>
-  <mat-paginator [length]="appointments?.length" [pageSize]="pageSize" (page)="onPageChange($event)">
-  </mat-paginator>
+  <div class="my-3">
+    <mat-paginator [length]="appointments?.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
 </section>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
