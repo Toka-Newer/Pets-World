@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from 'src/app/core/services/auth.service';
 import Swal from 'sweetalert2';
 import { API_URL } from 'src/app/core/services/environment/environment';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-owner-pets',
@@ -27,6 +28,9 @@ export class OwnerPetsComponent {
   petFormGroup!: FormGroup;
   ownerId: string = '';
   pets: Pet[] = [];
+  pagedPets: any[] = []; // Array to hold the paged booking data
+  pageSize = 10; // Number of items to display per page
+  currentPage = 0; // Current page index
 
   constructor(
     private authService: AuthService,
@@ -49,6 +53,7 @@ export class OwnerPetsComponent {
 
     this.petService.getAllPetsByOwnerId(this.ownerId).subscribe((pets) => {
       this.pets = pets;
+      this.updatePagedAppointments();
       console.log(pets);
     });
 
@@ -183,6 +188,17 @@ export class OwnerPetsComponent {
       // Handle successful deletion
       console.log('Pet deleted:', deletedPet);
     });
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.updatePagedAppointments();
+  }
+
+  updatePagedAppointments() {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedPets = this.pets?.slice(startIndex, endIndex);
   }
 
 }
