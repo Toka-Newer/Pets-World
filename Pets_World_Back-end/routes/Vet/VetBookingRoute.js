@@ -9,7 +9,6 @@ vetRoute
   .route("/vet/booking")
   .get(vetBookingController.getVetBooking)
   .post(
-    authorization.checkOwner,
     vetBookingValidation.addVetBookingValidator,
     checkValidation,
     vetBookingController.addVetBooking

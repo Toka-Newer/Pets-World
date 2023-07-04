@@ -9,7 +9,6 @@ keeperRoute
   .route("/keeper/booking")
   .get(keeperBookingController.getKeeperBooking)
   .post(
-    authorization.checkOwner,
     keeperBookingValidation.addKeeperBookingValidator,
     checkValidation,
     keeperBookingController.addKeeperBooking

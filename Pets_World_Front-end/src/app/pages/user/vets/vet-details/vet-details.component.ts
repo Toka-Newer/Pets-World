@@ -7,7 +7,7 @@ import { VetBookingService } from 'src/app/core/services/vet/vetBooking/vet-book
 import { API_URL } from '../../../../core/services/environment/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 interface Appointment {
@@ -52,7 +52,8 @@ export class VetDetailsComponent {
     pet_id: '',
     day: '',
   };
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private vetService: VetService,
@@ -65,8 +66,8 @@ export class VetDetailsComponent {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      this.vetId = params["id"];
+    this.activatedRoute.params.subscribe((params) => {
+      this.vetId = params['id'];
       this.getVetData(this.vetId);
       this.getVetAppointments(this.vetId);
       this.getPetsByOwnerId(this.owner_Id);
@@ -208,6 +209,7 @@ export class VetDetailsComponent {
     this.vetService.updateVetRating(this.vetId, data).subscribe(
       (data: any) => {
         console.log(data);
+        window.location.reload();
       },
       (error: any) => {
         console.error(error);
