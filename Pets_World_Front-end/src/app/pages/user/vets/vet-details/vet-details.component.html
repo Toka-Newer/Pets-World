@@ -6,7 +6,7 @@
           <div class="row g-0">
             <div class="col-md-4">
               <figure>
-                <img [src]="vetImage" class="img-fluid w-100" style="height: 310px" alt="..." />
+                <img [src]="vetImage" class="img-fluid w-100" style="height: 260px" alt="..." />
               </figure>
             </div>
             <div class="col-md-8">
@@ -43,16 +43,18 @@
                 <div class="card-text">
                   <ul class="list-group">
                     <li class="list-group-item border-0 px-0">
-                      <h6 class="fs-6 mb-1">Email</h6>
-                      {{ vetData?.user_id?.email}}
+                      <h6 class="fs-6 mb-1 text-green">Email: <span class="text-p">
+                          {{ vetData?.user_id?.email}}</span>
+                      </h6>
                     </li>
                     <li class="list-group-item border-0 px-0">
-                      <h6 class="fs-6 mb-1">Address</h6>
-                      {{ vetData?.address }}
+                      <h6 class="fs-6 mb-1 text-green">Address: <span class="text-p">{{ vetData?.address }}</span></h6>
                     </li>
                     <li class="list-group-item border-0 px-0">
-                      <h6 class="fs-6 mb-1">Phone</h6>
-                      <a [href]="'tel:+20' + vetData?.user_id?.phone">+02 {{ vetData?.user_id?.phone }}</a>
+                      <h6 class="fs-6 mb-1 text-green">Phone: <span class="text-p">
+                          <a class="text-p" [href]="'tel:+20' + vetData?.user_id?.phone">+02 {{ vetData?.user_id?.phone
+                            }}</a>
+                        </span></h6>
                     </li>
                   </ul>
                 </div>
@@ -67,7 +69,7 @@
               </div>
               <div class="col-md-11">
                 <h3 class="fs-4">Introducing</h3>
-                <p class="card-text text-secondary fs-6 lh-base">
+                <p class="card-text text-secondary">
                   {{ vetData?.description }}
                 </p>
               </div>
@@ -79,7 +81,7 @@
               </div>
               <div class="col-md-11">
                 <h3 class="fs-4">Years of Experience</h3>
-                <p class="card-text text-secondary fs-5 lh-base">
+                <p class="card-text text-secondary">
                   {{ vetData?.experience }} Years
                 </p>
               </div>
@@ -91,7 +93,7 @@
               </div>
               <div class="col-md-11">
                 <h3 class="fs-4">Examination Price</h3>
-                <p class="card-text text-secondary fs-5 lh-base">
+                <p class="card-text text-secondary">
                   {{ vetData?.cost | currency }}
                 </p>
               </div>
@@ -151,7 +153,7 @@
                   </div>
 
                   <div class="text-end">
-                    <button mat-button color="primary" [disabled]="bookingFormGroup.invalid" (click)="submitForm()">
+                    <button class="btn-green-solid" [disabled]="bookingFormGroup.invalid" (click)="submitForm()">
                       MAKE AN APPOINTMENT
                     </button>
                   </div>

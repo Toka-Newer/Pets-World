@@ -1,26 +1,3 @@
-<!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="resetForm()">
-  Add
-</button>
-<div class="pet-grid">
-
-  <div *ngFor="let pet of pets" class="pet-card">
-    <img [src]="pet.image" alt="Pet Image" class="pet-image">
-    <div class="pet-details">
-
-      <h3>{{ pet.name }}</h3>
-      <p>Type: {{ pet.type }}</p>
-      <p>Gender: {{ pet.gender }}</p>
-    </div>
-    <div class="pet-actions">
-      <button class="delete-button" (click)="deletePet(pet._id)">Delete</button>
-      <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary m-2"
-        (click)="fillForm(pet)">~
-        ~ Edit
-      </button>
-    </div>
-  </div>
-</div> -->
-
 <h1 class="text-center my-5">My Pets</h1>
 <section class="container">
   <div class="d-flex justify-content-end">
@@ -56,7 +33,7 @@
     </div>
   </div>
   <div class="my-3">
-    <mat-paginator [length]="pets?.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+    <mat-paginator [length]="pets.length" [pageSize]="pageSize" (page)="onPageChange($event)">
     </mat-paginator>
   </div>
 </section>
@@ -71,7 +48,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Pet Details</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -175,11 +152,11 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="!petFormGroup.valid || clicked"
+        <button type="button" class="btn-green-solid" [disabled]="!petFormGroup.valid || clicked"
           (click)="submitForm()">
           Save changes
         </button>
+        <button type="button" class="btn-orange-solid" data-bs-dismiss="modal">Close</button>
 
       </div>
     </div>

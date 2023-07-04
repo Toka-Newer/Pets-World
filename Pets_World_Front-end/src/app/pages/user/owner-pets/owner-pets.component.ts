@@ -3,8 +3,12 @@ import { Pet } from 'src/app/pages/user/owner-pets/models/Ipets';
 import { PetService } from 'src/app/core/services/user/userPets/user-pets.service';
 import { ActivatedRoute } from '@angular/router';
 
-
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import Swal from 'sweetalert2';
 import { API_URL } from 'src/app/core/services/environment/environment';
@@ -13,16 +17,15 @@ import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-owner-pets',
   templateUrl: './owner-pets.component.html',
-  styleUrls: ['./owner-pets.component.css']
+  styleUrls: ['./owner-pets.component.css'],
 })
-
 export class OwnerPetsComponent {
   petId: any;
   addPet: any;
   editPet: any;
   id!: string;
   clicked: boolean = false;
-  modelStatus: any = "Add";
+  modelStatus: any = 'Add';
   genderOptions: string[] = ['male', 'female'];
   petTypeOptions: string[] = ['dog', 'cat', 'bird'];
   petFormGroup!: FormGroup;
@@ -67,10 +70,9 @@ export class OwnerPetsComponent {
     });
   }
   submitForm() {
-    if (this.modelStatus == "Add") {
+    if (this.modelStatus == 'Add') {
       this.submitAdd();
-    }
-    else {
+    } else {
       this.submitEdit();
     }
   }
@@ -81,30 +83,28 @@ export class OwnerPetsComponent {
       gender: this.petFormGroup.value.gender,
       dateOfBirth: this.petFormGroup.value.dateOfBirth,
       age: this.petFormGroup.value.age,
-      description: this.petFormGroup.value.description
-    }
+      description: this.petFormGroup.value.description,
+    };
     this.clicked = true;
     this.petService.createPet(this.addPet, this.ownerId).subscribe(
       (data: any) => {
-        if (data.status == "201") {
+        if (data.status == '201') {
           Swal.fire({
             title: 'Success!',
             text: 'Pet done successfully',
             icon: 'success',
-            confirmButtonText: 'OK'
-          }
-          )
+            confirmButtonText: 'OK',
+          });
           setTimeout(() => {
             window.location.reload();
           }, 1500);
-        }
-        else {
+        } else {
           Swal.fire({
             title: 'Error!',
             text: `${data.message}`,
             icon: 'error',
-            confirmButtonText: 'OK'
-          })
+            confirmButtonText: 'OK',
+          });
           this.clicked = false;
         }
       },
@@ -113,15 +113,14 @@ export class OwnerPetsComponent {
           title: 'Error!',
           text: `${error.error.message}`,
           icon: 'error',
-          confirmButtonText: 'OK'
-        })
+          confirmButtonText: 'OK',
+        });
       }
     );
   }
 
-
   fillForm(pet: any) {
-    this.modelStatus = "Edit";
+    this.modelStatus = 'Edit';
     this.petId = pet._id;
     this.petFormGroup.patchValue({
       name: pet.name,
@@ -129,7 +128,7 @@ export class OwnerPetsComponent {
       gender: pet.gender,
       dateOfBirth: pet.dateOfBirth,
       age: pet.age,
-      description: pet.description
+      description: pet.description,
     });
   }
 
@@ -140,30 +139,28 @@ export class OwnerPetsComponent {
       gender: this.petFormGroup.value.gender,
       dateOfBirth: this.petFormGroup.value.dateOfBirth,
       age: this.petFormGroup.value.age,
-      description: this.petFormGroup.value.description
-    }
+      description: this.petFormGroup.value.description,
+    };
     this.clicked = true;
     this.petService.updatePet(this.addPet, this.petId, this.ownerId).subscribe(
       (data: any) => {
-        if (data.status == "201") {
+        if (data.status == '201') {
           Swal.fire({
             title: 'Success!',
             text: 'Pet done successfully',
             icon: 'success',
-            confirmButtonText: 'OK'
-          }
-          )
+            confirmButtonText: 'OK',
+          });
           setTimeout(() => {
             window.location.reload();
           }, 1500);
-        }
-        else {
+        } else {
           Swal.fire({
             title: 'Error!',
             text: `${data.message}`,
             icon: 'error',
-            confirmButtonText: 'OK'
-          })
+            confirmButtonText: 'OK',
+          });
           this.clicked = false;
         }
       },
@@ -172,23 +169,76 @@ export class OwnerPetsComponent {
           title: 'Error!',
           text: `${error.error.message}`,
           icon: 'error',
-          confirmButtonText: 'OK'
-        })
+          confirmButtonText: 'OK',
+        });
       }
     );
   }
 
   resetForm() {
-    this.modelStatus = "Add"
+    this.modelStatus = 'Add';
     this.petFormGroup.reset();
   }
 
-  deletePet(petId: string): void {
-    this.petService.deletePet(petId, this.ownerId).subscribe(deletedPet => {
-      // Handle successful deletion
-      console.log('Pet deleted:', deletedPet);
+  deletePet(petId: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.petService
+          .deletePet(petId, this.ownerId)
+          .subscribe((deletedPet) => {
+            // Handle successful deletion
+            console.log('Pet deleted:', deletedPet);
+          });
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Your file has been deleted.',
+          icon: 'success',
+          timer: 1500,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
     });
   }
+
+  // deletePet(petId: string): void {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "You won't be able to revert this!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!',
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       this.petService
+  //         .deletePet(petId, this.ownerId)
+  //         .subscribe((deletedPet) => {
+  //           // Handle successful deletion
+  //           console.log('Pet deleted:', deletedPet);
+  //         });
+  //       Swal.fire({
+  //         title: 'Deleted!',
+  //         text: 'Your file has been deleted.',
+  //         icon: 'success',
+  //         timer: 1500,
+  //       });
+  //       setTimeout(() => {
+  //         window.location.reload();
+  //       }, 1500);
+  //     }
+  //   });
+  // }
 
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
@@ -200,10 +250,4 @@ export class OwnerPetsComponent {
     const endIndex = startIndex + this.pageSize;
     this.pagedPets = this.pets?.slice(startIndex, endIndex);
   }
-
 }
-
-
-
-
-

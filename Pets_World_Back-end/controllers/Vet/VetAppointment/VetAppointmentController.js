@@ -13,10 +13,11 @@ getVetAppointments = async (req, res, next) => {
 
 getVetAppointmentsById = async (req, res, next) => {
   try {
+    const day = new Date();
+    const dateTimeString = day.toISOString();
+    const dateOnly = dateTimeString.split("T")[0];
     const vetAppointments = await VetAppointmentsSchema.find({
-      day: {
-        $gte: new Date()
-      },
+      day: { $gte: new Date(dateOnly) },
       vet_id: req.params.id,
     })
       .sort({ day: -1 })
@@ -49,8 +50,9 @@ addAppointment = async (req, res, next) => {
     const end_date = new Date(req.body.end_date);
     const start_time = req.body.start_time;
     const end_time = req.body.end_time;
-    for (start_date; start_date <= end_date;) {
+    for (start_date; start_date <= end_date; ) {
       const vetAppointments = await VetAppointmentsSchema.find({
+        vet_id: req.params.id,
         day: start_date,
       });
       if (vetAppointments.length != 0) {

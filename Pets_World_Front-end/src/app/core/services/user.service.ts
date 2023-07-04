@@ -18,16 +18,22 @@ export class UserService {
   }
 
   updatePassword(data: any) {
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer ${this.token}`);
-    return this.http.patch(`${API_URL}/password/${this.authService.getUserId()}`, JSON.stringify(data), { headers });
+      .set('Authorization', `Bearer ${token}`);
+    return this.http.patch(
+      `${API_URL}/password/${this.authService.getUserId()}`,
+      JSON.stringify(data),
+      { headers }
+    );
   }
 
   getUserById() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${API_URL}/user/${this.authService.getUserId()}`, { headers });
+    return this.http.get(`${API_URL}/user/${this.authService.getUserId()}`, {
+      headers,
+    });
   }
-
 }
