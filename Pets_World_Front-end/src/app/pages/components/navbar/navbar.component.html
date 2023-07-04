@@ -11,7 +11,7 @@
       </a>
     </div>
     <div *ngIf="role=='owner'">
-      <a class routerLink="">
+      <a class routerLink="/user">
         <img src="../../../assets/images/landing/logo.png" alt="Petz" width="180" height="67">
       </a>
     </div>
@@ -54,10 +54,9 @@
       <!-- user navbar -->
       <ul class="navbar-nav mx-auto " *ngIf="role=='owner'">
         <li class="nav-item p-2">
-          <a class="nav-link " aria-current="page" href="#">Home</a>
+          <a class="nav-link " aria-current="page" routerLink="/user">Home</a>
         </li>
         <li class="nav-item p-2">
-          <a class="nav-link " routerLink="/user/pets">Pets</a>
         </li>
         <li class="nav-item p-2">
           <a class="nav-link " routerLink="/user/vets">Vets</a>
@@ -80,9 +79,6 @@
         </li>
         <li class="nav-item p-2">
           <a class="nav-link " routerLink="/user/keeper/appointments">Keeper Appointments</a>
-        </li>
-        <li class="nav-item p-2">
-          <a class="nav-link " routerLink="/user/pets">Pets</a>
         </li>
         <li class="nav-item p-2">
           <a class="nav-link " routerLink="/user/vets">Vets</a>

@@ -1,35 +1,35 @@
 import { PetsService } from '../../../../core/services/pet/pets.service';
 import { Component, HostListener } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { API_URL } from '../../../../core/services/environment/environment'
+import { API_URL } from '../../../../core/services/environment/environment';
 import { KeeperService } from 'src/app/core/services/user/keeper/keeperService/keeper.service';
 import { KeeperAppointmentService } from 'src/app/core/services/user/keeper/keeperAppointment/keeper-appointment.service';
 import { KeeperBookingService } from 'src/app/core/services/user/keeper/keeperBooking/keeper-booking.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 interface Appointment {
-  _id: String,
-  keeper_id: String,
-  start_time: String,
-  end_time: String,
-  number_of_pets: Number,
+  _id: String;
+  keeper_id: String;
+  start_time: String;
+  end_time: String;
+  number_of_pets: Number;
 }
 
 interface AddAppointment {
-  appointment_id: String,
-  keeper_id: String,
-  owner_id: String,
-  pet_id: String,
+  appointment_id: String;
+  keeper_id: String;
+  owner_id: String;
+  pet_id: String;
   // day: String,
 }
 
 @Component({
   selector: 'app-keeper-details',
   templateUrl: './keeper-details.component.html',
-  styleUrls: ['./keeper-details.component.css']
+  styleUrls: ['./keeper-details.component.css'],
 })
 export class KeeperDetailsComponent {
   keepId: string = '';
@@ -53,20 +53,22 @@ export class KeeperDetailsComponent {
     // day: ''
   };
 
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private keeperService: KeeperService,
     private keeperAppointmentService: KeeperAppointmentService,
     private datePipe: DatePipe,
     private petsService: PetsService,
-    private keeperBookingService: KeeperBookingService) {
+    private keeperBookingService: KeeperBookingService
+  ) {
     this.owner_Id = authService.getOwnerId();
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      this.keepId = params["id"];
+    this.activatedRoute.params.subscribe((params) => {
+      this.keepId = params['id'];
       this.getkeeperData(this.keepId);
       this.getKeeperAppointments(this.keepId);
       this.getPetsByOwnerId(this.owner_Id);
@@ -76,7 +78,7 @@ export class KeeperDetailsComponent {
         pet: ['', Validators.required],
         appointment: ['', Validators.required],
       });
-    })
+    });
   }
   getkeeperData(id: string) {
     this.keeperService.getKeeperById(id).subscribe(
@@ -84,7 +86,7 @@ export class KeeperDetailsComponent {
         this.keeperData = data;
         this.keeperImage = `${API_URL}/${this.keeperData.owner_id.user_id.image}`;
         this.staticRate();
-        console.log(data)
+        console.log(data);
       },
       (error: any) => {
         console.error(error);
@@ -96,15 +98,24 @@ export class KeeperDetailsComponent {
     this.keeperAppointmentService.getKeeperAppointment(id).subscribe(
       (data: any) => {
         const currentDate = new Date();
-        const formattedDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+        const formattedDate = this.datePipe.transform(
+          currentDate,
+          'yyyy-MM-dd'
+        );
         this.keeperAppointments = data.filter((appointment: any) => {
           if (appointment && appointment.end_time && formattedDate) {
-            appointment.end_time = this.datePipe.transform(appointment.end_time, 'yyyy-MM-dd');
-            return appointment.number_of_pets > 0 && appointment.end_time > formattedDate;
+            appointment.end_time = this.datePipe.transform(
+              appointment.end_time,
+              'yyyy-MM-dd'
+            );
+            return (
+              appointment.number_of_pets > 0 &&
+              appointment.end_time > formattedDate
+            );
           }
           return false;
         });
-        console.log(this.keeperAppointments)
+        console.log(this.keeperAppointments);
         // this.getAppointmentDays(this.keeperAppointments)
       },
       (error: any) => {
@@ -117,7 +128,7 @@ export class KeeperDetailsComponent {
     this.petsService.getPetsByOwnerId(id).subscribe(
       (data: any) => {
         this.pets = data;
-        console.log(data)
+        console.log(data);
       },
       (error: any) => {
         console.error(error);
@@ -127,23 +138,23 @@ export class KeeperDetailsComponent {
 
   submitForm() {
     if (this.bookingFormGroup.valid) {
-      console.log(this.keeperAppointments)
+      console.log(this.keeperAppointments);
       this.addAppointment = {
         appointment_id: this.bookingFormGroup.value.appointment,
         keeper_id: this.keepId,
         owner_id: this.owner_Id,
         pet_id: this.bookingFormGroup.value.pet,
         // day: this.bookingFormGroup.value.appointment
-      }
+      };
 
       this.keeperBookingService.addKeeperBooking(this.addAppointment).subscribe(
         (data: any) => {
-          console.log(data)
+          console.log(data);
           Swal.fire({
             title: 'Success!',
             text: 'Booking done successfully',
             icon: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
           }).then((result) => {
             // Handle the result or perform additional actions
           });
@@ -153,13 +164,12 @@ export class KeeperDetailsComponent {
             title: 'Error!',
             text: `${error.error.message}`,
             icon: 'error',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
           }).then((result) => {
             // Handle the result or perform additional actions
           });
         }
       );
-
     } else {
       console.log('Please fill in all required fields.');
     }
@@ -167,7 +177,8 @@ export class KeeperDetailsComponent {
 
   @HostListener('window:scroll', ['$event'])
   onScroll(event: any) {
-    if (window.pageYOffset > 100) { // Adjust the scroll threshold as needed
+    if (window.pageYOffset > 100) {
+      // Adjust the scroll threshold as needed
       this.isSticky = true;
     } else {
       this.isSticky = false;
@@ -200,11 +211,12 @@ export class KeeperDetailsComponent {
     }
     const data = {
       owner_id: this.owner_Id,
-      rate: index
-    }
+      rate: index,
+    };
     this.keeperService.updateKeeperRating(this.keepId, data).subscribe(
       (data: any) => {
-        console.log(data)
+        console.log(data);
+        window.location.reload();
       },
       (error: any) => {
         console.error(error);
@@ -213,7 +225,8 @@ export class KeeperDetailsComponent {
   }
 
   staticRate(): void {
-    this.keeperRating = this.keeperData.totalOfReviews / this.keeperData.numberOfReviews;
+    this.keeperRating =
+      this.keeperData.totalOfReviews / this.keeperData.numberOfReviews;
   }
 
   getStaticStarClass(index: number): string {
@@ -223,5 +236,4 @@ export class KeeperDetailsComponent {
       return '';
     }
   }
-
 }

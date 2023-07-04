@@ -7,12 +7,10 @@
           <img [src]="vet.userImage" height=" 100%" width="100%" class="card-img-top" alt="...">
         </div>
         <div class="card-body bg-light">
-          <h4 class="pt-2 text-capitalize fs-5">{{vet.user_id.firstName}} {{vet.user_id.lastName}}</h4>
-          <!-- <p class="text-p py-1"> {{vet.user_id.email}}</p>
-          <p class="text-p py-1"> {{vet.user_id.phone}} </p> -->
-          <p class="text-p py-1"> Years of Experience + {{ vet.experience }}</p>
-          <p class="text-p py-1"> Cost: {{vet.cost}} </p>
-          <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary m-2"
+          <h4 class="pt-2 text-capitalize fs-4">{{vet.user_id.firstName}} {{vet.user_id.lastName}}</h4>
+          <h4 class="text-p "> Years of Experience + {{ vet.experience }}</h4>
+          <h4 class="text-p "> Cost: {{vet.cost}} </h4>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-green-solid m-2"
             (click)="viewVet(vet)">
             View
           </button>
