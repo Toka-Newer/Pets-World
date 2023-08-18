@@ -59,6 +59,7 @@ export class LoginComponent {
       });
     } else {
       // Mark form fields as touched to display validation errors
+      console.log('login error');
       this.loginForm.markAllAsTouched();
     }
   }
