@@ -22,7 +22,7 @@
                   <div class="ms-3 w-100">
                     <div class="d-flex  align-items-center">
                       <h2 class="text-capitalize mb-2 fs-4">
-                        Dr. {{ booking?.vet_id?.user_id?.firstName }} {{ booking?.vet_id?.user_id?.lastName }}
+                        {{ booking?.owner_id?.user_id?.firstName }} {{ booking?.owner_id?.user_id?.lastName }}
                       </h2>
 
                     </div>
@@ -43,8 +43,7 @@
                       <div class="my-1">
                         <p class="text-green fw-semibold">Phone Number:
                           <span class="text-p fw-bold">
-
-                            {{ booking?.vet_id?.user_id?.phone }}
+                            {{ booking?.owner_id?.user_id?.phone }}
                           </span>
 
                         </p>
@@ -52,8 +51,7 @@
                       <div class="my-1">
                         <p class="text-green fw-semibold">Email:
                           <span class="text-p fw-bold">
-                            {{ booking?.vet_id?.user_id?.email }}
-
+                            {{ booking?.owner_id?.user_id?.email }}
                           </span>
                         </p>
                       </div>
